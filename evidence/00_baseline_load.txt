@@ -1,0 +1,39 @@
+psql:schema.sql:5: NOTICE:  table "order_items" does not exist, skipping
+psql:schema.sql:5: NOTICE:  table "orders" does not exist, skipping
+psql:schema.sql:5: NOTICE:  table "inventory_log" does not exist, skipping
+psql:schema.sql:5: NOTICE:  table "products" does not exist, skipping
+psql:schema.sql:5: NOTICE:  table "customers" does not exist, skipping
+psql:schema.sql:5: NOTICE:  table "categories" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+Timing is on.
+COPY 94
+Time: 1.208 ms
+COPY 4023
+Time: 19.047 ms
+COPY 40420
+Time: 113.796 ms
+COPY 159384
+Time: 341.740 ms
+COPY 336559
+Time: 830.500 ms
+COPY 282352
+Time: 751.579 ms
+ANALYZE
+Time: 599.482 ms
+  table_name   | count
+---------------+--------
+ categories    |     94
+ customers     |  40420
+ inventory_log | 282352
+ order_items   | 336559
+ orders        | 159384
+ products      |   4023
+(6 rows)
+
+Time: 75.399 ms

@@ -1,0 +1,9 @@
+  table_name   | expected | actual | difference | status
+---------------+----------+--------+------------+--------
+ categories    |       94 |     94 |          0 | PASS
+ customers     |    40420 |  40420 |          0 | PASS
+ inventory_log |   282352 | 282352 |          0 | PASS
+ order_items   |   336559 | 336559 |          0 | PASS
+ orders        |   159384 | 159384 |          0 | PASS
+ products      |     4023 |   4023 |          0 | PASS
+(6 rows)

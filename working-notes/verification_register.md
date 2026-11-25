@@ -16,6 +16,6 @@ Status definitions: NOT STARTED, IN PROGRESS, PASS, FAIL, BLOCKED.
 | V-010 | Credential exclusions | PASS | Local exclusion and credential review completed |
 | V-011 | Initial Git commit | NOT STARTED | Pending |
 | V-012 | Official submission requirements | BLOCKED | Evalu8 confirmation needed |
-| V-013 | Graded baseline data load | NOT STARTED | Pending |
-| V-014 | Six-table row reconciliation | NOT STARTED | Pending |
+| V-013 | Graded baseline data load | PASS | evidence/00_baseline_load.txt |
+| V-014 | Six-table row reconciliation | PASS | 822832 records; all six differences zero |
 | V-015 | Graded acceptance tests | NOT STARTED | Pending |

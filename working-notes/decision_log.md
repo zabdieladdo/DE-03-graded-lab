@@ -60,3 +60,23 @@ WD-003 and WD-004 verified successfully.
 - Transaction isolation: read committed.
 
 Evidence: evidence/00_setup_verification.txt
+
+## WD-005 — Establish an unchanged graded data baseline
+
+Date: 2026-11-25
+
+- Need: Diagnose the original data without introducing new defects.
+- Evidence: Nine original bundle checksums matched.
+- Choice: Execute the original schema and loader without modification,
+  within a single transaction.
+- Alternative: Clean the data during ingestion.
+- Reason: Cleaning during ingestion would obscure the original defects
+  and weaken the evidence supporting subsequent decisions.
+- Proof: All six tables reconciled against the reference import.
+- Result: 822,832 records; zero row-count differences.
+- Limitation: Matching row counts do not establish record-level accuracy
+  or business correctness.
+
+Evidence:
+- evidence/00_baseline_load.txt
+- evidence/00_baseline_reconciliation.txt
