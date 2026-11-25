@@ -183,3 +183,31 @@ status lists over broad exclusion rules.
 Status:
 Experiment completed and verified.
 Final spending eligibility decision pending.
+
+## D-014 — Verify raw data before normalization
+
+**Initial position:** Normalize order statuses to support consistent reporting.
+
+**Challenge:** Normalization may conceal differences in the original data and introduce unverified assumptions about business meaning.
+
+**Verification method:** Repeat the price anomaly and orphaned customer investigations using original stored status values without LOWER, TRIM or CASE transformations.
+
+**Evidence:**
+- 15 original status representations across 159,384 orders.
+- Exact completed status: 22,091 orders.
+- Formatting normalization only: 89,066 completed orders.
+- Formatting and candidate vocabulary normalization: 111,351 completed orders.
+- All 148 missing-price items and 152 zero-price items reconcile.
+- All 210 orders without valid customers reconcile.
+- Recorded unattributed order amounts reconcile to 665,180.61.
+- Distinct missing customer counts must be recalculated at the intended aggregation level.
+
+**Recommended treatment:** Preserve original status values and implement a documented reporting-layer mapping. Distinguish formatting standardization from vocabulary interpretation.
+
+**Residual risk:** Numerical reconciliation does not establish semantic equivalence. The business meaning of complete versus completed remains unverified.
+
+**Evidence file:** `evidence/07_raw_status_investigation.txt`
+
+**Investigation status:** Passed.
+
+**Business mapping approval:** Pending.

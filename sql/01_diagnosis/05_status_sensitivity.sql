@@ -14,8 +14,7 @@
 
 \set ON_ERROR_STOP on
 \pset pager off
-\pset format unaligned
-\pset fieldsep '|'
+\pset format aligned
 
 BEGIN TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY;
 

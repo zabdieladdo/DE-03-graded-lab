@@ -1,0 +1,76 @@
+Pager usage is off.
+Output format is aligned.
+BEGIN
+=== 1. Database identity ===
+ database_name
+---------------
+ kloudkart_lab
+(1 row)
+
+=== 2. Original order status distribution ===
+  raw_status  | character_count | order_count | recorded_amount
+--------------+-----------------+-------------+-----------------
+ ' completed' |              10 |       22395 |     69151925.44
+ 'COMPLETED'  |               9 |       22392 |     67618128.94
+ 'complete'   |               8 |       22285 |     68086741.07
+ 'Completed'  |               9 |       22188 |     68271874.79
+ 'completed'  |               9 |       22091 |     66480695.79
+ 'Pending'    |               7 |        8081 |     24289314.93
+ 'pending'    |               7 |        7928 |     24210317.64
+ 'shipped'    |               7 |        6516 |     20176735.18
+ 'Shipped'    |               7 |        6332 |     20780169.69
+ 'Refunded'   |               8 |        3262 |     10354065.27
+ 'cancelled'  |               9 |        3238 |      9396828.73
+ 'refunded'   |               8 |        3217 |      9480017.84
+ 'canceled'   |               8 |        3209 |      8976160.54
+ 'Cancelled'  |               9 |        3131 |      9559396.68
+ 'CANCELLED'  |               9 |        3119 |     10231587.28
+(15 rows)
+
+=== 3. Missing and zero prices by original status ===
+  raw_status  | missing_price_items | zero_price_items | missing_price_orders | zero_price_orders | missing_price_units | zero_price_units
+--------------+---------------------+------------------+----------------------+-------------------+---------------------+------------------
+ 'canceled'   |                   4 |                3 |                    4 |                 3 |                   4 |                3
+ 'cancelled'  |                   3 |                1 |                    3 |                 1 |                   5 |                1
+ 'Cancelled'  |                   5 |                3 |                    5 |                 3 |                   5 |                5
+ 'CANCELLED'  |                   2 |                7 |                    2 |                 7 |                   2 |                7
+ 'complete'   |                  13 |               16 |                   13 |                16 |                  14 |               23
+ ' completed' |                  22 |               24 |                   22 |                24 |                  43 |               34
+ 'completed'  |                  18 |               17 |                   18 |                17 |                  31 |               22
+ 'Completed'  |                  14 |               23 |                   14 |                23 |                  26 |               30
+ 'COMPLETED'  |                  28 |               22 |                   28 |                22 |                  41 |               41
+ 'pending'    |                   9 |                6 |                    8 |                 6 |                  12 |               12
+ 'Pending'    |                   7 |               12 |                    7 |                11 |                  11 |               13
+ 'refunded'   |                   3 |                3 |                    3 |                 3 |                   3 |               13
+ 'Refunded'   |                   5 |                1 |                    5 |                 1 |                   7 |                2
+ 'shipped'    |                   8 |               11 |                    8 |                11 |                  12 |               19
+ 'Shipped'    |                   7 |                3 |                    7 |                 3 |                  10 |                4
+(15 rows)
+
+=== 4. Orders without valid customers by original status ===
+  raw_status  | affected_orders | missing_customer_ids | recorded_order_amount
+--------------+-----------------+----------------------+-----------------------
+ 'completed'  |              41 |                   40 |              59678.80
+ 'COMPLETED'  |              29 |                   29 |              62780.11
+ ' completed' |              27 |                   26 |             122476.62
+ 'complete'   |              26 |                   26 |              87544.26
+ 'Completed'  |              21 |                   20 |              56301.10
+ 'pending'    |              12 |                   12 |              30330.34
+ 'Pending'    |              12 |                   12 |             124863.10
+ 'Cancelled'  |               7 |                    7 |              13338.41
+ 'Shipped'    |               6 |                    6 |              34658.23
+ 'refunded'   |               6 |                    6 |               6272.24
+ 'canceled'   |               5 |                    5 |              22748.71
+ 'shipped'    |               5 |                    5 |               4229.75
+ 'CANCELLED'  |               5 |                    5 |              27879.78
+ 'cancelled'  |               4 |                    4 |               1373.43
+ 'Refunded'   |               4 |                    4 |              10705.73
+(15 rows)
+
+=== 5. Missing and zero price reconciliation ===
+ missing_price_items | zero_price_items | missing_price_units | zero_price_units
+---------------------+------------------+---------------------+------------------
+                 148 |              152 |                 226 |              229
+(1 row)
+
+ROLLBACK
