@@ -90,3 +90,96 @@ This register supports the ADRs but does not replace them.
 - [ ] Identify residual risks and unresolved business questions.
 - [ ] Reproduce the evidence from a fresh database load.
 - [ ] Review all decisions against the official assessment rubric.
+## D-006 — Measure sensitivity before settling spending semantics
+
+**Initial position:** Run the customer spending report under
+six combinations of vocabulary and order eligibility policies.
+
+**Reasoning:** Authoritative business definitions are unavailable.
+A controlled comparison can establish which unresolved decisions
+have the greatest effect on business reporting.
+
+**Strongest counterargument:** Stable top-100 membership does not
+establish that spending definitions are financially low-risk.
+Reported amounts may change significantly while rankings remain
+stable.
+
+**Additional challenge:** Exact-match exclusion of cancelled
+and refunded orders can admit alternative spellings of those
+same states.
+
+**Response:** Measure attributed spending, unattributed amounts,
+customer-level changes, top-100 overlap, entrants, exits and rank
+movement. Compare both isolated and combined decision effects.
+
+**Experimental controls:**
+- Same source database and consistent snapshot.
+- Same customer population.
+- Same recorded order amount measure.
+- Same historical time scope.
+- Same deterministic ranking rule.
+- No changes to stored historical records.
+
+**Evidence:**
+- sql/01_diagnosis/05_status_sensitivity.sql
+- evidence/05_status_sensitivity.txt (pending execution)
+
+**Limitation:** This experiment measures reporting sensitivity,
+not actual revenue recognition or the correctness of the
+existing Monday report.
+
+**Related decision:** Proposed ADR-003.
+
+**Status:** Experiment designed; results pending.
+
+### D-006 — Measured experiment outcome
+
+Date: 2026-11-25
+
+Evidence:
+- evidence/05_status_sensitivity.txt
+
+Verification:
+- All 11 comparisons returned successfully.
+- Baseline control returned zero differences.
+- Every comparison reconciled to zero.
+- Top-100 entrants equalled exits.
+- Top-100 overlap plus entrants equalled 100.
+- Read-only transaction ended with ROLLBACK.
+
+Measured findings:
+- Normalizing completed statuses increased attributed
+  spending by 272,799,568.15 (410.71%).
+- 36,031 customer spending totals changed.
+- 82 of the original top 100 customers were replaced.
+- Including shipped orders after normalization increased
+  attributed spending by 40,918,016.89 (12.06%).
+- Including shipped and pending orders increased attributed
+  spending by 89,262,456.02 (26.31%) relative to normalized
+  completed-only spending.
+- Exact exclusion admitted 12,721 additional orders and
+  39,046,537.14 in additional attributed spending compared
+  with normalized exclusion.
+
+Conclusion:
+Both business decisions materially affect reporting.
+Vocabulary normalization has the larger measured effect
+under completed-only and completed-plus-shipped policies.
+
+Strongest remaining counterargument:
+The largest numerical change does not necessarily represent
+the greatest business harm. Transaction safety may remain
+the more urgent operational priority.
+
+Additional limitation:
+The experiment does not establish which spending policy
+is correct. It measures sensitivity to alternative rules.
+
+Recommendation:
+Clarify vocabulary first, then spending eligibility.
+Centralize normalization and prefer explicit eligible
+status lists over broad exclusion rules.
+
+Status:
+Experiment completed and verified.
+Final spending eligibility decision pending.
