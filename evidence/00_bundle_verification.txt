@@ -1,0 +1,9 @@
+schema.sql: OK
+load.sql: OK
+race_test.py: OK
+data/categories.csv: OK
+data/customers.csv: OK
+data/inventory_log.csv: OK
+data/order_items.csv: OK
+data/orders.csv: OK
+data/products.csv: OK

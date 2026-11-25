@@ -1,0 +1,10 @@
+ current_database | current_user
+------------------+--------------
+ kloudkart_lab    | postgres
+(1 row)
+
+Did not find any tables.
+                       List of functions
+ Schema | Name | Result data type | Argument data types | Type
+--------+------+------------------+---------------------+------
+(0 rows)

@@ -1,0 +1,18 @@
+Using active Python virtual environment
+
+--- Docker container ---
+CONTAINER ID   IMAGE         COMMAND                  CREATED        STATUS        PORTS                      NAMES
+7e30524c5a98   postgres:18   "docker-entrypoint.s…"   45 hours ago   Up 45 hours   127.0.0.1:5432->5432/tcp   kloudkart
+
+--- PostgreSQL readiness ---
+/var/run/postgresql:5432 - accepting connections
+
+--- PostgreSQL settings ---
+18.7 (Debian 18.7-1.pgdg13+5)
+500
+
+--- Both database connections ---
+kloudkart_learning: PASS | PostgreSQL 18.7 (Debian 18.7-1.pgdg13+5) | max_connections=500 | isolation=read committed
+kloudkart_lab: PASS | PostgreSQL 18.7 (Debian 18.7-1.pgdg13+5) | max_connections=500 | isolation=read committed
+Both database endpoints passed.
+Imported data and graded tests are not verified by this script.

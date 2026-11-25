@@ -1,0 +1,42 @@
+# Python virtual environments
+.venv/
+venv/
+
+# Credentials and environment variables
+.env
+.env.*
+!.env.example
+.pgpass
+*.pem
+*.key
+
+# Python-generated files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Supplied datasets
+*.csv
+shared-data/*
+!shared-data/.gitkeep
+
+# Database backups and temporary files
+*.dump
+*.backup
+*.log
+*.sql.gz
+
+# Operating system metadata
+*:Zone.Identifier
+*.Zone.Identifier
+.DS_Store
+Thumbs.db
+
+# Editor temporary files
+*.swp
+*.swo
+*~
