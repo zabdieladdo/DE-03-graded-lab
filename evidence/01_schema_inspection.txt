@@ -1,0 +1,89 @@
+Pager usage is off.
+BEGIN
+=== 1. Database identity ===
+ database_name | database_user | isolation_level
+---------------+---------------+-----------------
+ kloudkart_lab | postgres      | read committed
+(1 row)
+
+=== 2. Tables ===
+  table_name
+---------------
+ categories
+ customers
+ inventory_log
+ order_items
+ orders
+ products
+(6 rows)
+
+=== 3. Columns and nullability ===
+  table_name   | ordinal_position |  column_name   |          data_type          | is_nullable | column_default
+---------------+------------------+----------------+-----------------------------+-------------+----------------
+ categories    |                1 | category_id    | integer                     | NO          |
+ categories    |                2 | category_name  | text                        | YES         |
+ categories    |                3 | parent_id      | integer                     | YES         |
+ customers     |                1 | customer_id    | integer                     | NO          |
+ customers     |                2 | full_name      | text                        | YES         |
+ customers     |                3 | email          | text                        | YES         |
+ customers     |                4 | phone          | text                        | YES         |
+ customers     |                5 | city           | text                        | YES         |
+ customers     |                6 | registered_at  | timestamp without time zone | YES         |
+ inventory_log |                1 | log_id         | integer                     | NO          |
+ inventory_log |                2 | product_id     | integer                     | YES         |
+ inventory_log |                3 | change_qty     | integer                     | YES         |
+ inventory_log |                4 | reason         | text                        | YES         |
+ inventory_log |                5 | created_at     | timestamp without time zone | YES         |
+ inventory_log |                6 | note           | text                        | YES         |
+ order_items   |                1 | order_item_id  | integer                     | NO          |
+ order_items   |                2 | order_id       | integer                     | YES         |
+ order_items   |                3 | product_id     | integer                     | YES         |
+ order_items   |                4 | quantity       | integer                     | YES         |
+ order_items   |                5 | unit_price     | numeric                     | YES         |
+ orders        |                1 | order_id       | integer                     | NO          |
+ orders        |                2 | customer_id    | integer                     | YES         |
+ orders        |                3 | order_date     | timestamp without time zone | YES         |
+ orders        |                4 | status         | text                        | YES         |
+ orders        |                5 | total_amount   | numeric                     | YES         |
+ products      |                1 | product_id     | integer                     | NO          |
+ products      |                2 | product_name   | text                        | YES         |
+ products      |                3 | category_id    | integer                     | YES         |
+ products      |                4 | price          | numeric                     | YES         |
+ products      |                5 | stock_quantity | integer                     | YES         |
+ products      |                6 | created_at     | timestamp without time zone | YES         |
+(31 rows)
+
+=== 4. Existing constraints ===
+  table_name   |          constraint_name           | constraint_type |         definition          | validated
+---------------+------------------------------------+-----------------+-----------------------------+-----------
+ categories    | categories_category_id_not_null    | NOT NULL        | NOT NULL category_id        | t
+ categories    | categories_pkey                    | PRIMARY KEY     | PRIMARY KEY (category_id)   | t
+ customers     | customers_customer_id_not_null     | NOT NULL        | NOT NULL customer_id        | t
+ customers     | customers_pkey                     | PRIMARY KEY     | PRIMARY KEY (customer_id)   | t
+ inventory_log | inventory_log_log_id_not_null      | NOT NULL        | NOT NULL log_id             | t
+ inventory_log | inventory_log_pkey                 | PRIMARY KEY     | PRIMARY KEY (log_id)        | t
+ order_items   | order_items_order_item_id_not_null | NOT NULL        | NOT NULL order_item_id      | t
+ order_items   | order_items_pkey                   | PRIMARY KEY     | PRIMARY KEY (order_item_id) | t
+ orders        | orders_order_id_not_null           | NOT NULL        | NOT NULL order_id           | t
+ orders        | orders_pkey                        | PRIMARY KEY     | PRIMARY KEY (order_id)      | t
+ products      | products_product_id_not_null       | NOT NULL        | NOT NULL product_id         | t
+ products      | products_pkey                      | PRIMARY KEY     | PRIMARY KEY (product_id)    | t
+(12 rows)
+
+=== 5. Existing indexes ===
+  table_name   |     index_name     |                                    index_definition
+---------------+--------------------+----------------------------------------------------------------------------------------
+ categories    | categories_pkey    | CREATE UNIQUE INDEX categories_pkey ON public.categories USING btree (category_id)
+ customers     | customers_pkey     | CREATE UNIQUE INDEX customers_pkey ON public.customers USING btree (customer_id)
+ inventory_log | inventory_log_pkey | CREATE UNIQUE INDEX inventory_log_pkey ON public.inventory_log USING btree (log_id)
+ order_items   | order_items_pkey   | CREATE UNIQUE INDEX order_items_pkey ON public.order_items USING btree (order_item_id)
+ orders        | orders_pkey        | CREATE UNIQUE INDEX orders_pkey ON public.orders USING btree (order_id)
+ products      | products_pkey      | CREATE UNIQUE INDEX products_pkey ON public.products USING btree (product_id)
+(6 rows)
+
+=== 6. Existing triggers ===
+ table_name | trigger_name | event | action_timing
+------------+--------------+-------+---------------
+(0 rows)
+
+ROLLBACK

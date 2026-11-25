@@ -1,0 +1,73 @@
+Pager usage is off.
+BEGIN
+=== 1. Database identity ===
+ database_name
+---------------
+ kloudkart_lab
+(1 row)
+
+=== 2. Raw order status distribution ===
+  raw_status  | character_count | order_count | missing_amounts | recorded_amount
+--------------+-----------------+-------------+-----------------+-----------------
+ ' completed' |              10 |       22395 |               0 |     69151925.44
+ 'COMPLETED'  |               9 |       22392 |               0 |     67618128.94
+ 'complete'   |               8 |       22285 |               0 |     68086741.07
+ 'Completed'  |               9 |       22188 |               0 |     68271874.79
+ 'completed'  |               9 |       22091 |               0 |     66480695.79
+ 'Pending'    |               7 |        8081 |               0 |     24289314.93
+ 'pending'    |               7 |        7928 |               0 |     24210317.64
+ 'shipped'    |               7 |        6516 |               0 |     20176735.18
+ 'Shipped'    |               7 |        6332 |               0 |     20780169.69
+ 'Refunded'   |               8 |        3262 |               0 |     10354065.27
+ 'cancelled'  |               9 |        3238 |               0 |      9396828.73
+ 'refunded'   |               8 |        3217 |               0 |      9480017.84
+ 'canceled'   |               8 |        3209 |               0 |      8976160.54
+ 'Cancelled'  |               9 |        3131 |               0 |      9559396.68
+ 'CANCELLED'  |               9 |        3119 |               0 |     10231587.28
+(15 rows)
+
+=== 3. Candidate status normalization ===
+ candidate_status | order_count | recorded_amount
+------------------+-------------+-----------------
+ completed        |      111351 |    339609366.03
+ pending          |       16009 |     48499632.57
+ shipped          |       12848 |     40956904.87
+ cancelled        |       12697 |     38163973.23
+ refunded         |        6479 |     19834083.11
+(5 rows)
+
+=== 4. Numeric value profiling ===
+          field           | total_rows | missing_values | negative_values | zero_values | positive_values | minimum_value | maximum_value
+--------------------------+------------+----------------+-----------------+-------------+-----------------+---------------+---------------
+ inventory_log.change_qty |     282352 |              0 |          262646 |          90 |           19616 |           -10 |            82
+ order_items.quantity     |     336559 |              0 |               0 |           0 |          336559 |             1 |          9999
+ order_items.unit_price   |     336559 |            148 |               0 |         152 |          336259 |          0.00 |      21961.78
+ orders.total_amount      |     159384 |              0 |               0 |           0 |          159384 |          3.51 |     227750.97
+ products.price           |       4023 |              0 |               0 |           0 |            4023 |          5.04 |      21961.78
+ products.stock_quantity  |       4023 |              0 |              14 |         577 |            3432 |            -4 |           400
+(6 rows)
+
+=== 5. Potential duplicate customer emails ===
+ duplicate_email_groups | affected_customer_rows | excess_rows_if_unique | largest_group
+------------------------+------------------------+-----------------------+---------------
+                    533 |                   1068 |                   535 |             3
+(1 row)
+
+=== 6. Missing customer information ===
+ total_customers | missing_names | missing_emails | missing_phones | missing_cities | missing_registration_dates
+-----------------+---------------+----------------+----------------+----------------+----------------------------
+           40420 |             0 |              0 |              0 |              0 |                          0
+(1 row)
+
+=== 7. Inventory movement reason and direction ===
+ movement_reason | total_movements | negative_movements | positive_movements | zero_movements | unknown_movements | net_quantity_change
+-----------------+-----------------+--------------------+--------------------+----------------+-------------------+---------------------
+ 'sale'          |          262088 |             262088 |                  0 |              0 |                 0 |             -412645
+ 'restock'       |           18857 |                  0 |              18857 |              0 |                 0 |              671371
+ 'return'        |             564 |                  0 |                564 |              0 |                 0 |                1017
+ 'correction'    |             485 |                290 |                195 |              0 |                 0 |                -528
+ 'damage'        |             268 |                268 |                  0 |              0 |                 0 |                -622
+ 'stock_take'    |              90 |                  0 |                  0 |             90 |                 0 |                   0
+(6 rows)
+
+ROLLBACK
