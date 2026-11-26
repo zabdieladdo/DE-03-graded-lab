@@ -21,7 +21,7 @@ The available dataset does not establish the correct replacement references. Del
 
 ## Decision
 
-Preserve historical records with unresolved relationships and explicitly flag them as exceptions. Recover their relationships only when trustworthy source evidence becomes available, while introducing appropriate controls to prevent new violations.
+Preserve historical records with unresolved relationships and explicitly flag them as exceptions. Recover their relationships only when trustworthy source evidence becomes available, while introducing appropriate controls to prevent new violations. Six foreign keys and five numerical constraints
 
 ## Alternatives considered
 
@@ -45,10 +45,10 @@ Preserve historical records with unresolved relationships and explicitly flag th
 
 ## Consequences
 
-- **What this buys:** Preservation of historical evidence, transparent exception reporting and a recoverable path to correcting relationships.
-- **What this costs:** Additional exception-handling logic, reconciliation effort and potentially more complex integrity enforcement.
-- **What it costs the client if I am wrong:** Unresolved records may continue to distort reports if exception handling is incomplete or misunderstood.
-- **What would make me revisit this:** Availability of authoritative recovery information, evidence of unacceptable reporting overhead, or an approved business retention policy.
+- **What this buys:** Preservation of historical evidence, transparent exception reporting and a recoverable path to correcting relationships. Prevent tested new integrity violations
+- **What this costs:** Additional exception-handling logic, reconciliation effort and potentially more complex integrity enforcement.Historical invalid rows may be difficult to update
+- **What it costs the client if I am wrong:** Unresolved records may continue to distort reports if exception handling is incomplete or misunderstood. 
+- **What would make me revisit this:** Availability of authoritative recovery information, evidence of unacceptable reporting overhead, or an approved business retention policy.Validate remaining constraints after verified remediation
 
 ## What this survives
 
@@ -56,7 +56,7 @@ The decision accommodates future recovery of missing references, additional hist
 
 The treatment does not depend on inventing replacement entities or permanently removing unresolved historical records.
 
-Implementation and verification remain pending.
+Implementation and verification remain pending.16 rejection tests and unchanged historical row counts
 
 Supporting evidence:
 

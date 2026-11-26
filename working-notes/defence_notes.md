@@ -598,3 +598,25 @@ The expected flash-sale workload makes transaction safety and stock reliability 
 **Risk ranking:** Accepted.
 
 **Implementation and regression verification:** Pending.
+
+### D021 — Selective foreign key validation
+
+**Date:** 2026-11-26
+
+**Decision:** Add foreign keys for all six intended relationships. Use NOT VALID for the four relationships with existing orphan records and fully validated constraints for the two clean relationships.
+
+**Reasoning:** Prevent new relational integrity defects while preserving historical records. This implements the historical preservation policy using standard PostgreSQL mechanisms with minimal additional complexity.
+
+**Alternatives considered:** Repair historical references before adding constraints, or enforce relationships only through application functions.
+
+**Strongest counterargument:** Historical violations remain unresolved, and foreign key enforcement introduces additional write checks.
+
+**Defence:** Historical repairs cannot be justified without authoritative evidence. Preventing new defects provides immediate protection without inventing historical relationships. The performance cost will be assessed through testing.
+
+**Scope boundary:** Reuse the existing diagnostic scripts and findings as the exceptions register. Do not introduce dedicated exception tables, automated repair mechanisms or additional infrastructure.
+
+**Residual risk:** Existing orphan records may still affect reporting. Foreign keys do not prevent NULL references, category cycles or concurrent overselling.
+
+**Verification required:** Confirm all six constraints exist, four are initially unvalidated, two are validated, new invalid references are rejected and historical records remain unchanged.
+
+**Status:** Engineering decision accepted; implementation and verification pending.
