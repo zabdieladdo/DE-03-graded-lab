@@ -1,0 +1,16 @@
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.187 ms
+ALTER TABLE
+Time: 16.363 ms
+ALTER TABLE
+Time: 0.418 ms
+ALTER TABLE
+Time: 1.040 ms
+ALTER TABLE
+Time: 0.257 ms
+ALTER TABLE
+Time: 14.638 ms
+COMMIT
+Time: 3.048 ms

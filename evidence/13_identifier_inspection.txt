@@ -1,0 +1,25 @@
+Pager usage is off.
+BEGIN
+=== 1. Database identity ===
+ database_name
+---------------
+ kloudkart_lab
+(1 row)
+
+=== 2. Existing identifier ranges ===
+  table_name   | row_count | minimum_id | maximum_id | next_candidate_id
+---------------+-----------+------------+------------+-------------------
+ orders        |    159384 |     500001 |     659384 |            659385
+ inventory_log |    282352 |     700001 |     982487 |            982488
+ order_items   |    336559 |     900001 |    1236559 |           1236560
+(3 rows)
+
+=== 3. Existing identifier definitions ===
+  table_name   |  column_name  | data_type | is_nullable | column_default | is_identity | identity_generation
+---------------+---------------+-----------+-------------+----------------+-------------+---------------------
+ inventory_log | log_id        | integer   | NO          |                | NO          |
+ order_items   | order_item_id | integer   | NO          |                | NO          |
+ orders        | order_id      | integer   | NO          |                | NO          |
+(3 rows)
+
+ROLLBACK

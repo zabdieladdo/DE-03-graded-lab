@@ -1,0 +1,26 @@
+Pager usage is off.
+BEGIN
+=== Database verification ===
+ database_name
+---------------
+ kloudkart_lab
+(1 row)
+
+=== Foreign key definitions ===
+  child_table  |     constraint_name      | parent_table | validated |                              definition
+---------------+--------------------------+--------------+-----------+-----------------------------------------------------------------------
+ categories    | fk_categories_parent     | categories   | f         | FOREIGN KEY (parent_id) REFERENCES categories(category_id) NOT VALID
+ inventory_log | fk_inventory_log_product | products     | f         | FOREIGN KEY (product_id) REFERENCES products(product_id) NOT VALID
+ order_items   | fk_order_items_order     | orders       | f         | FOREIGN KEY (order_id) REFERENCES orders(order_id) NOT VALID
+ order_items   | fk_order_items_product   | products     | t         | FOREIGN KEY (product_id) REFERENCES products(product_id)
+ orders        | fk_orders_customer       | customers    | f         | FOREIGN KEY (customer_id) REFERENCES customers(customer_id) NOT VALID
+ products      | fk_products_category     | categories   | t         | FOREIGN KEY (category_id) REFERENCES categories(category_id)
+(6 rows)
+
+=== Constraint summary ===
+ total_foreign_keys | validated_foreign_keys | unvalidated_foreign_keys
+--------------------+------------------------+--------------------------
+                  6 |                      2 |                        4
+(1 row)
+
+ROLLBACK

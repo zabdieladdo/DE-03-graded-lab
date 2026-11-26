@@ -1,0 +1,43 @@
+Pager usage is off.
+BEGIN
+=== 1. Database identity ===
+ database_name
+---------------
+ kloudkart_lab
+(1 row)
+
+=== 2. Check constraint definitions ===
+ table_name  |      constraint_name       | validated |                                  definition
+-------------+----------------------------+-----------+-------------------------------------------------------------------------------
+ order_items | chk_order_items_quantity   | t         | CHECK (((quantity IS NOT NULL) AND (quantity > 0)))
+ order_items | chk_order_items_unit_price | f         | CHECK (((unit_price IS NOT NULL) AND (unit_price >= (0)::numeric))) NOT VALID
+ orders      | chk_orders_total_amount    | t         | CHECK (((total_amount IS NOT NULL) AND (total_amount >= (0)::numeric)))
+ products    | chk_products_price         | t         | CHECK (((price IS NOT NULL) AND (price >= (0)::numeric)))
+ products    | chk_products_stock         | f         | CHECK (((stock_quantity IS NOT NULL) AND (stock_quantity >= 0))) NOT VALID
+(5 rows)
+
+=== 3. Constraint summary ===
+ total_check_constraints | validated_constraints | unvalidated_constraints
+-------------------------+-----------------------+-------------------------
+                       5 |                     3 |                       2
+(1 row)
+
+=== 4. Historical value exceptions ===
+            finding            | affected_rows
+-------------------------------+---------------
+ Invalid product prices        |             0
+ Invalid product stock         |            14
+ Invalid order totals          |             0
+ Invalid order item quantities |             0
+ Invalid order item prices     |           148
+(5 rows)
+
+=== 5. Legitimate zero values preserved ===
+         finding          | affected_rows
+--------------------------+---------------
+ Zero product stock       |           577
+ Zero inventory movements |            90
+ Zero order item prices   |           152
+(3 rows)
+
+ROLLBACK
