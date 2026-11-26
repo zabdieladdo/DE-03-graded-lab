@@ -211,3 +211,125 @@ Final spending eligibility decision pending.
 **Investigation status:** Passed.
 
 **Business mapping approval:** Pending.
+
+
+## D-015 — Prioritize transaction safety before the next flash sale
+
+**Initial position:** Business value validation should receive the highest priority because unreliable data undermines reporting and decision-making.
+
+**Revised position:** Transaction safety should receive the highest immediate implementation priority.
+
+**Decision owner:** Lab author.
+
+### Reasoning
+
+- The upcoming flash sale creates an immediate risk of additional overselling.
+- Kloud Kart has already experienced two reported overselling incidents.
+- The expected workload of approximately 400 orders in ten seconds against one product creates substantial contention for the same stock.
+- Historical reporting and integrity problems can be investigated later because the original records have been preserved.
+- Refunds cannot completely reverse customer inconvenience or reputational damage.
+
+### Supporting evidence
+
+- The practice fixture demonstrated that two transactions under Read Committed could both read an available stock quantity of one, commit successful purchases and produce a lost update.
+- Fourteen products have negative recorded stock.
+- Thirteen of those products have negative stock quantities matching their net recorded movements.
+- One negative-stock product has an unexplained four-unit reconciliation difference.
+
+### Strongest counterargument
+
+Status inconsistency represents substantial reporting exposure. Under the proposed completed-status mapping, an exact lowercase completed filter would overlook 89,260 orders with recorded amounts totalling 273,128,670.24.
+
+Delaying reporting improvements could therefore result in additional incorrect business decisions.
+
+### Response to the counterargument
+
+The upcoming flash sale makes transaction safety more urgent. Historical reports can be recalculated from preserved source records, while the consequences of accepting orders for unavailable stock cannot be fully reversed.
+
+Reporting risks remain significant and should be disclosed until corrected.
+
+### Evidence limitations
+
+- The concurrency experiment used a synthetic practice fixture.
+- The historical negative-stock records have not been causally linked to concurrent purchases.
+- The recorded financial exposure is not confirmed revenue loss.
+- The graded purchase routine has not yet been implemented or tested.
+
+### Decision
+
+Prioritize transaction-safe order placement, followed by reporting correctness and the remaining integrity, auditability and performance improvements.
+
+### Verification required
+
+Demonstrate that concurrent purchases cannot oversell available stock, that unsuccessful purchases return a clear refusal, and that stock deductions, successful orders and inventory movement records remain consistent.
+
+**Priority decision:** Accepted.
+
+**Implementation verification:** Pending.
+
+## D-016 — Define customer spending using completed orders only
+
+**Decision owner:** Lab author.
+
+**Date:** 2026-11-26
+
+### Decision
+
+Use candidate normalized completed orders as the provisional eligibility rule for customer spending reports.
+
+Preserve the original order statuses and apply the eligibility rule in the reporting layer.
+
+### Reasoning
+
+Completed orders provide a conservative available basis for measuring recorded customer spending. Including shipped or pending orders would introduce additional assumptions about payment and transaction completion that cannot be verified from the supplied database.
+
+### Alternatives considered
+
+**A — Completed only (selected)**
+
+Provides a conservative and reproducible reporting definition but may exclude legitimate payments associated with orders that have not reached completed status.
+
+**B — Completed and shipped**
+
+Could capture spending associated with dispatched goods but assumes that shipment is sufficient evidence of finalized spending.
+
+**C — Completed, shipped and pending**
+
+Provides a broader measure of order activity but may include transactions that have not been finalized.
+
+### Supporting evidence
+
+- Completed-only attributed spending: 339,220,585.14.
+- Including shipped orders increases attributed spending by 40,918,016.89 (12.06%).
+- Including shipped and pending orders increases attributed spending by 89,262,456.02 (26.31%).
+- Including shipped orders changes 20 members of the baseline top-100 customer list.
+- Including shipped and pending orders changes 33 members.
+- Completed-only eligibility includes 111,351 orders, of which 144 cannot be attributed to existing customers.
+
+### Strongest counterargument
+
+Customers may already have paid for shipped or pending orders. Excluding these orders could understate actual customer payments and distort customer rankings.
+
+### Response
+
+The available database does not independently establish payment or settlement. Completed-only eligibility is therefore a conservative reporting assumption rather than a verified accounting definition.
+
+Excluded order amounts should remain visible through separate reporting or reconciliation measures.
+
+### Residual risks
+
+- Completed status does not independently establish payment.
+- The equivalence of complete and completed remains unverified.
+- The database does not provide payment or completion timestamps.
+- Historical monthly spending may change as order statuses change.
+- Recorded checkout totals may contain unresolved inaccuracies.
+
+### Revisit conditions
+
+Reconsider the policy when authoritative payment records, documented order lifecycle rules or an approved business spending definition become available.
+
+**Engineering decision:** Accepted.
+
+**Client confirmation:** Unavailable.
+
+**Implementation verification:** Pending.
