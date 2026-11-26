@@ -1,0 +1,47 @@
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.157 ms
+ database_name
+---------------
+ kloudkart_lab
+(1 row)
+
+Time: 0.346 ms
+=== 1. Baseline reconciliation ===
+  table_name   | expected_rows | actual_rows | difference | result
+---------------+---------------+-------------+------------+--------
+ categories    |            94 |          94 |          0 | PASS
+ customers     |         40420 |       40420 |          0 | PASS
+ inventory_log |        282352 |      282352 |          0 | PASS
+ order_items   |        336559 |      336559 |          0 | PASS
+ orders        |        159384 |      159384 |          0 | PASS
+ products      |          4023 |        4023 |          0 | PASS
+(6 rows)
+
+Time: 22.786 ms
+=== 2. Automated cleanup assertions ===
+DO
+Time: 84.204 ms
+=== 3. Remaining historical negative stock ===
+psql:/workspace/graded-lab/tests/05_race_cleanup_verification.sql:128: NOTICE:  PASS: All race fixture products removed
+psql:/workspace/graded-lab/tests/05_race_cleanup_verification.sql:128: NOTICE:  PASS: All race fixture order items removed
+psql:/workspace/graded-lab/tests/05_race_cleanup_verification.sql:128: NOTICE:  PASS: All race fixture inventory logs removed
+psql:/workspace/graded-lab/tests/05_race_cleanup_verification.sql:128: NOTICE:  PASS: All 80 generated race orders removed
+psql:/workspace/graded-lab/tests/05_race_cleanup_verification.sql:128: NOTICE:  PASS: All six baseline counts reconciled
+psql:/workspace/graded-lab/tests/05_race_cleanup_verification.sql:128: NOTICE:  RESULT: Race cleanup verification passed
+ negative_stock_products
+-------------------------
+                      14
+(1 row)
+
+Time: 0.568 ms
+=== 4. Identifier sequence state ===
+ last_value | is_called
+------------+-----------
+     659469 | t
+(1 row)
+
+Time: 0.206 ms
+ROLLBACK
+Time: 0.108 ms

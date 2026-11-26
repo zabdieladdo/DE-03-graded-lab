@@ -1,0 +1,10 @@
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.116 ms
+CREATE FUNCTION
+Time: 5.319 ms
+COMMENT
+Time: 1.877 ms
+COMMIT
+Time: 1.945 ms
