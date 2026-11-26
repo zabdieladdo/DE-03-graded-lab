@@ -125,3 +125,131 @@ graded implementation or acceptance tests have passed.
 
 Final file layout, repository destination and submission
 requirements remain subject to the official Evalu8 instructions.
+
+# Stage 02 — Schema Protection
+
+## Objective
+
+Prevent new relational and numerical integrity violations while preserving historical records and enabling concurrency-safe identifier allocation.
+
+## Migration order
+
+| Script | Purpose |
+|---|---|
+| `01_foreign_keys.sql` | Introduce six foreign keys |
+| `02_value_constraints.sql` | Introduce five essential numerical constraints |
+| `03_identifier_generation.sql` | Enable automatic identifiers for purchases |
+
+Run these migrations in the stated order against a freshly loaded baseline. Each migration is transactional and intended for one-time execution.
+
+## Verification scripts
+
+| Script | Purpose |
+|---|---|
+| `04_verify_foreign_keys.sql` | Verify foreign key definitions |
+| `05_verify_value_constraints.sql` | Verify numerical constraints and historical exceptions |
+| `06_inspect_identifiers.sql` | Inspect identifier ranges before migration 03 |
+| `07_verify_identifiers.sql` | Verify identity configuration |
+
+## Engineering decisions
+
+- D021: Preserve historical orphan references while preventing new broken references.
+- D022: Enforce essential numerical values without imposing unconfirmed business rules.
+- D023: Use PostgreSQL identity columns for automatic identifier allocation.
+
+## Historical exceptions
+
+The migrations preserve:
+
+- 1,023 historical orphan references.
+- 14 negative-stock products.
+- 148 order items with missing prices.
+- Existing identifiers and legitimate zero values.
+
+Historical exceptions require evidence-based resolution rather than automatic correction.
+
+## Verification results
+
+- Six foreign keys: two validated, four initially unvalidated.
+- Five CHECK constraints: three validated, two initially unvalidated.
+- Three identity columns.
+- All 24 functional checks passed.
+- All six baseline table counts reconciled.
+- Total historical records: 822,832.
+
+## Regression testing
+
+Run `tests/01_schema_integrity_test.sql` after all three migrations.
+
+Test record changes are rolled back. Sequence allocations are not rolled back.
+
+## Evidence
+
+See `evidence/08_foreign_key_migration.txt` through `evidence/16_schema_integrity_test.txt`.
+
+## Limitations
+
+Schema protection does not independently prevent concurrent overselling, enforce category acyclicity or resolve historical exceptions.
+
+Transaction-safe purchase processing is implemented separately in Stage 03.
+
+
+## Stage 03 — Transaction-safe order placement
+
+**Status:** Implemented and technically verified.
+
+### Implementation
+
+`sql/03_order_placement/01_place_order.sql`
+
+Deploys the `place_order(bigint, bigint, integer)` function after the Stage 02 schema migrations.
+
+The function uses an atomic conditional stock update under Read Committed isolation and creates the order, order item and inventory movement within the same transaction.
+
+### Verification scripts
+
+| File | Purpose |
+|---|---|
+| `tests/02_place_order_functional_test.sql` | Sequential purchase correctness and refusal handling |
+| `tests/03_place_order_atomicity_test.sql` | Rollback following an injected inventory insertion failure |
+| `tests/04_race_preflight.sql` | Database and fixture collision checks |
+| `tests/05_race_cleanup_verification.sql` | Original race-test cleanup verification |
+| `tests/06_inventory_audit_reconciliation.sql` | Detailed reconciliation of retained concurrent purchases |
+| `tests/07_retained_audit_cleanup.sql` | Transactional removal of retained audit fixtures |
+| `scripts/analyze_race_results.py` | Reproducible flash-sale latency and throughput analysis |
+
+### Measured results
+
+| Requirement | Result |
+|---|---|
+| Functional purchase tests | 11/11 passed |
+| Failure atomicity assertions | 10/10 passed |
+| Official concurrency scenarios | 4/4 passed |
+| Last-unit race rounds | 25/25 passed |
+| Flash-sale execution | 400 attempts in 1.89 seconds |
+| Flash-sale outcomes | 50 successes, 350 refusals, zero errors |
+| Independent purchase audit | 12/12 passed |
+| Combined concurrency attempts | 475 |
+| Combined concurrency outcomes | 85 successes, 390 refusals, zero errors |
+| Historical baseline reconciliation | 822,832 records |
+| Historical negative-stock anomalies preserved | 14 |
+
+### Evidence and decisions
+
+- `deliverables/decisions/ADR-002-atomic-conditional-stock-update.md`
+- `deliverables/performance/order_placement_performance.md`
+- `evidence/17_place_order_deployment.txt` through `evidence/27_retained_audit_cleanup.txt`
+
+### Reproduction and safety
+
+The supplied race-test harness must be obtained from the original lab resource bundle and executed only against an isolated graded database.
+
+Run the fixture safety preflight before executing the harness.
+
+The cleanup and audit verification scripts contain identifiers specific to the recorded test executions. Do not execute these scripts against a different run without verifying and adapting the fixture identifiers.
+
+The retained audit cleanup script is not a schema migration and must not be included in an unconditional fresh-load deployment sequence.
+
+Do not reset identifier sequences following testing.
+
+The recorded performance benchmark represents one complete 400-buyer execution. Production performance and comparative locking performance remain unverified.

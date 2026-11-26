@@ -1,0 +1,65 @@
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.159 ms
+=== 1. Database identity ===
+ database_name
+---------------
+ kloudkart_lab
+(1 row)
+
+Time: 0.483 ms
+=== 2. Functional purchase tests ===
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  Fixture product: 10023, customer: 100001, stock: 5, price: 100.00
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  PASS T1: Purchase two units | success=t | order_id=659386 | stock=3 | message=Order placed successfully
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  PASS T2: Insufficient stock | success=f | order_id=<NULL> | stock=3 | message=Out of stock or product unavailable for requested quantity
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  PASS T3: Zero quantity | success=f | order_id=<NULL> | stock=3 | message=Quantity must be positive
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  PASS T4: Negative quantity | success=f | order_id=<NULL> | stock=3 | message=Quantity must be positive
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  PASS T5: NULL quantity | success=f | order_id=<NULL> | stock=3 | message=Quantity must be positive
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  PASS T6: Invalid customer | success=f | order_id=<NULL> | stock=3 | message=Customer not found
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  PASS T7: Invalid product | success=f | order_id=<NULL> | stock=3 | message=Product not found
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  PASS T8: NULL customer | success=f | order_id=<NULL> | stock=3 | message=Customer not found
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  PASS T9: NULL product | success=f | order_id=<NULL> | stock=3 | message=Product not found
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  PASS T10: Purchase remaining three units | success=t | order_id=659387 | stock=0 | message=Order placed successfully
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  PASS T11: Purchase after sellout | success=f | order_id=<NULL> | stock=0 | message=Out of stock or product unavailable for requested quantity
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  RESULT: 11 of 11 functional tests passed
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  Successful purchases: 2, refusals: 9
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  Generated order IDs: {659386,659387}
+DO
+Time: 628.063 ms
+=== 3. Purchase reconciliation before rollback ===
+ product_id | remaining_stock | successful_orders | units_sold | item_value | order_value
+------------+-----------------+-------------------+------------+------------+-------------
+      10023 |               0 |                 2 |          5 |     500.00 |      500.00
+(1 row)
+
+Time: 12.718 ms
+=== 4. Inventory movement reconciliation ===
+ product_id | movement_count | net_stock_movement
+------------+----------------+--------------------
+      10023 |              2 |                 -5
+(1 row)
+
+Time: 9.554 ms
+=== 5. Roll back all fixture changes ===
+ROLLBACK
+Time: 0.206 ms
+=== 6. Baseline reconciliation after rollback ===
+  table_name   | expected_rows | actual_rows | difference | result
+---------------+---------------+-------------+------------+--------
+ categories    |            94 |          94 |          0 | PASS
+ customers     |         40420 |       40420 |          0 | PASS
+ inventory_log |        282352 |      282352 |          0 | PASS
+ order_items   |        336559 |      336559 |          0 | PASS
+ orders        |        159384 |      159384 |          0 | PASS
+ products      |          4023 |        4023 |          0 | PASS
+(6 rows)
+
+Time: 15.028 ms
+=== 7. Fixture cleanup verification ===
+ remaining_test_products
+-------------------------
+                       0
+(1 row)
+
+Time: 0.531 ms

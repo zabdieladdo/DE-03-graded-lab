@@ -1,0 +1,64 @@
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.108 ms
+SET
+Time: 0.153 ms
+=== 1. Database identity ===
+ database_name
+---------------
+ kloudkart_lab
+(1 row)
+
+Time: 0.275 ms
+DO
+Time: 0.825 ms
+LOCK TABLE
+Time: 0.785 ms
+=== 2. Verify exact retained fixture records ===
+psql:/workspace/graded-lab/tests/07_retained_audit_cleanup.sql:176: NOTICE:  PASS: Expected retained fixture counts confirmed
+DO
+Time: 56.636 ms
+=== 3. Remove verified fixture records ===
+psql:/workspace/graded-lab/tests/07_retained_audit_cleanup.sql:176: NOTICE:  PASS: All 16 retained fixture records verified
+psql:/workspace/graded-lab/tests/07_retained_audit_cleanup.sql:255: NOTICE:  Removed order items: 5
+psql:/workspace/graded-lab/tests/07_retained_audit_cleanup.sql:255: NOTICE:  Removed inventory movements: 5
+psql:/workspace/graded-lab/tests/07_retained_audit_cleanup.sql:255: NOTICE:  Removed orders: 5
+psql:/workspace/graded-lab/tests/07_retained_audit_cleanup.sql:255: NOTICE:  Removed fixture products: 1
+DO
+Time: 87.513 ms
+=== 4. Verify baseline before committing ===
+psql:/workspace/graded-lab/tests/07_retained_audit_cleanup.sql:365: NOTICE:  PASS: categories baseline count = 94
+psql:/workspace/graded-lab/tests/07_retained_audit_cleanup.sql:365: NOTICE:  PASS: customers baseline count = 40420
+psql:/workspace/graded-lab/tests/07_retained_audit_cleanup.sql:365: NOTICE:  PASS: products baseline count = 4023
+psql:/workspace/graded-lab/tests/07_retained_audit_cleanup.sql:365: NOTICE:  PASS: orders baseline count = 159384
+psql:/workspace/graded-lab/tests/07_retained_audit_cleanup.sql:365: NOTICE:  PASS: order_items baseline count = 336559
+psql:/workspace/graded-lab/tests/07_retained_audit_cleanup.sql:365: NOTICE:  PASS: inventory_log baseline count = 282352
+psql:/workspace/graded-lab/tests/07_retained_audit_cleanup.sql:365: NOTICE:  PASS: All retained fixture records removed
+psql:/workspace/graded-lab/tests/07_retained_audit_cleanup.sql:365: NOTICE:  PASS: All 14 historical negative-stock products preserved
+psql:/workspace/graded-lab/tests/07_retained_audit_cleanup.sql:365: NOTICE:  RESULT: All cleanup assertions passed
+DO
+Time: 49.291 ms
+COMMIT
+Time: 2.794 ms
+=== 5. Final committed baseline ===
+  table_name   | row_count
+---------------+-----------
+ categories    |        94
+ products      |      4023
+ customers     |     40420
+ orders        |    159384
+ inventory_log |    282352
+ order_items   |    336559
+(6 rows)
+
+Time: 16.190 ms
+=== 6. Identifier sequence state ===
+  table_name   | last_value | is_called
+---------------+------------+-----------
+ orders        |     659474 | t
+ order_items   |    1236649 | t
+ inventory_log |     982577 | t
+(3 rows)
+
+Time: 0.388 ms
