@@ -333,3 +333,268 @@ Reconsider the policy when authoritative payment records, documented order lifec
 **Client confirmation:** Unavailable.
 
 **Implementation verification:** Pending.
+
+## D-017 — Preserve and flag extreme order quantities
+
+**Date:** 2026-11-26
+
+**Decision owner:** Lab author.
+
+### Decision
+
+Preserve the original quantities of suspicious historical order items and expose them through data-quality flags. Do not automatically correct or exclude the records.
+
+### Supporting evidence
+
+- Six of 336,559 order items contain quantities of 999 or 9,999.
+- All remaining quantities fall between 1 and 10.
+- The six suspicious lines have combined calculated values of 3,073,441.59.
+- Each suspicious line individually exceeds the recorded checkout total of its associated order.
+- Two affected orders qualify under the candidate completed-only spending policy.
+- Some checkout totals suggest plausible alternative quantities, but those quantities have not been independently verified.
+
+### Alternatives considered
+
+**A — Correct inferred quantities**
+
+Could reduce apparent financial discrepancies but risks introducing unsupported historical values.
+
+**B — Preserve and flag (selected)**
+
+Retains original evidence and supports further investigation without inventing corrections.
+
+**C — Preserve but exclude suspicious values**
+
+Could reduce distortion in analytical calculations but risks excluding legitimate wholesale activity.
+
+### Strongest counterargument
+
+Preserving suspicious quantities allows them to continue distorting downstream calculations if analysts ignore or cannot access the quality flags.
+
+### Response
+
+Make the exceptions visible through a documented data-quality reporting mechanism. Require relevant reports to disclose how suspicious values are treated.
+
+Use recorded checkout totals for the proposed completed-order spending metric rather than automatically recalculating spending from suspicious item quantities.
+
+### Constraints
+
+Do not impose a maximum quantity of 10 based solely on the observed distribution. The threshold is investigative, not an approved business restriction.
+
+New purchases must be validated against available stock.
+
+### Residual risks
+
+- Suspicious quantities may still distort item-level sales and demand analysis.
+- Legitimate wholesale transactions may be flagged.
+- Recorded checkout totals may themselves contain inaccuracies.
+- The relationship between these quantities and historical inventory movements remains unverified.
+
+### Revisit conditions
+
+Reconsider historical corrections when authoritative purchase records or approved business rules become available.
+
+**Engineering decision:** Accepted.
+
+**Implementation verification:** Pending.
+
+**Evidence:** `evidence/06_exception_investigation.txt` and `evidence/04_business_impact.txt`.
+
+
+## D-018 — Use a configurable low-stock threshold
+
+**Date:** 2026-11-26
+
+**Decision owner:** Lab author.
+
+### Decision
+
+Implement a configurable low-stock threshold with a provisional default of 10 units.
+
+Classify products as low stock when their recorded stock quantity is strictly below the effective threshold.
+
+The threshold is an operational reporting assumption, not a verified optimal reorder point.
+
+### Supporting evidence
+
+- The learning-environment investigation identified 1,949 low-stock products out of 4,023 at a threshold of 10.
+- Fourteen products have negative recorded stock.
+- There are 577 products with zero stock.
+- Fifteen low-stock products have no assigned category.
+- Three low-stock products belong to categories that cannot reach a valid root.
+- Product-specific demand and replenishment requirements have not been independently established.
+
+### Alternatives considered
+
+**A — Fixed threshold of 10**
+
+Simple and consistent but embeds an unverified business assumption into the reporting logic.
+
+**B — Configurable threshold with a default of 10 (selected)**
+
+Provides immediate reporting functionality while allowing the business to adjust the threshold without rewriting the underlying query.
+
+**C — Product-specific thresholds**
+
+Could provide more accurate replenishment recommendations but requires reliable demand, supplier lead-time and safety-stock information.
+
+### Strongest counterargument
+
+A configurable global threshold still assumes that products have comparable replenishment requirements. At the provisional threshold of 10, nearly half the catalogue qualifies as low stock, potentially creating excessive alerts.
+
+### Response
+
+The threshold is explicitly provisional and adjustable. The report should disclose the effective threshold and distinguish negative stock, zero stock and ordinary low-stock conditions.
+
+Product-specific replenishment rules can be introduced when sufficient business evidence becomes available.
+
+### Proposed implementation requirements
+
+- Use a positive integer threshold.
+- Default to 10 when no threshold is supplied.
+- Reject invalid threshold values.
+- Display the effective threshold in the report.
+- Support nested categories without hardcoded hierarchy depth.
+- Prevent infinite recursion caused by category cycles.
+- Preserve visibility of uncategorised and unrooted products.
+- Reconcile the overall low-stock population without double-counting products across hierarchy levels.
+
+### Residual risks
+
+- The default threshold may generate excessive or insufficient alerts.
+- A global threshold cannot account for individual product demand.
+- Different threshold selections may produce inconsistent reports.
+- Historical inventory quantities may contain unresolved inaccuracies.
+
+### Revisit conditions
+
+Reconsider the default or introduce product-specific thresholds when verified demand patterns, replenishment lead times or approved inventory policies become available.
+
+**Engineering decision:** Accepted.
+
+**Client approval of threshold:** Unavailable.
+
+**Graded implementation verification:** Pending.
+
+
+## D-019 — Preserve customer identities and flag potential duplicates
+
+**Date:** 2026-11-26
+
+**Decision owner:** Lab author.
+
+### Decision
+
+Preserve separate customer IDs and their existing order relationships. Calculate customer spending at the recorded customer-account level.
+
+Identify shared normalized email addresses as potential identity exceptions without automatically merging accounts or consolidating their spending.
+
+### Supporting evidence
+
+- The database contains 40,420 customer records.
+- There are 533 duplicate normalized email groups affecting 1,068 customer records.
+- All 533 groups share the same normalized customer name.
+- All 533 groups contain different trimmed phone numbers.
+- In 206 groups, the normalized cities differ.
+- Enforcing one record per normalized email would identify 535 excess records, but these are not confirmed duplicate individuals.
+
+### Alternatives considered
+
+**A — Merge accounts sharing email and name**
+
+Could resolve fragmented customer spending but risks incorrectly combining different individuals and reassigning historical transactions.
+
+**B — Preserve separate customer IDs and flag potential duplicates (selected)**
+
+Preserves recorded order attribution and historical evidence while making identity uncertainty visible.
+
+**C — Consolidate matching emails in spending reports**
+
+Avoids modifying historical records but still introduces an unverified assumption about personal identity.
+
+### Strongest counterargument
+
+If multiple accounts belong to the same person, account-level reporting understates that person's combined spending and may distort loyalty rankings and customer-level metrics.
+
+### Response
+
+The supplied database establishes account-level identity but does not independently establish personal identity. Reporting by customer ID is therefore the most defensible available approach.
+
+Potential duplicates should be exposed through data-quality reporting, and the spending report should explicitly describe its account-level reporting scope.
+
+### Implementation requirements
+
+- Preserve original customer IDs and order relationships.
+- Calculate spending using customer ID.
+- Flag shared normalized emails.
+- Avoid introducing unverified email uniqueness constraints.
+- Ensure quality assessment joins do not duplicate spending records.
+- Disclose unresolved identity uncertainty.
+
+### Residual risks
+
+- Spending may be fragmented across accounts belonging to the same individual.
+- Account-level customer counts may overstate the number of unique people.
+- Customer rankings may differ from verified person-level rankings.
+- The actual ranking impact of email consolidation has not been measured.
+
+### Revisit conditions
+
+Reconsider account consolidation when authoritative customer identity information, verified account ownership or approved business identity rules become available.
+
+Any future consolidation must preserve historical traceability.
+
+**Engineering decision:** Accepted.
+
+**Client identity policy confirmation:** Unavailable.
+
+**Implementation verification:** Pending.
+
+**Evidence:** `evidence/03_business_value_validation.txt` and `evidence/06_exception_investigation.txt`.
+
+
+## D-020 — Final diagnosis risk ranking
+
+**Date:** 2026-11-26
+
+**Decision owner:** Lab author.
+
+### Accepted ranking
+
+1. Unsafe concurrent order placement — Critical
+2. Inventory accuracy and auditability — High
+3. Inconsistent order statuses — High
+4. Broken relational references — High
+5. Financial value anomalies — High
+6. Slow customer spending reports — High
+7. Broken category hierarchy — Medium–High
+8. Potential duplicate customer identities — Medium
+9. Ambiguous but potentially legitimate values — Review
+
+### Reasoning
+
+Prioritize the prevention of new customer harm and the reliability of stock information ahead of historical reporting corrections.
+
+Inventory accuracy and auditability rank second because transaction safety alone does not establish that recorded stock is trustworthy.
+
+Reporting correctness remains a high priority and must precede performance optimization.
+
+Historical exceptions should remain visible without unsupported corrections.
+
+### Strongest counterargument
+
+The measured financial reporting exposure is substantial and could justify prioritizing reporting correctness above inventory reconciliation.
+
+### Response
+
+Risk priority considers urgency, reversibility, business consequences and evidence confidence, not monetary exposure alone.
+
+The expected flash-sale workload makes transaction safety and stock reliability particularly urgent.
+
+### Deliverable
+
+`deliverables/diagnosis/data_findings.md`
+
+**Risk ranking:** Accepted.
+
+**Implementation and regression verification:** Pending.
