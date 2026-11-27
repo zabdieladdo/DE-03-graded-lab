@@ -1,0 +1,33 @@
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.130 ms
+SET
+Time: 0.199 ms
+SET
+Time: 0.181 ms
+DO
+Time: 2.053 ms
+=== 1. Shared customer spending totals ===
+CREATE FUNCTION
+Time: 3.561 ms
+COMMENT
+Time: 0.625 ms
+=== 2. Full-population ranking ===
+CREATE FUNCTION
+Time: 0.874 ms
+COMMENT
+Time: 0.148 ms
+=== 3. Top-100 customer report ===
+CREATE FUNCTION
+Time: 0.427 ms
+COMMENT
+Time: 0.206 ms
+=== 4. Top-100 cutoff metadata ===
+CREATE FUNCTION
+Time: 0.987 ms
+COMMENT
+Time: 0.214 ms
+COMMIT
+Time: 1.841 ms
+=== Customer ranking deployment completed ===

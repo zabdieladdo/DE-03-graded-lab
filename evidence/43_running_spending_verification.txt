@@ -1,0 +1,63 @@
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.148 ms
+SET
+Time: 0.116 ms
+SET
+Time: 0.039 ms
+SET
+Time: 0.259 ms
+DO
+Time: 1.241 ms
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  Starting checks for 2026-08-31
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C01: Monthly coverage
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C01: Monthly coverage for 2026-08-31
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C02: Monthly multiset comparison
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C02: All monthly records for 2026-08-31
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C03: Transaction coverage
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C03: Transaction coverage for 2026-08-31
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C04: Transaction multiset comparison
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C04: All transaction records for 2026-08-31
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C05: Final monthly balances
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C05: Final monthly balances for 2026-08-31
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C06: Transaction reconciliation
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C06: Transaction totals for 2026-08-31
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C07: Opening-only customers
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C07: Opening-only customers for 2026-08-31
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C08: Inactive customer coverage
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C08: Inactive customers for 2026-08-31
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C09: Pre-window NULL semantics
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C09: NULL semantics for 2026-08-31
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  Starting checks for 2026-11-26
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C01: Monthly coverage
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C01: Monthly coverage for 2026-11-26
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C02: Monthly multiset comparison
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C02: All monthly records for 2026-11-26
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C03: Transaction coverage
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C03: Transaction coverage for 2026-11-26
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C04: Transaction multiset comparison
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C04: All transaction records for 2026-11-26
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C05: Final monthly balances
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C05: Final monthly balances for 2026-11-26
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C06: Transaction reconciliation
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C06: Transaction totals for 2026-11-26
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C07: Opening-only customers
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C07: Opening-only customers for 2026-11-26
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C08: Inactive customer coverage
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C08: Inactive customers for 2026-11-26
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C09: Pre-window NULL semantics
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C09: NULL semantics for 2026-11-26
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C10: Empty historical window
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C10: Empty historical window
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C11: NULL date handling
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C11: NULL date handling
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C12: Synthetic timestamp ties
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C12: Synthetic timestamp-tie expression
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C13: Historical baseline counts
+DO
+Time: 22816.541 ms (00:22.817)
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C13: Historical baseline reconciles
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RESULT: All 13 running spending check groups passed
+ROLLBACK
+Time: 0.194 ms

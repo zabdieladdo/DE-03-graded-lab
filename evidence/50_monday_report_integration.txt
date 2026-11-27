@@ -1,0 +1,140 @@
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.445 ms
+SET
+Time: 0.174 ms
+SET
+Time: 0.078 ms
+SET
+Time: 0.108 ms
+DO
+Time: 3.602 ms
+=== Environment ===
+                                                      version                                                       | current_database |    isolation    | read_only
+--------------------------------------------------------------------------------------------------------------------+------------------+-----------------+-----------
+ PostgreSQL 18.7 (Debian 18.7-1.pgdg13+5) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit | kloudkart_lab    | repeatable read | on
+(1 row)
+
+Time: 0.659 ms
+              name               | setting | unit
+---------------------------------+---------+------
+ block_size                      | 8192    |
+ effective_cache_size            | 524288  | 8kB
+ hash_mem_multiplier             | 2       |
+ jit                             | on      |
+ max_parallel_workers_per_gather | 2       |
+ shared_buffers                  | 16384   | 8kB
+ track_io_timing                 | off     |
+ work_mem                        | 4096    | kB
+(8 rows)
+
+Time: 4.209 ms
+ source_orders
+---------------
+        159384
+(1 row)
+
+Time: 22.415 ms
+ source_customers
+------------------
+            40420
+(1 row)
+
+Time: 7.953 ms
+=== Same-snapshot correctness gate: both reporting dates ===
+psql:/workspace/graded-lab/sql/04_reporting/20_monday_report_integration.sql:74: NOTICE:  PASS I01: per-customer cross-report identities (2026-08-31)
+psql:/workspace/graded-lab/sql/04_reporting/20_monday_report_integration.sql:74: NOTICE:  PASS I02: population and recorded-history reconciliation (2026-08-31)
+psql:/workspace/graded-lab/sql/04_reporting/20_monday_report_integration.sql:74: NOTICE:  PASS I03: ranking population and metadata (2026-08-31)
+psql:/workspace/graded-lab/sql/04_reporting/20_monday_report_integration.sql:74: NOTICE:  INFO: date 2026-08-31, customers 40420, history orders 111190, history amount 339176836.88, selected 100, selected amount 14781340.27
+psql:/workspace/graded-lab/sql/04_reporting/20_monday_report_integration.sql:74: NOTICE:  PASS I01: per-customer cross-report identities (2026-11-26)
+psql:/workspace/graded-lab/sql/04_reporting/20_monday_report_integration.sql:74: NOTICE:  PASS I02: population and recorded-history reconciliation (2026-11-26)
+psql:/workspace/graded-lab/sql/04_reporting/20_monday_report_integration.sql:74: NOTICE:  PASS I03: ranking population and metadata (2026-11-26)
+psql:/workspace/graded-lab/sql/04_reporting/20_monday_report_integration.sql:74: NOTICE:  INFO: date 2026-11-26, customers 40420, history orders 111195, history amount 339184984.53, selected 100, selected amount 14329991.90
+DO
+Time: 16905.875 ms (00:16.906)
+=== Benchmark: CSV results transferred to local psql and discarded ===
+=== Three headline runs and one November sensitivity run ===
+=== WORKLOAD 1: 2026-08-31 ===
+Time: 0.706 ms
+--- customer_summary ---
+Time: 397.687 ms
+--- monthly_and_running ---
+Time: 2582.383 ms (00:02.582)
+--- top100 ---
+Time: 792.289 ms
+--- ranking_metadata ---
+Time: 1120.661 ms (00:01.121)
+--- financial_reconciliation ---
+Time: 477.070 ms
+--- period_metadata ---
+Time: 0.423 ms
+ workload_run | as_of_date | workload_ms
+--------------+------------+-------------
+            1 | 2026-08-31 |    5371.877
+(1 row)
+
+Time: 0.517 ms
+=== WORKLOAD 2: 2026-08-31 ===
+Time: 0.144 ms
+--- customer_summary ---
+Time: 404.475 ms
+--- monthly_and_running ---
+Time: 2994.111 ms (00:02.994)
+--- top100 ---
+Time: 1113.049 ms (00:01.113)
+--- ranking_metadata ---
+Time: 959.293 ms
+--- financial_reconciliation ---
+Time: 457.093 ms
+--- period_metadata ---
+Time: 0.459 ms
+ workload_run | as_of_date | workload_ms
+--------------+------------+-------------
+            2 | 2026-08-31 |    5929.448
+(1 row)
+
+Time: 0.262 ms
+=== WORKLOAD 3: 2026-08-31 ===
+Time: 0.126 ms
+--- customer_summary ---
+Time: 410.884 ms
+--- monthly_and_running ---
+Time: 2633.804 ms (00:02.634)
+--- top100 ---
+Time: 867.696 ms
+--- ranking_metadata ---
+Time: 863.747 ms
+--- financial_reconciliation ---
+Time: 498.693 ms
+--- period_metadata ---
+Time: 0.376 ms
+ workload_run | as_of_date | workload_ms
+--------------+------------+-------------
+            3 | 2026-08-31 |    5276.166
+(1 row)
+
+Time: 0.262 ms
+=== WORKLOAD 4: 2026-11-26 ===
+Time: 0.099 ms
+--- customer_summary ---
+Time: 374.692 ms
+--- monthly_and_running ---
+Time: 3138.452 ms (00:03.138)
+--- top100 ---
+Time: 871.211 ms
+--- ranking_metadata ---
+Time: 939.121 ms
+--- financial_reconciliation ---
+Time: 402.779 ms
+--- period_metadata ---
+Time: 0.392 ms
+ workload_run | as_of_date | workload_ms
+--------------+------------+-------------
+            4 | 2026-11-26 |    5727.490
+(1 row)
+
+Time: 0.251 ms
+ROLLBACK
+Time: 0.224 ms
+=== E050 completed ===

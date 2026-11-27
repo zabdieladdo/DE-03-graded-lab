@@ -1,0 +1,195 @@
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.163 ms
+SET
+Time: 0.123 ms
+SET
+Time: 0.041 ms
+SET
+Time: 0.024 ms
+DO
+Time: 0.885 ms
+=== 1. Performance environment ===
+ database_name |                                                  postgres_version                                                  |          measured_at
+---------------+--------------------------------------------------------------------------------------------------------------------+-------------------------------
+ kloudkart_lab | PostgreSQL 18.7 (Debian 18.7-1.pgdg13+5) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit | 2026-11-26 11:18:55.041679+00
+(1 row)
+
+Time: 0.269 ms
+              name               | setting | unit
+---------------------------------+---------+------
+ block_size                      | 8192    |
+ effective_cache_size            | 524288  | 8kB
+ hash_mem_multiplier             | 2       |
+ jit                             | on      |
+ max_parallel_workers_per_gather | 2       |
+ shared_buffers                  | 16384   | 8kB
+ track_io_timing                 | off     |
+ work_mem                        | 4096    | kB
+(8 rows)
+
+Time: 2.979 ms
+=== 2A. Dense monthly reference - run 1 ===
+                                                                   QUERY PLAN
+------------------------------------------------------------------------------------------------------------------------------------------------
+ Function Scan on public.customer_monthly_spending  (cost=0.25..10.25 rows=1000 width=53) (actual time=683.713..710.670 rows=485040.00 loops=1)
+   Output: as_of_date, customer_id, order_month, monthly_spending, monthly_order_count, is_partial_month
+   Function Call: customer_monthly_spending('2026-08-31'::date)
+   Buffers: shared hit=221792, temp read=14259 written=4975
+ Planning Time: 0.025 ms
+ Execution Time: 724.309 ms
+(6 rows)
+
+Time: 725.152 ms
+=== 2B. Monthly running spending - run 1 ===
+                                                                                      QUERY PLAN
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Function Scan on public.customer_monthly_running_spending  (cost=0.25..10.25 rows=1000 width=149) (actual time=1226.329..1261.969 rows=485040.00 loops=1)
+   Output: as_of_date, customer_id, order_month, monthly_spending, monthly_order_count, opening_spending, window_cumulative_spending, cumulative_since_extract_start, is_partial_month
+   Function Call: customer_monthly_running_spending('2026-08-31'::date)
+   Buffers: shared hit=225349, temp read=20105 written=10830
+ Planning Time: 0.028 ms
+ Execution Time: 1281.889 ms
+(6 rows)
+
+Time: 1282.395 ms (00:01.282)
+=== 2C. Transaction running spending - run 1 ===
+                                                                        QUERY PLAN
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+ Function Scan on public.customer_order_running_spending  (cost=0.25..10.25 rows=1000 width=117) (actual time=445.748..459.270 rows=111190.00 loops=1)
+   Output: as_of_date, customer_id, order_id, order_date, order_amount, is_in_reporting_window, window_cumulative_spending, cumulative_since_extract_start
+   Function Call: customer_order_running_spending('2026-08-31'::date)
+   Buffers: shared hit=224047, temp read=1946 written=1947
+ Planning Time: 0.035 ms
+ Execution Time: 466.113 ms
+(6 rows)
+
+Time: 468.311 ms
+=== 3A. Dense monthly reference - run 2 ===
+                                                                   QUERY PLAN
+------------------------------------------------------------------------------------------------------------------------------------------------
+ Function Scan on public.customer_monthly_spending  (cost=0.25..10.25 rows=1000 width=53) (actual time=726.400..756.540 rows=485040.00 loops=1)
+   Output: as_of_date, customer_id, order_month, monthly_spending, monthly_order_count, is_partial_month
+   Function Call: customer_monthly_spending('2026-08-31'::date)
+   Buffers: shared hit=221083, temp read=14259 written=4974
+ Planning Time: 0.046 ms
+ Execution Time: 774.494 ms
+(6 rows)
+
+Time: 776.854 ms
+=== 3B. Monthly running spending - run 2 ===
+                                                                                      QUERY PLAN
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Function Scan on public.customer_monthly_running_spending  (cost=0.25..10.25 rows=1000 width=149) (actual time=1244.081..1276.568 rows=485040.00 loops=1)
+   Output: as_of_date, customer_id, order_month, monthly_spending, monthly_order_count, opening_spending, window_cumulative_spending, cumulative_since_extract_start, is_partial_month
+   Function Call: customer_monthly_running_spending('2026-08-31'::date)
+   Buffers: shared hit=225337, temp read=20105 written=10828
+ Planning Time: 0.024 ms
+ Execution Time: 1292.742 ms
+(6 rows)
+
+Time: 1293.183 ms (00:01.293)
+=== 3C. Transaction running spending - run 2 ===
+                                                                        QUERY PLAN
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+ Function Scan on public.customer_order_running_spending  (cost=0.25..10.25 rows=1000 width=117) (actual time=361.564..368.983 rows=111190.00 loops=1)
+   Output: as_of_date, customer_id, order_id, order_date, order_amount, is_in_reporting_window, window_cumulative_spending, cumulative_since_extract_start
+   Function Call: customer_order_running_spending('2026-08-31'::date)
+   Buffers: shared hit=223946, temp read=1946 written=1947
+ Planning Time: 0.026 ms
+ Execution Time: 372.770 ms
+(6 rows)
+
+Time: 373.192 ms
+=== 4A. Dense monthly reference - run 3 ===
+                                                                   QUERY PLAN
+------------------------------------------------------------------------------------------------------------------------------------------------
+ Function Scan on public.customer_monthly_spending  (cost=0.25..10.25 rows=1000 width=53) (actual time=645.243..675.909 rows=485040.00 loops=1)
+   Output: as_of_date, customer_id, order_month, monthly_spending, monthly_order_count, is_partial_month
+   Function Call: customer_monthly_spending('2026-08-31'::date)
+   Buffers: shared hit=221083, temp read=14259 written=4975
+ Planning Time: 0.024 ms
+ Execution Time: 693.844 ms
+(6 rows)
+
+Time: 694.379 ms
+=== 4B. Monthly running spending - run 3 ===
+                                                                                      QUERY PLAN
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Function Scan on public.customer_monthly_running_spending  (cost=0.25..10.25 rows=1000 width=149) (actual time=1363.920..1400.777 rows=485040.00 loops=1)
+   Output: as_of_date, customer_id, order_month, monthly_spending, monthly_order_count, opening_spending, window_cumulative_spending, cumulative_since_extract_start, is_partial_month
+   Function Call: customer_monthly_running_spending('2026-08-31'::date)
+   Buffers: shared hit=225337, temp read=20105 written=10829
+ Planning Time: 0.027 ms
+ Execution Time: 1420.831 ms
+(6 rows)
+
+Time: 1421.238 ms (00:01.421)
+=== 4C. Transaction running spending - run 3 ===
+                                                                        QUERY PLAN
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+ Function Scan on public.customer_order_running_spending  (cost=0.25..10.25 rows=1000 width=117) (actual time=361.158..368.759 rows=111190.00 loops=1)
+   Output: as_of_date, customer_id, order_id, order_date, order_amount, is_in_reporting_window, window_cumulative_spending, cumulative_since_extract_start
+   Function Call: customer_order_running_spending('2026-08-31'::date)
+   Buffers: shared hit=223946, temp read=1946 written=1947
+ Planning Time: 0.028 ms
+ Execution Time: 374.235 ms
+(6 rows)
+
+Time: 374.573 ms
+=== 5A. Monthly running spending - sensitivity ===
+                                                                                      QUERY PLAN
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Function Scan on public.customer_monthly_running_spending  (cost=0.25..10.25 rows=1000 width=149) (actual time=1416.110..1452.628 rows=485040.00 loops=1)
+   Output: as_of_date, customer_id, order_month, monthly_spending, monthly_order_count, opening_spending, window_cumulative_spending, cumulative_since_extract_start, is_partial_month
+   Function Call: customer_monthly_running_spending('2026-11-26'::date)
+   Buffers: shared hit=225347, temp read=19360 written=10810
+ Planning Time: 0.024 ms
+ Execution Time: 1472.815 ms
+(6 rows)
+
+Time: 1473.259 ms (00:01.473)
+=== 5B. Transaction running spending - sensitivity ===
+                                                                        QUERY PLAN
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+ Function Scan on public.customer_order_running_spending  (cost=0.25..10.25 rows=1000 width=117) (actual time=377.065..384.680 rows=111195.00 loops=1)
+   Output: as_of_date, customer_id, order_id, order_date, order_amount, is_in_reporting_window, window_cumulative_spending, cumulative_since_extract_start
+   Function Call: customer_order_running_spending('2026-11-26'::date)
+   Buffers: shared hit=223956, temp read=1940 written=1941
+ Planning Time: 0.027 ms
+ Execution Time: 389.511 ms
+(6 rows)
+
+Time: 389.859 ms
+=== 6A. Monthly running - single customer ===
+                                                                                      QUERY PLAN
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Function Scan on public.customer_monthly_running_spending  (cost=0.25..12.75 rows=5 width=149) (actual time=1262.537..1287.617 rows=12.00 loops=1)
+   Output: as_of_date, customer_id, order_month, monthly_spending, monthly_order_count, opening_spending, window_cumulative_spending, cumulative_since_extract_start, is_partial_month
+   Function Call: customer_monthly_running_spending('2026-08-31'::date)
+   Filter: (customer_monthly_running_spending.customer_id = 100001)
+   Rows Removed by Filter: 485028
+   Buffers: shared hit=225337, temp read=20105 written=10828
+ Planning Time: 0.036 ms
+ Execution Time: 1290.041 ms
+(8 rows)
+
+Time: 1290.545 ms (00:01.291)
+=== 6B. Transaction running - single customer ===
+                                                                        QUERY PLAN
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+ Function Scan on public.customer_order_running_spending  (cost=0.25..12.75 rows=5 width=117) (actual time=354.273..360.754 rows=4.00 loops=1)
+   Output: as_of_date, customer_id, order_id, order_date, order_amount, is_in_reporting_window, window_cumulative_spending, cumulative_since_extract_start
+   Function Call: customer_order_running_spending('2026-08-31'::date)
+   Filter: (customer_order_running_spending.customer_id = 100001)
+   Rows Removed by Filter: 111186
+   Buffers: shared hit=223946, temp read=1946 written=1947
+ Planning Time: 0.052 ms
+ Execution Time: 361.731 ms
+(8 rows)
+
+Time: 362.152 ms
+ROLLBACK
+Time: 0.206 ms
+=== Running spending baseline completed ===

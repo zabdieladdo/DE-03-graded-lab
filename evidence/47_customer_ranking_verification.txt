@@ -1,0 +1,113 @@
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 1.478 ms
+SET
+Time: 0.359 ms
+SET
+Time: 0.089 ms
+SET
+Time: 0.046 ms
+DO
+Time: 9.839 ms
+=== A. Independent baseline verification ===
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A01: Independent shared totals match (2026-08-31)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A02: Coverage and partition identities (2026-08-31)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A03: D028 customer summary matches (2026-08-31)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A04: D029 monthly totals match (2026-08-31)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A05: D030 final cumulative balances match (2026-08-31)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A06: Exact ranking records match (2026-08-31, trailing_12_months)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A07: Ranking integrity (2026-08-31, trailing_12_months)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A08: Financial reconciliation (2026-08-31, trailing_12_months): selected=14781340.27, remaining=319853418.73, unattributed=388780.89, eligible=335023539.89
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A09: Independent metadata matches (2026-08-31, trailing_12_months)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A06: Exact ranking records match (2026-08-31, recorded_history)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A07: Ranking integrity (2026-08-31, recorded_history)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A08: Financial reconciliation (2026-08-31, recorded_history): selected=14836678.67, remaining=324340158.21, unattributed=388780.89, eligible=339565617.77
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A09: Independent metadata matches (2026-08-31, recorded_history)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A10: Default ranking basis (2026-08-31)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A01: Independent shared totals match (2026-11-26)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A02: Coverage and partition identities (2026-11-26)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A03: D028 customer summary matches (2026-11-26)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A04: D029 monthly totals match (2026-11-26)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A05: D030 final cumulative balances match (2026-11-26)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A06: Exact ranking records match (2026-11-26, trailing_12_months)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A07: Ranking integrity (2026-11-26, trailing_12_months)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A08: Financial reconciliation (2026-11-26, trailing_12_months): selected=14329991.90, remaining=298684053.13, unattributed=321481.76, eligible=313335526.79
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A09: Independent metadata matches (2026-11-26, trailing_12_months)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A06: Exact ranking records match (2026-11-26, recorded_history)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A07: Ranking integrity (2026-11-26, recorded_history)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A08: Financial reconciliation (2026-11-26, recorded_history): selected=14836678.67, remaining=324348305.86, unattributed=388780.89, eligible=339573765.42
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A09: Independent metadata matches (2026-11-26, recorded_history)
+DO
+Time: 20660.614 ms (00:20.661)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A10: Default ranking basis (2026-11-26)
+ROLLBACK
+Time: 0.479 ms
+=== B. Transactional edge-case verification ===
+BEGIN
+Time: 0.123 ms
+SET
+Time: 0.106 ms
+SET
+Time: 0.040 ms
+SET
+Time: 0.062 ms
+DO
+Time: 0.180 ms
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:963: NOTICE:  PASS B01: Empty population (trailing_12_months)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:963: NOTICE:  PASS B01: Empty population (recorded_history)
+DO
+Time: 732.693 ms
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1062: NOTICE:  PASS B02a: Invalid basis rejected
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1062: NOTICE:  PASS B02b: Invalid metadata basis rejected
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1062: NOTICE:  PASS B02c: NULL basis rejected
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1062: NOTICE:  PASS B02d: NULL metadata basis rejected
+DO
+Time: 2.172 ms
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1062: NOTICE:  PASS B02e: NULL date behaviour
+DO
+Time: 5.584 ms
+SELECT 103
+Time: 8.824 ms
+INSERT 0 103
+Time: 3.738 ms
+DO
+Time: 0.544 ms
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1170: NOTICE:  PASS B03: 103 synthetic orders inserted
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1229: NOTICE:  PASS B04: Small population without padding (trailing_12_months)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1229: NOTICE:  PASS B04: Small population without padding (recorded_history)
+DO
+Time: 737.232 ms
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1435: NOTICE:  PASS B05: Full-population rank and exact precision (trailing_12_months)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1435: NOTICE:  PASS B06: Deterministic cutoff selection (trailing_12_months)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1435: NOTICE:  PASS B07: Three cutoff ties, one selected, two excluded (trailing_12_months)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1435: NOTICE:  PASS B08: Synthetic financial reconciliation (trailing_12_months)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1435: NOTICE:  PASS B05: Full-population rank and exact precision (recorded_history)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1435: NOTICE:  PASS B06: Deterministic cutoff selection (recorded_history)
+DO
+Time: 1504.703 ms (00:01.505)
+=== Synthetic cutoff metadata before rollback ===
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1435: NOTICE:  PASS B07: Three cutoff ties, one selected, two excluded (recorded_history)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1435: NOTICE:  PASS B08: Synthetic financial reconciliation (recorded_history)
+   ranking_basis    | qualifying_customer_count | selected_customer_count | cutoff_spending | customers_at_cutoff | cutoff_customers_selected | cutoff_customers_excluded | has_excluded_cutoff_ties | qualifying_spending | selected_spending | remaining_qualifying_spending
+--------------------+---------------------------+-------------------------+-----------------+---------------------+---------------------------+---------------------------+--------------------------+---------------------+-------------------+-------------------------------
+ trailing_12_months |                       103 |                     100 |          100.00 |                   3 |                         1 |                         2 | t                        |            20199.99 |          19900.00 |                        299.99
+(1 row)
+
+Time: 188.373 ms
+ROLLBACK
+Time: 0.769 ms
+BEGIN
+Time: 0.141 ms
+SET
+Time: 0.109 ms
+SET
+Time: 0.033 ms
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1529: NOTICE:  PASS C01: Synthetic fixtures removed by rollback
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1529: NOTICE:  PASS C02: All six baseline table counts preserved
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1529: NOTICE:  PASS C03: Empty reporting period restored
+DO
+Time: 273.985 ms
+ROLLBACK
+Time: 0.176 ms
+=== All customer ranking verification tests passed ===

@@ -1,0 +1,87 @@
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.112 ms
+DO
+Time: 0.765 ms
+=== 1. Customer summary reconciliation ===
+ as_of_date | customer_rows | distinct_customers | total_spent  | total_orders | customers_with_orders | customers_without_orders
+------------+---------------+--------------------+--------------+--------------+-----------------------+--------------------------
+ 2026-08-31 |         40420 |              40420 | 339176836.88 |       111190 |                 37900 |                     2520
+ 2026-11-26 |         40420 |              40420 | 339184984.53 |       111195 |                 37900 |                     2520
+(2 rows)
+
+Time: 399.847 ms
+=== 2. Financial attribution reconciliation ===
+ as_of_date | eligible_orders | eligible_value | attributed_orders | attributed_value | unattributed_orders | unattributed_value
+------------+-----------------+----------------+-------------------+------------------+---------------------+--------------------
+ 2026-08-31 |          111334 |   339565617.77 |            111190 |     339176836.88 |                 144 |          388780.89
+ 2026-11-26 |          111339 |   339573765.42 |            111195 |     339184984.53 |                 144 |          388780.89
+(2 rows)
+
+Time: 423.226 ms
+=== 3. Sample customers with eligible orders ===
+ customer_id | total_spent | order_count |  first_order_date   |   last_order_date
+-------------+-------------+-------------+---------------------+---------------------
+      100001 |      122.07 |           4 | 2025-09-14 15:41:22 | 2026-08-28 20:45:50
+      100002 |    20763.97 |           8 | 2025-10-19 16:24:19 | 2026-08-17 11:13:18
+      100003 |     1439.63 |           3 | 2026-05-26 11:00:34 | 2026-07-21 13:59:43
+      100004 |     4791.41 |           7 | 2025-11-19 13:10:38 | 2026-08-11 08:52:05
+      100005 |    16606.21 |           5 | 2025-09-04 15:09:49 | 2026-08-27 16:31:55
+      100007 |     6745.82 |           2 | 2026-06-22 13:06:23 | 2026-08-05 09:37:33
+      100008 |     6367.42 |           3 | 2025-12-07 17:00:03 | 2026-08-15 16:48:46
+      100010 |      199.36 |           2 | 2025-11-25 19:49:06 | 2026-08-15 13:37:53
+      100011 |      239.76 |           2 | 2026-06-30 07:03:14 | 2026-07-27 11:43:13
+      100012 |      870.88 |           2 | 2026-04-26 13:12:55 | 2026-06-09 19:10:35
+(10 rows)
+
+Time: 179.461 ms
+=== 4. Sample customers without eligible orders ===
+ customer_id | total_spent | order_count | first_order_date | last_order_date
+-------------+-------------+-------------+------------------+-----------------
+      100006 |           0 |           0 |                  |
+      100009 |           0 |           0 |                  |
+      100019 |           0 |           0 |                  |
+      100020 |           0 |           0 |                  |
+      100029 |           0 |           0 |                  |
+      100037 |           0 |           0 |                  |
+      100043 |           0 |           0 |                  |
+      100089 |           0 |           0 |                  |
+      100121 |           0 |           0 |                  |
+      100127 |           0 |           0 |                  |
+(10 rows)
+
+Time: 170.282 ms
+=== 5. Historical customer population observation ===
+ current_customer_population | registered_after_headline_date | missing_registration_dates
+-----------------------------+--------------------------------+----------------------------
+                       40420 |                              0 |                          0
+(1 row)
+
+Time: 3.879 ms
+=== 6. Automated customer summary assertions ===
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S01: Customer coverage for 2026-08-31
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S02: Spending totals for 2026-08-31
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S03: Customer activity coverage for 2026-08-31
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S04: Zero-order customers for 2026-08-31
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S05: Customer date ranges for 2026-08-31
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S06: All customer records verified for 2026-08-31
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S07: Financial reconciliation for 2026-08-31
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S08: Financial partition for 2026-08-31
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S01: Customer coverage for 2026-11-26
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S02: Spending totals for 2026-11-26
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S03: Customer activity coverage for 2026-11-26
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S04: Zero-order customers for 2026-11-26
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S05: Customer date ranges for 2026-11-26
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S06: All customer records verified for 2026-11-26
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S07: Financial reconciliation for 2026-11-26
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S08: Financial partition for 2026-11-26
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S09: Empty spending period
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S10: Empty financial reconciliation
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S11: NULL date handling
+DO
+Time: 2605.420 ms (00:02.605)
+ROLLBACK
+Time: 0.159 ms
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S12: Historical baseline reconciles
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  RESULT: All 12 customer summary check groups passed

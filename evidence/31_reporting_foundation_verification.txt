@@ -1,0 +1,91 @@
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.209 ms
+DO
+Time: 0.830 ms
+=== 1. Status normalization reconciliation ===
+ normalized_status | order_count | recorded_value
+-------------------+-------------+----------------
+ cancelled         |       12697 |    38163973.23
+ completed         |      111351 |   339609366.03
+ pending           |       16009 |    48499632.57
+ refunded          |        6479 |    19834083.11
+ shipped           |       12848 |    40956904.87
+(5 rows)
+
+Time: 77.716 ms
+=== 2. Raw-to-normalized status mapping ===
+  raw_status  | normalized_status | order_count
+--------------+-------------------+-------------
+ 'canceled'   | cancelled         |        3209
+ 'cancelled'  | cancelled         |        3238
+ 'Cancelled'  | cancelled         |        3131
+ 'CANCELLED'  | cancelled         |        3119
+ 'complete'   | completed         |       22285
+ ' completed' | completed         |       22395
+ 'completed'  | completed         |       22091
+ 'Completed'  | completed         |       22188
+ 'COMPLETED'  | completed         |       22392
+ 'pending'    | pending           |        7928
+ 'Pending'    | pending           |        8081
+ 'refunded'   | refunded          |        3217
+ 'Refunded'   | refunded          |        3262
+ 'shipped'    | shipped           |        6516
+ 'Shipped'    | shipped           |        6332
+(15 rows)
+
+Time: 56.364 ms
+=== 3. Unrestricted eligibility ===
+ eligible_orders | distinct_orders | recorded_value
+-----------------+-----------------+----------------
+          111351 |          111351 |   339609366.03
+(1 row)
+
+Time: 73.300 ms
+=== 4. As-of reporting reconciliation ===
+ as_of_date | eligible_orders | eligible_value | attributed_orders | attributed_value | unattributed_orders | unattributed_value | customers_with_eligible_orders
+------------+-----------------+----------------+-------------------+------------------+---------------------+--------------------+--------------------------------
+ 2026-08-31 |          111334 |   339565617.77 |            111190 |     339176836.88 |                 144 |          388780.89 |                          37900
+ 2026-11-26 |          111339 |   339573765.42 |            111195 |     339184984.53 |                 144 |          388780.89 |                          37900
+(2 rows)
+
+Time: 503.493 ms
+=== 5. Reporting date exception reconciliation ===
+ as_of_date | excluded_orders | excluded_eligible_orders | excluded_eligible_value
+------------+-----------------+--------------------------+-------------------------
+ 2026-08-31 |              24 |                       17 |                43748.26
+ 2026-11-26 |              15 |                       12 |                35600.61
+(2 rows)
+
+Time: 13.158 ms
+=== 6. Dynamic future-dated order view ===
+ observation_date | future_orders | eligible_future_orders | eligible_future_value
+------------------+---------------+------------------------+-----------------------
+ 2026-11-26       |            15 |                     12 |              35600.61
+(1 row)
+
+Time: 10.459 ms
+=== 7. Automated reporting assertions ===
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R01: All 159384 orders preserved
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R02: One row per order
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R03: Original fields preserved
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R04: Status distribution reconciles
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R05: Eligible count and value
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R06: Exact eligible order membership
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R07: As-of totals for 2026-08-31
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R08: Exact as-of membership for 2026-08-31
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R07: As-of totals for 2026-11-26
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R08: Exact as-of membership for 2026-11-26
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R09: Date exception reconciliation for 2026-08-31
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R09: Date exception reconciliation for 2026-11-26
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R10: Empty historical period
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R11: Full historical coverage
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R12: NULL date returns no rows
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R13: Dynamic future-date membership
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R14: Historical baseline reconciles
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  RESULT: All 14 reporting foundation check groups passed
+DO
+Time: 2161.201 ms (00:02.161)
+ROLLBACK
+Time: 0.246 ms

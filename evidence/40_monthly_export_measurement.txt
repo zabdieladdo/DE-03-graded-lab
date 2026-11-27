@@ -1,0 +1,31 @@
+=== sparse export ===
+
+real	0m0.480s
+user	0m0.015s
+sys	0m0.030s
+CSV lines:
+92678
+CSV bytes:
+3557871
+
+=== dense export ===
+
+real	0m0.981s
+user	0m0.043s
+sys	0m0.105s
+CSV lines:
+485041
+CSV bytes:
+17475947
+
+=== wide export ===
+
+real	0m1.027s
+user	0m0.017s
+sys	0m0.025s
+CSV lines:
+40421
+CSV bytes:
+3110942
+
+Temporary exports will be removed.
