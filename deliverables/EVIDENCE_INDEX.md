@@ -35,5 +35,9 @@
 | E062 | Paired delivery benchmark | `62_readiness_performance.txt` |
 | E061 regression | 33 tests passed after comment-only revisions | `61b_readiness_regression.txt` |
 | E064a–E064b | Isolated conditional update versus explicit locking | `64a_locking_comparison.txt` / `64b_locking_comparison.txt` |
+| E065a | R12 regression: 38 tests passed | `65a_readiness_r12_regression.txt` |
+| E065b | R12 normal population: WARN, 111,334 eligible orders | `65b_readiness_r12_august.txt` |
+| E065c | Earliest eligible date and empty population: PASS | `65c_01_earliest_eligible_order.txt` / `65c_02_readiness_empty_population.txt` |
+| E065d | Both packages verified: 14 checksums | `65d_readiness_package_integrity.txt` |
 
-November retry and integrity verification both exited 0. Earlier failed attempts should remain archived; confirm their renamed paths in the final checkout. No private defence notes are needed to interpret this index.
+November retry and integrity verification both exited 0. Earlier failures remain in `60c_02a_november_failed.txt`, `60c_03a_november_integrity_failed.txt` and `64a_01_missing_database_url.txt`. No private defence notes are needed to interpret this index.

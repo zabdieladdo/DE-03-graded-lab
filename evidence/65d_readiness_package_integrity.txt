@@ -1,0 +1,30 @@
+
+Verifying run: 1a0af3dd-470d-48e5-8eca-28176d5f915b
+Reporting cutoff: 2026-08-31
+PASS: customer_summary.csv
+PASS: monthly_running.csv
+PASS: period_metadata.csv
+PASS: ranking_metadata.csv
+PASS: readiness.json
+PASS: reconciliation.csv
+PASS: top100.csv
+PASS: Run identity and reporting cutoff
+PASS: Publication status and action
+PASS: R12 informational disclosure
+PASS: Package integrity
+
+Verifying run: 22ecdf47-4fbb-4767-8fa9-e83c1e0b71c7
+Reporting cutoff: 2025-08-01
+PASS: customer_summary.csv
+PASS: monthly_running.csv
+PASS: period_metadata.csv
+PASS: ranking_metadata.csv
+PASS: readiness.json
+PASS: reconciliation.csv
+PASS: top100.csv
+PASS: Run identity and reporting cutoff
+PASS: Publication status and action
+PASS: R12 informational disclosure
+PASS: Package integrity
+
+PASS: Both R12 publication packages verified

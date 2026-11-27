@@ -28,7 +28,7 @@ REPORTS = {
     'reconciliation': ('spending_reconciliation', 'as_of_date'),
     'period_metadata': ('monthly_reporting_metadata', 'as_of_date'),
 }
-REQUIRED = {f'R{i:02}' for i in range(1, 8)} | {'R09', 'R10', 'R11', 'D01'}
+REQUIRED = {f'R{i:02}' for i in range(1, 8)} | {'R09', 'R10', 'R11', 'R12', 'D01'}
 
 
 # Reject invalid state before proceeding.
@@ -59,7 +59,7 @@ def overall(checks):
         if r['check_id'] == 'D01':
             if r['kind'] != 'DISCLOSURE' or r['caveat'] != DISCLOSURE or r['status'] is not None:
                 return 'ERROR'
-        elif r['check_id'] in {'R09','R10','R11'}:
+        elif r['check_id'] in {'R09','R10','R11','R12'}:
             if r['kind'] != 'INFO' or r['status'] is not None:
                 return 'ERROR'
         elif r['kind'] != 'CHECK' or r['status'] not in {'PASS','WARN','FAIL','ERROR'}:
@@ -143,6 +143,16 @@ def expected_reports(ref, ex, cutoff):
     return summary,monthly,top,meta,recon,period
 
 
+# Disclose empty eligible populations without changing technical severity.
+def population_info(ex):
+    n, value = ex['eligible_orders'], ex['eligible_value']
+    require(n != 0 or value == 0, 'Nonzero eligible value with zero eligible orders')
+    caveat = ('No eligible orders were found through the selected cutoff. This does not '
+              'establish absence of business activity. Review source coverage, cutoff and eligibility rules.'
+              if n == 0 else f'{n:,} eligible orders found through the selected cutoff.')
+    return check('R12', None, n, caveat, kind='INFO')
+
+
 # Evaluate report consistency, exceptions and disclosures.
 def evaluate(actual, ref, ex, cutoff, policy):
     require(len({r['customer_id'] for r in ref})==len(ref), 'Duplicate reference customer')
@@ -163,7 +173,7 @@ def evaluate(actual, ref, ex, cutoff, policy):
         checks.append(materiality(cid,ex[n],ex[v],ex['eligible_orders'],ex['eligible_value'],policy['checks'][cid],desc))
     checks.extend([check('R09',None,period['is_partial_month'],f"Final month {'is partial' if period['is_partial_month'] else 'is complete'} through {cutoff}; no month-over-month comparison is generated.",kind='INFO'),
         check('R10',None,{k:ex[k] for k in ('missing_date_count','after_cutoff_count','missing_date_value','after_cutoff_value')},f"Completed-status orders excluded: {ex['missing_date_count']} missing dates, {ex['after_cutoff_count']} after cutoff; after-cutoff records are not automatically errors.",kind='INFO'),
-        check('R11',None,ex['shared_email_groups'],f"{ex['shared_email_groups']} shared email groups across {ex['shared_email_accounts']} accounts; not proof of duplicate people.",kind='INFO'),check('D01',None,None,DISCLOSURE,kind='DISCLOSURE')])
+        check('R11',None,ex['shared_email_groups'],f"{ex['shared_email_groups']} shared email groups across {ex['shared_email_accounts']} accounts; not proof of duplicate people.",kind='INFO'),population_info(ex),check('D01',None,None,DISCLOSURE,kind='DISCLOSURE')])
     return checks
 
 

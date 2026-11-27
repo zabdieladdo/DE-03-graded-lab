@@ -5,7 +5,7 @@
 - **Decision owner:** Zabdiel
 
 ## Context
-A fast report can still be wrong. The extract contains missing customer relationships and conflicting item and checkout amounts. The report uses completed-status recorded checkout totals, not independently verified revenue. Adwoa needs a visible release decision without a new server. Independent reference totals, six report-output comparisons, 33 synthetic tests (including the successful regression) and paired delivery measurements support this decision.
+A fast report can still be wrong. The extract contains missing customer relationships and conflicting item and checkout amounts. The report uses completed-status recorded checkout totals, not independently verified revenue. Adwoa needs a visible release decision without a new server. Independent reference totals, six report-output comparisons, 38 synthetic tests (including five R12 tests) and paired delivery measurements support this decision.
 
 ## Decision
 Generate six CSVs and independently compare their typed source rows against raw-table calculations in one read-only repeatable-read transaction. Record the readiness decision, caveats, policy and checksums. Retain the current Python fetch-and-write architecture at the tested volume. Do not automatically release any package.
@@ -13,7 +13,7 @@ Generate six CSVs and independently compare their typed source rows against raw-
 - Use exact internal comparisons (R01–R04).
 - Screen attribution, complete valuation discrepancies and incomplete valuations (R05–R07) using proposed strict greater-than 1% count OR 1% monetary limits. Denominators are eligible recorded history through cutoff; respective monetary numerators are unattributed header value, sum of absolute header/item differences, and header value associated with incomplete valuations.
 - Absolute limits disabled until currency and business materiality are confirmed. Policy 1.0-proposed, review 2027-02-25.
-- Exceptions remain visible below thresholds. R09–R11 and D01 distinguish information and standing limitations from severity. Zero recorded spending does not establish absence of activity.
+- Exceptions remain visible below thresholds. R09–R12 and D01 distinguish information and standing limitations from severity. R12 is required information: it reports the eligible count or explicitly discloses an empty population. Zero recorded spending does not establish absence of activity.
 - ERROR > FAIL > WARN > PASS; missing required entries or disclosure hold publication. PASS means internal checks satisfied, not financial certification. WARN requires review and disclosure; FAIL/ERROR hold. Any exceptional human release must be documented separately, not relabelled PASS.
 
 ## Alternatives considered
@@ -40,7 +40,7 @@ Generate six CSVs and independently compare their typed source rows against raw-
 
 ## Consequences
 - **What this buys:** Explicit release guidance, independent row comparisons, repeatable output and traceability without additional production infrastructure. August and November WARN results were driven by count shares of 1.4587% and 1.4586%, respectively, despite a monetary share of 0.6108% in both.
-- **What this costs:** The paired delivery benchmark measured median paired overhead 3.902 s; full median 13.933 s, worst 14.046 s, peak Python median 961.867 MiB for 28,799,469 CSV bytes. Export-only peak already 962.930 MiB. A separate November generation recorded 21.886 s internal elapsed time; this is one observation above the proposed 20 s review trigger, not a repeated breach or a directly comparable wall-clock measurement. Maintenance of independent definitions, policy and evidence; human review remains necessary.
+- **What this costs:** The paired delivery benchmark measured median paired overhead 3.902 s; full median 13.933 s, worst 14.046 s, peak Python median 961.867 MiB for 28,799,469 CSV bytes. Export-only peak already 962.930 MiB. November and August R12 generations recorded 21.886 s and 21.821 s internal elapsed time, respectively. Both exceed the proposed 20 s review trigger; investigate during Stage 08. These are not directly comparable to the earlier subprocess wall-clock benchmark, and no causal attribution to R12 is established. Maintenance of independent definitions, policy and evidence; human review remains necessary.
 - **What it costs the client if I am wrong:** Memory pressure or checkout interference as volume grows; late decisions or misleading financial confidence if checks or thresholds are inadequate. No verified monetary loss estimate.
 - **What would make me revisit this:** Repeated full runs above 20 s, Python RSS above 1.5 GiB, doubled report volume, observed checkout degradation, faster client delivery requirement, or changed business semantics/currency. Proposed engineering triggers, not SLAs. Review policy by 2027-02-25 or earlier if evidence changes. Rebenchmark COPY first for delivery latency, streaming for memory pressure; preserve independent correctness.
 
@@ -50,6 +50,6 @@ Generate six CSVs and independently compare their typed source rows against raw-
 - All 33 synthetic tests passed again, including fault injection, boundaries and mocked query failure (`evidence/61b_readiness_regression.txt`).
 - Three paired August runs yielded identical six CSV hashes and verified packages.
 
-This does not prove live timeout handling, concurrent snapshot behaviour under writes, authenticity, source completeness, production growth, or full publication under checkout contention. Clean-tree fresh-load acceptance is pending. The agreed zero-eligible-orders informational entry (R12) is not implemented as a separate entry; this remains a disclosed design gap. HTML interfaces are separate presentation work.
+This does not prove live timeout handling, concurrent snapshot behaviour under writes, authenticity, source completeness, production growth, or full publication under checkout contention. Clean-tree fresh-load acceptance is pending. R12 passed 38 regression tests and live checks for 111,334 eligible orders (31 August 2026, WARN) and zero eligible orders (1 August 2025, PASS). Both packages passed all seven checksum checks and metadata checks (E065a–E065d). HTML interfaces are separate presentation work.
 
 See [evidence and decision index](../EVIDENCE_INDEX.md) for checkpoint identifiers.

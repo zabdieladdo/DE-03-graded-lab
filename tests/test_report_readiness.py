@@ -180,4 +180,36 @@ class Readiness(unittest.TestCase):
                 self.assertEqual(g.main(),3)
             manifest=json.loads(next((root/'generated').glob('*/manifest.json')).read_text()); self.assertEqual(manifest['overall_status'],'ERROR'); self.assertEqual(manifest['publication_action'],'HOLD'); self.assertEqual(manifest['error_type'],'RuntimeError'); conn.close.assert_called_once()
 
+    def test_34_nonempty_population(self):
+        c=self.checks(); r=next(x for x in c if x['check_id']=='R12')
+        self.assertEqual((r['kind'],r['status'],r['observed']),('INFO',None,2))
+        self.assertEqual(g.overall(c),'PASS')
+
+    def test_35_empty_population(self):
+        # Keep customer accounts but independently zero all order-derived fields.
+        for r in self.r:
+            r.update(history_count=0,history_amount=D(0),first_order_date=None,last_order_date=None,opening_amount=D(0),opening_count=0,monthly_amounts=[D(0)]*12,monthly_counts=[0]*12)
+        self.e.update(eligible_orders=0,eligible_value=D(0),attributed_orders=0,attributed_value=D(0))
+        for r in self.a['customer_summary']:
+            r.update(total_spent=D(0),order_count=0,first_order_date=None,last_order_date=None)
+        for r in self.a['monthly_running']:
+            r.update(monthly_spending=D(0),monthly_order_count=0,opening_spending=D(0),window_cumulative_spending=D(0),cumulative_since_extract_start=D(0))
+        self.a['top100']=[]
+        self.a['ranking_metadata'][0].update(qualifying_customer_count=0,selected_customer_count=0,qualifying_spending=D(0),selected_spending=D(0),selected_spending_pct=None)
+        self.a['reconciliation'][0].update(eligible_orders=0,eligible_value=D(0),attributed_orders=0,attributed_value=D(0))
+        c=self.checks(); r=next(x for x in c if x['check_id']=='R12')
+        self.assertEqual((r['kind'],r['status'],r['observed']),('INFO',None,0))
+        self.assertIn('No eligible orders',r['caveat']); self.assertEqual(g.overall(c),'PASS')
+
+    def test_36_zero_value_nonempty_population(self):
+        r=g.population_info(dict(eligible_orders=2,eligible_value=D(0)))
+        self.assertEqual(r['observed'],2); self.assertNotIn('No eligible orders',r['caveat'])
+
+    def test_37_inconsistent_empty_population(self):
+        with self.assertRaises(ValueError):
+            g.population_info(dict(eligible_orders=0,eligible_value=D(1)))
+
+    def test_38_missing_population_info(self):
+        self.assertEqual(g.overall([r for r in self.checks() if r['check_id']!='R12']),'ERROR')
+
 if __name__=='__main__': unittest.main(verbosity=2)

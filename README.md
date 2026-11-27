@@ -1,7 +1,7 @@
 # DE-03 — Kloud Kart PostgreSQL engineering lab
 
 ## Purpose and status
-Prevent overselling, provide customer spending and nested low-stock reports, and record stock movements. The additional improvement checks publication readiness. Implementation and local tests completed within their stated scopes; final fresh-load acceptance, successful November publication retry and HTML interfaces remain pending. No production guarantee or approved materiality limits.
+Prevent overselling, provide customer spending and nested low-stock reports, and record stock movements. The additional improvement checks publication readiness. Implementation and local tests completed within their stated scopes; November publication and integrity verification passed after retry; final fresh-load acceptance and HTML interfaces remain pending. No production guarantee or approved materiality limits.
 
 ## Deliverables
 | Deliverable | Location |
@@ -66,7 +66,7 @@ python -u scripts/generate_monday_report.py --as-of 2026-08-31
 python -u scripts/generate_monday_report.py --as-of 2026-11-26
 unset DATABASE_URL
 ```
-Run separately and inspect exit codes. PASS/WARN exit 0, FAIL exit 2, ERROR exit 3. WARN requires review and disclosure; no automatic release. Generated private CSV/JSON files are ignored; do not commit or share them. Policy thresholds are proposed. August verified WARN; November reference passed but publication and integrity evidence currently fail. Zero-eligible informational entry remains an implementation gap.
+Run separately and inspect exit codes. PASS/WARN exit 0, FAIL exit 2, ERROR exit 3. WARN requires review and disclosure; no automatic release. Generated private CSV/JSON files are ignored; do not commit or share them. Policy thresholds are proposed. August and November publications returned WARN with verified package integrity. R12 is implemented and verified for normal and empty eligible populations (E065a-E065d). All 38 regression tests passed. An empty-population PASS does not establish absence of business activity.
 
 ## Measured results and limitations
 Official race tests passed; 400 attempts/50 wins/350 refusals, zero errors in tested runs. Integrated SQL workload 3.487 s solo and 4.227 s concurrent in later trials, earlier four runs missed provisional 5 s. Verified publication median 13.933 s (three runs), approximately 962 MiB Python RSS. No agreed full-publication SLA. Isolated locking comparison passed 12 trials; not a full purchase benchmark. See performance reports for methods and limitations.

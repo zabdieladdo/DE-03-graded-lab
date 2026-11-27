@@ -51,7 +51,16 @@ Full reference median 3.009490 s, evaluation median 1.209445 s, combined median 
 | Evaluation | 1.575 s |
 | Total recorded internal elapsed | 21.886 s |
 
-Run `5f8b6b6e-aa70-4469-80bb-1a247af2f91c`: WARN / REVIEW AND DISCLOSE, exit 0. All six output row counts matched expectations; R01–R04 had zero differences. All seven output checksums and package metadata independently verified. Evidence: `evidence/60c_02_readiness_november.txt` and `evidence/60c_03_november_package_integrity.txt`. This is one observation above the proposed 20 s review trigger, not a repeated breach. Internal elapsed excludes final manifest writing and is not directly comparable to the August child-process wall time. No November RSS measurement was supplied.
+Run `5f8b6b6e-aa70-4469-80bb-1a247af2f91c`: WARN / REVIEW AND DISCLOSE, exit 0. All six output row counts matched expectations; R01–R04 had zero differences. All seven output checksums and package metadata independently verified. Evidence: `evidence/60c_02_readiness_november.txt` and `evidence/60c_03_november_package_integrity.txt`. This was the first of two recent observations above the proposed 20 s review trigger. Internal elapsed excludes final manifest writing and is not directly comparable to the August child-process wall time. No November RSS measurement was supplied.
+
+## R12 live verification (E065b–E065d)
+
+| Cutoff | Report | Reference | Evaluation | Internal elapsed | Status |
+|---|---:|---:|---:|---:|---|
+| 2026-08-31 | 14.596 s | 4.794 s | 2.347 s | 21.821 s | WARN |
+| 2025-08-01 | 11.482 s | 2.117 s | 1.172 s | 14.823 s | PASS |
+
+Both packages passed seven output checksum checks and metadata verification. The August run exceeded 20 s, as did the earlier November retry before R12. Investigate during Stage 08; the different workloads and uncontrolled conditions do not isolate R12 overhead. No RSS measurement was supplied for these runs.
 
 ## Caveats
 No cache control, server memory, growth or concurrent checkout test for full package. Peak RSS roughly 35 times CSV size; not an allocation attribution. Same CSV hashes establish repeatability, not real-world financial accuracy. Retain A; see ADR-007 review triggers. Fresh-load acceptance pending.

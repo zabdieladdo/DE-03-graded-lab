@@ -27,8 +27,8 @@ Status definitions: NOT STARTED, IN PROGRESS, PASS, FAIL, BLOCKED.
 | V-021 | Inventory rollup and audit | PASS | evidence 53, 56, 57 |
 | V-022 | Independent publication reference | PASS | evidence 60a, both cutoffs |
 | V-023 | August publication | PASS | evidence 60c_01; WARN is a business review status |
-| V-024 | November publication and integrity | FAIL | evidence 60c_02 and 60c_03; retry required |
-| V-025 | Readiness tests and benchmark | PASS | evidence 61–62; 33 tests, six matching exports |
+| V-024 | November publication and integrity | PASS | evidence 60c_02 and 60c_03; successful retry; original failures preserved |
+| V-025 | Readiness tests and benchmark | PASS | E061-E062: 33 tests and six matching exports; E065a: 38 regression tests; E065b-E065d: normal and empty populations and package integrity |
 | V-026 | Isolated locking comparison | PASS | successful terminal outputs 64a/64b; confirm local files |
 | V-027 | Revised source regression and final submission | NOT STARTED | fresh-load acceptance pending |
 
