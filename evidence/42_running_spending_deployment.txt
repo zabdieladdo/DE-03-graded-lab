@@ -1,0 +1,21 @@
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.151 ms
+SET
+Time: 0.122 ms
+SET
+Time: 0.128 ms
+DO
+Time: 0.987 ms
+CREATE FUNCTION
+Time: 2.483 ms
+COMMENT
+Time: 0.524 ms
+CREATE FUNCTION
+Time: 1.064 ms
+COMMENT
+Time: 0.217 ms
+COMMIT
+Time: 2.929 ms
+=== Running spending functions deployed ===

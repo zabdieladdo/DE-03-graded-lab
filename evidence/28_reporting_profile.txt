@@ -1,0 +1,90 @@
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.185 ms
+ database_name
+---------------
+ kloudkart_lab
+(1 row)
+
+Time: 0.361 ms
+DO
+Time: 0.948 ms
+=== 1. Reporting date coverage ===
+ execution_date |   earliest_order    |    latest_order     | total_orders | missing_order_dates | future_dated_orders
+----------------+---------------------+---------------------+--------------+---------------------+---------------------
+ 2026-11-26     | 2025-08-02 05:00:54 | 2027-08-20 19:30:00 |       159384 |                   0 |                  15
+(1 row)
+
+Time: 19.960 ms
+=== 2. Eligible order date coverage ===
+ earliest_eligible_order | latest_eligible_order | eligible_orders | missing_order_dates | recorded_order_value
+-------------------------+-----------------------+-----------------+---------------------+----------------------
+ 2025-08-02 06:13:51     | 2027-08-20 19:30:00   |          111351 |                   0 |         339609366.03
+(1 row)
+
+Time: 33.368 ms
+=== 3. Monthly order distribution ===
+ order_month | all_orders | eligible_orders | eligible_order_value
+-------------+------------+-----------------+----------------------
+ 2025-08-01  |       2092 |            1488 |           4542077.88
+ 2025-09-01  |       2564 |            1765 |           5335957.15
+ 2025-10-01  |       3496 |            2465 |           7638491.40
+ 2025-11-01  |       4279 |            3029 |           8721712.20
+ 2025-12-01  |       5565 |            3840 |          11775077.91
+ 2026-01-01  |       7317 |            5160 |          16830122.17
+ 2026-02-01  |       7586 |            5330 |          16102123.18
+ 2026-03-01  |      10011 |            7074 |          21909094.61
+ 2026-04-01  |      14361 |            9983 |          30086829.41
+ 2026-05-01  |      16871 |           11729 |          35779499.93
+ 2026-06-01  |      22289 |           15553 |          47404632.82
+ 2026-07-01  |      26572 |           18595 |          56712960.26
+ 2026-08-01  |      36357 |           25323 |          76727038.85
+ 2026-09-01  |          5 |               4 |              6379.64
+ 2026-10-01  |          2 |               1 |              1768.01
+ 2026-11-01  |          2 |               0 |
+ 2026-12-01  |          1 |               1 |             11272.95
+ 2027-01-01  |          2 |               2 |              2379.85
+ 2027-03-01  |          1 |               0 |
+ 2027-04-01  |          3 |               2 |              3776.06
+ 2027-05-01  |          1 |               1 |                95.07
+ 2027-06-01  |          1 |               1 |              8943.72
+ 2027-07-01  |          2 |               2 |               329.37
+ 2027-08-01  |          4 |               3 |              8803.59
+(24 rows)
+
+Time: 124.973 ms
+=== 4. Customer spending reconciliation ===
+ eligible_orders | eligible_order_value | attributed_orders | attributed_order_value | unattributed_orders | unattributed_order_value | customers_with_eligible_orders
+-----------------+----------------------+-------------------+------------------------+---------------------+--------------------------+--------------------------------
+          111351 |         339609366.03 |            111207 |           339220585.14 |                 144 |                388780.89 |                          37900
+(1 row)
+
+Time: 130.430 ms
+=== 5. Customer reporting coverage ===
+ total_customers | customers_with_eligible_orders | customers_without_eligible_orders
+-----------------+--------------------------------+-----------------------------------
+           40420 |                          37900 |                              2520
+(1 row)
+
+Time: 84.563 ms
+=== 6. Current reporting-related indexes ===
+  tablename  |    indexname     |                                        indexdef
+-------------+------------------+----------------------------------------------------------------------------------------
+ customers   | customers_pkey   | CREATE UNIQUE INDEX customers_pkey ON public.customers USING btree (customer_id)
+ order_items | order_items_pkey | CREATE UNIQUE INDEX order_items_pkey ON public.order_items USING btree (order_item_id)
+ orders      | orders_pkey      | CREATE UNIQUE INDEX orders_pkey ON public.orders USING btree (order_id)
+(3 rows)
+
+Time: 5.340 ms
+=== 7. Current reporting table sizes ===
+ table_name  | table_size | index_size | total_size
+-------------+------------+------------+------------
+ customers   | 4160 kB    | 904 kB     | 5104 kB
+ order_items | 17 MB      | 9456 kB    | 26 MB
+ orders      | 10216 kB   | 3520 kB    | 13 MB
+(3 rows)
+
+Time: 4.178 ms
+ROLLBACK
+Time: 0.170 ms
