@@ -1,0 +1,29 @@
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.161 ms
+SET
+Time: 0.107 ms
+SET
+Time: 0.068 ms
+DO
+Time: 1.011 ms
+ALTER TABLE
+Time: 2.914 ms
+CREATE FUNCTION
+Time: 1.093 ms
+psql:/workspace/graded-lab/sql/05_inventory/02_stock_movement_audit.sql:31: NOTICE:  trigger "trg_audit_stock_update" for relation "public.products" does not exist, skipping
+DROP TRIGGER
+Time: 0.415 ms
+CREATE TRIGGER
+Time: 0.956 ms
+CREATE FUNCTION
+Time: 2.341 ms
+CREATE FUNCTION
+Time: 1.762 ms
+COMMENT
+Time: 1.042 ms
+COMMENT
+Time: 0.498 ms
+COMMIT
+Time: 18.916 ms
