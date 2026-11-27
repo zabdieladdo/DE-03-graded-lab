@@ -1,0 +1,1990 @@
+UTC: 2026-11-27T13:52:26Z
+739e19c6fc2ae38c0aed24503ea64d3b96083953
+ M README.md
+ M scripts/check_repo.sh
+ M scripts/check_setup.sh
+ M scripts/verify_integrated_workload.py
+ M scripts/verify_setup.py
+ M tests/05_race_cleanup_verification.sql
+?? evidence/67a_fresh_clone_readiness_regression.txt
+?? evidence/67b_fresh_clone_source_integrity.txt
+?? evidence/68_acceptance_environment.txt
+?? evidence/69_acceptance_baseline_load.txt
+?? evidence/70a_acceptance_foreign_keys.txt
+?? evidence/70b_acceptance_value_constraints.txt
+?? evidence/70c_acceptance_identifiers.txt
+?? evidence/70d_acceptance_schema_regression.txt
+?? evidence/71a_acceptance_place_order_deployment.txt
+?? evidence/71b_acceptance_place_order_functional.txt
+?? evidence/71c_acceptance_place_order_atomicity.txt
+?? evidence/72a_acceptance_reporting_foundation.txt
+?? evidence/72b_acceptance_spending_summary.txt
+?? evidence/72c_acceptance_monthly_spending.txt
+?? evidence/72d_acceptance_running_spending.txt
+?? evidence/72e_acceptance_customer_ranking.txt
+?? evidence/72f_acceptance_reporting_foundation_test.txt
+?? evidence/72g_acceptance_spending_summary_test.txt
+?? evidence/72h_acceptance_monthly_spending_test.txt
+?? evidence/72i_acceptance_running_spending_test.txt
+?? evidence/72j_acceptance_customer_ranking_test.txt
+?? evidence/73a_acceptance_low_stock_deployment.txt
+?? evidence/73b_acceptance_stock_audit_deployment.txt
+?? evidence/73c_acceptance_low_stock_regression.txt
+?? evidence/73d_acceptance_stock_audit_regression.txt
+?? evidence/74a_acceptance_race_preflight.txt
+?? evidence/74b_acceptance_connection_identity.txt
+?? evidence/74c_acceptance_official_race.txt
+?? evidence/74d_acceptance_race_cleanup.txt
+?? evidence/75a_01_identity_mismatch.txt
+?? evidence/75a_02_identity_match.txt
+?? evidence/75a_03_missing_container.txt
+?? evidence/75b_acceptance_integrated_workload.txt
+?? evidence/75c_acceptance_integrated_cleanup.txt
+?? evidence/75d_01_cleanup.txt
+?? evidence/75d_01_workload.txt
+?? evidence/75d_02_cleanup.txt
+?? evidence/75d_02_workload.txt
+?? evidence/75d_03_cleanup.txt
+?? evidence/75d_03_workload.txt
+?? evidence/75d_04_cleanup.txt
+?? evidence/75d_04_workload.txt
+?? evidence/75d_05_cleanup.txt
+?? evidence/75d_05_workload.txt
+?? evidence/76a_acceptance_readiness_reference.txt
+?? evidence/76b_acceptance_readiness_august.txt
+?? evidence/76c_acceptance_readiness_november.txt
+?? evidence/76d_acceptance_readiness_empty.txt
+?? evidence/76e_acceptance_package_integrity.txt
+?? evidence/77a_cleanup_boundary_inspection.txt
+?? evidence/77b_01_cleanup_regression.txt
+?? evidence/77b_01_cleanup_regression_before_patch.txt
+?? evidence/77b_02_portable_setup.txt
+?? evidence/77b_02_portable_setup_before_patch.txt
+?? evidence/77b_03_setup_identity_mismatch.txt
+?? evidence/77b_03_setup_identity_mismatch_before_patch.txt
+?? evidence/77b_04_setup_missing_container.txt
+?? evidence/77b_04_setup_missing_container_before_patch.txt
+?? evidence/77b_05_repo_inspection.txt
+?? evidence/77c_01_runner_nonempty_guard.txt
+?? evidence/77c_02_guard_cleanup_check.txt
+?? evidence/77c_03_automated_fresh_acceptance.txt
+?? scripts/run_fresh_acceptance.sh
+Python 3.14.4
+=== setup ===
+Using active Python virtual environment
+
+--- PostgreSQL readiness ---
+/var/run/postgresql:5432 - accepting connections
+
+--- Lab endpoint and cluster identity ---
+Container: kloudkart-runner; database: kloudkart_lab; PostgreSQL 18.7 (Debian 18.7-1.pgdg13+5); max_connections=500; isolation=read committed
+Docker system identifier: 7712848514895138859
+Python system identifier: 7712848514895138859
+PASS: Lab endpoint and cluster identity verified.
+Imported data and graded tests are not verified by this script.
+Exit code: 0
+schema.sql: OK
+load.sql: OK
+race_test.py: OK
+data/categories.csv: OK
+data/customers.csv: OK
+data/inventory_log.csv: OK
+data/order_items.csv: OK
+data/orders.csv: OK
+data/products.csv: OK
+f23c11f464121cf1baa2f36732b03e9b15832f19f69f85a4cb6623a509ac16d9  /workspace/shared-data/schema.sql
+c0432f353e71611169ea0cac62a523f7cd2727867cd567c6de3081c8ce5f2e6a  /workspace/shared-data/load.sql
+5f12a6697400dee3876dfa33a03fbdcc1dc906f665f3c0a6aaeffe73cdb27d00  /workspace/shared-data/race_test.py
+65f77f0247cf0d1f6590ee57a6a5cf42ba222943b5c33b91ef5ff4b54f6050f9  /workspace/shared-data/data/categories.csv
+5d8d12635139f785c982d8ffcf777364f5cac68279088a88e729348149e7445f  /workspace/shared-data/data/products.csv
+e6b5a096aa88ff86363b34abbcbbbff1b01187444c9a65fc346c1966260d9ea2  /workspace/shared-data/data/customers.csv
+28e54736e1bb17f291041b9cd1f2be59f615dd4eac6365e2100af650f30001ae  /workspace/shared-data/data/orders.csv
+ee33cd49579ecb1547682a3747881f0ebe5990fa51e7d815f118fa7d9dc6cce3  /workspace/shared-data/data/order_items.csv
+7bc90c67f78d5d9b169ae9735dd45acab7a7633ef9a657fb3a9cd9577bebeb4a  /workspace/shared-data/data/inventory_log.csv
+24eaf296692f179cd8e042e2ae38f11034c2af03c0e18d83d7c41788c58e88d8  /workspace/graded-lab/sql/02_schema/01_foreign_keys.sql
+d3a59cb2ef294c7d953afb58fa8bfa77e11c5c0e8aa3350b214ebdd3c7e38604  /workspace/graded-lab/sql/02_schema/02_value_constraints.sql
+aa52f674e46012e4b51d21492baca787b3a5b1524a53c6f8dd57e6cc8a6e4776  /workspace/graded-lab/sql/02_schema/03_identifier_generation.sql
+26be39f2071d2fe46abf2b77c546be814fd6fdc3d01706d2086f8714d323a979  /workspace/graded-lab/tests/01_schema_integrity_test.sql
+906b27399324c1dc365abf4b08bf55f62b566b346619eb243717a857c6ce75f9  /workspace/graded-lab/sql/03_order_placement/01_place_order.sql
+69128b0f94acb6bb7ec2cf065c4e89b9744e657532f21591df076534fa4e0fcc  /workspace/graded-lab/tests/02_place_order_functional_test.sql
+33bf2229a0af5a6abc7bdc3497cf1fb2e7af06676c2b691f4c1092d773efc58e  /workspace/graded-lab/tests/03_place_order_atomicity_test.sql
+9e4e6d087b573ce1aa1ad660c29b7908b6bd45f9132840c6700d8a827359c890  /workspace/graded-lab/sql/04_reporting/03_reporting_foundation.sql
+efe8ffdb502ab80a20bf56c943a0a6de7917ed34a4b394c8e3f6472580e6037a  /workspace/graded-lab/sql/04_reporting/04_customer_spending_summary.sql
+de86d1f64f3170990291f19afa305cb0f040141612a49a754ce8be2e68b20d70  /workspace/graded-lab/sql/04_reporting/08_customer_monthly_spending.sql
+1a6ed62e961cbeb78c47277bfdf450f2c37bea6d8596ef32c842cbe6bb0c000a  /workspace/graded-lab/sql/04_reporting/12_customer_running_spending.sql
+040ca57c3fcbd86e8c619905832452f52d9e6322d88ce4261034723732d51f8a  /workspace/graded-lab/sql/04_reporting/16_customer_ranking.sql
+e77d3929e6b70e40f0addb4210c9c9d3cd27ec02c6298e53556ccd416526cc00  /workspace/graded-lab/tests/08_reporting_foundation_test.sql
+bbd128678c8370d9d32303f9a2cf392fa1220acb14eeab43fbf0bcc744287acf  /workspace/graded-lab/tests/09_customer_spending_summary_test.sql
+bac7f5ff4cd20718acd7e6883af23af3f6cd7c5457035ef44130904464c0dc0a  /workspace/graded-lab/tests/10_customer_monthly_spending_test.sql
+1644daa74db7cdbab21c4ed500f34e5d0b66bfb3cf91ec16c45259ccdcaab27b  /workspace/graded-lab/tests/11_customer_running_spending_test.sql
+8ba248fff053545db013e244dee7164e24ef45f4f7b23c02b4824140cf5ea0f8  /workspace/graded-lab/tests/12_customer_ranking_test.sql
+2117d89d3a7f51554a1b46a6038daecf0ec9fabcf19a8ffc7e92a6b824cfd446  /workspace/graded-lab/sql/05_inventory/01_low_stock_rollup.sql
+37073160e741279a131c21f47308c6daab80e49e3a5a95040fb2dfd6e15abad4  /workspace/graded-lab/sql/05_inventory/02_stock_movement_audit.sql
+930af7368e9f89b44e533e499894722a5ffdb358a277b1b83d6a69e9ba0346a7  /workspace/graded-lab/tests/13_low_stock_rollup_test.sql
+f0fa03f341da14a0bc41be8cf4c4d24ae108fb0e413cee6a7eb6b4dee19f11d5  /workspace/graded-lab/tests/14_stock_movement_audit_test.sql
+c4005dd745f868e1472f753cd3533a54a26e946a6869a56616261d6fbb1eaa81  /workspace/graded-lab/tests/04_race_preflight.sql
+5dc2dc94cb4767b9be3984926f9d82dcf987aa398bce0caf37b4659e6de63ad0  /workspace/graded-lab/tests/05_race_cleanup_verification.sql
+=== readiness_unit ===
+test_01_pass (__main__.Readiness.test_01_pass) ... ok
+test_02_duplicate (__main__.Readiness.test_02_duplicate) ... ok
+test_03_missing (__main__.Readiness.test_03_missing) ... ok
+test_04_summary_money (__main__.Readiness.test_04_summary_money) ... ok
+test_05_reconciliation (__main__.Readiness.test_05_reconciliation) ... ok
+test_06_monthly (__main__.Readiness.test_06_monthly) ... ok
+test_07_running (__main__.Readiness.test_07_running) ... ok
+test_08_rank (__main__.Readiness.test_08_rank) ... ok
+test_09_rank_metadata (__main__.Readiness.test_09_rank_metadata) ... ok
+test_10_attribution (__main__.Readiness.test_10_attribution) ... ok
+test_11_mismatch (__main__.Readiness.test_11_mismatch) ... ok
+test_12_incomplete (__main__.Readiness.test_12_incomplete) ... ok
+test_13_count_only (__main__.Readiness.test_13_count_only) ... ok
+test_14_value_only (__main__.Readiness.test_14_value_only) ... ok
+test_15_absolute_only (__main__.Readiness.test_15_absolute_only) ... ok
+test_16_equality (__main__.Readiness.test_16_equality) ... ok
+test_17_below (__main__.Readiness.test_17_below) ... ok
+test_18_disabled_absolute (__main__.Readiness.test_18_disabled_absolute) ... ok
+test_19_multiple_limits (__main__.Readiness.test_19_multiple_limits) ... ok
+test_20_empty_denominator (__main__.Readiness.test_20_empty_denominator) ... ok
+test_21_zero_value_nonzero_gap (__main__.Readiness.test_21_zero_value_nonzero_gap) ... ok
+test_22_invalid_population (__main__.Readiness.test_22_invalid_population) ... ok
+test_23_missing_check (__main__.Readiness.test_23_missing_check) ... ok
+test_24_duplicate_check (__main__.Readiness.test_24_duplicate_check) ... ok
+test_25_missing_disclosure (__main__.Readiness.test_25_missing_disclosure) ... ok
+test_26_changed_disclosure (__main__.Readiness.test_26_changed_disclosure) ... ok
+test_27_precedence (__main__.Readiness.test_27_precedence) ... ok
+test_28_invalid_policy (__main__.Readiness.test_28_invalid_policy) ... ok
+test_29_absolute_currency (__main__.Readiness.test_29_absolute_currency) ... ok
+test_30_shared_email (__main__.Readiness.test_30_shared_email) ... ok
+test_31_partial_month (__main__.Readiness.test_31_partial_month) ... ok
+test_32_missing_period_coverage (__main__.Readiness.test_32_missing_period_coverage) ... ok
+test_33_query_error_hold (__main__.Readiness.test_33_query_error_hold) ... ok
+test_34_nonempty_population (__main__.Readiness.test_34_nonempty_population) ... ok
+test_35_empty_population (__main__.Readiness.test_35_empty_population) ... ok
+test_36_zero_value_nonempty_population (__main__.Readiness.test_36_zero_value_nonempty_population) ... ok
+test_37_inconsistent_empty_population (__main__.Readiness.test_37_inconsistent_empty_population) ... ok
+test_38_missing_population_info (__main__.Readiness.test_38_missing_population_info) ... ok
+
+----------------------------------------------------------------------
+Ran 38 tests in 0.026s
+
+OK
+Exit code: 0
+=== baseline ===
+psql:schema.sql:5: NOTICE:  table "order_items" does not exist, skipping
+psql:schema.sql:5: NOTICE:  table "orders" does not exist, skipping
+psql:schema.sql:5: NOTICE:  table "inventory_log" does not exist, skipping
+psql:schema.sql:5: NOTICE:  table "products" does not exist, skipping
+psql:schema.sql:5: NOTICE:  table "customers" does not exist, skipping
+psql:schema.sql:5: NOTICE:  table "categories" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+Timing is on.
+COPY 94
+Time: 0.891 ms
+COPY 4023
+Time: 15.181 ms
+COPY 40420
+Time: 165.508 ms
+COPY 159384
+Time: 639.792 ms
+COPY 336559
+Time: 1498.568 ms (00:01.499)
+COPY 282352
+Time: 1980.904 ms (00:01.981)
+ANALYZE
+Time: 592.325 ms
+  table_name   | count
+---------------+--------
+ categories    |     94
+ customers     |  40420
+ inventory_log | 282352
+ order_items   | 336559
+ orders        | 159384
+ products      |   4023
+(6 rows)
+
+Time: 40.222 ms
+Exit code: 0
+=== sql_02_schema_01_foreign_keys.sql ===
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.187 ms
+ALTER TABLE
+Time: 2.745 ms
+ALTER TABLE
+Time: 0.561 ms
+ALTER TABLE
+Time: 0.600 ms
+ALTER TABLE
+Time: 0.471 ms
+ALTER TABLE
+Time: 63.371 ms
+ALTER TABLE
+Time: 1.725 ms
+COMMIT
+Time: 2.435 ms
+Exit code: 0
+=== sql_02_schema_02_value_constraints.sql ===
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.199 ms
+ALTER TABLE
+Time: 36.963 ms
+ALTER TABLE
+Time: 0.591 ms
+ALTER TABLE
+Time: 1.967 ms
+ALTER TABLE
+Time: 0.514 ms
+ALTER TABLE
+Time: 39.350 ms
+COMMIT
+Time: 2.375 ms
+Exit code: 0
+=== sql_02_schema_03_identifier_generation.sql ===
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.193 ms
+LOCK TABLE
+Time: 0.577 ms
+Time: 1.963 ms
+Time: 0.547 ms
+Time: 0.709 ms
+Orders starting ID: 659385
+Order items starting ID: 1236560
+Inventory log starting ID: 982488
+ALTER TABLE
+Time: 1.604 ms
+ALTER TABLE
+Time: 1.003 ms
+ALTER TABLE
+Time: 0.867 ms
+COMMIT
+Time: 2.352 ms
+Exit code: 0
+=== tests_01_schema_integrity_test.sql ===
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.177 ms
+=== 1. Database identity ===
+ database_name
+---------------
+ kloudkart_lab
+(1 row)
+
+Time: 0.426 ms
+=== 2. Functional integrity tests ===
+psql:/workspace/graded-lab/tests/01_schema_integrity_test.sql:457: NOTICE:  PASS: Automatic order ID = 659385
+psql:/workspace/graded-lab/tests/01_schema_integrity_test.sql:457: NOTICE:  PASS: Automatic order item ID = 1236560
+psql:/workspace/graded-lab/tests/01_schema_integrity_test.sql:457: NOTICE:  PASS: Automatic inventory log ID = 982488
+psql:/workspace/graded-lab/tests/01_schema_integrity_test.sql:457: NOTICE:  PASS: Invalid order customer rejected by fk_orders_customer (23503)
+psql:/workspace/graded-lab/tests/01_schema_integrity_test.sql:457: NOTICE:  PASS: Invalid order item order rejected by fk_order_items_order (23503)
+psql:/workspace/graded-lab/tests/01_schema_integrity_test.sql:457: NOTICE:  PASS: Invalid order item product rejected by fk_order_items_product (23503)
+psql:/workspace/graded-lab/tests/01_schema_integrity_test.sql:457: NOTICE:  PASS: Invalid inventory product rejected by fk_inventory_log_product (23503)
+psql:/workspace/graded-lab/tests/01_schema_integrity_test.sql:457: NOTICE:  PASS: Invalid product category rejected by fk_products_category (23503)
+psql:/workspace/graded-lab/tests/01_schema_integrity_test.sql:457: NOTICE:  PASS: Invalid category parent rejected by fk_categories_parent (23503)
+psql:/workspace/graded-lab/tests/01_schema_integrity_test.sql:457: NOTICE:  PASS: Zero order quantity rejected by chk_order_items_quantity (23514)
+psql:/workspace/graded-lab/tests/01_schema_integrity_test.sql:457: NOTICE:  PASS: Negative product stock rejected by chk_products_stock (23514)
+psql:/workspace/graded-lab/tests/01_schema_integrity_test.sql:457: NOTICE:  PASS: Negative product price rejected by chk_products_price (23514)
+psql:/workspace/graded-lab/tests/01_schema_integrity_test.sql:457: NOTICE:  PASS: Negative order item price rejected by chk_order_items_unit_price (23514)
+psql:/workspace/graded-lab/tests/01_schema_integrity_test.sql:457: NOTICE:  PASS: Negative order total rejected by chk_orders_total_amount (23514)
+psql:/workspace/graded-lab/tests/01_schema_integrity_test.sql:457: NOTICE:  PASS: NULL order quantity rejected by chk_order_items_quantity (23514)
+psql:/workspace/graded-lab/tests/01_schema_integrity_test.sql:457: NOTICE:  PASS: NULL product stock rejected by chk_products_stock (23514)
+psql:/workspace/graded-lab/tests/01_schema_integrity_test.sql:457: NOTICE:  PASS: NULL product price rejected by chk_products_price (23514)
+psql:/workspace/graded-lab/tests/01_schema_integrity_test.sql:457: NOTICE:  PASS: NULL order item price rejected by chk_order_items_unit_price (23514)
+psql:/workspace/graded-lab/tests/01_schema_integrity_test.sql:457: NOTICE:  PASS: NULL order total rejected by chk_orders_total_amount (23514)
+psql:/workspace/graded-lab/tests/01_schema_integrity_test.sql:457: NOTICE:  PASS: Zero product stock accepted
+DO
+Time: 12.614 ms
+=== 3. Roll back test changes ===
+ROLLBACK
+Time: 0.161 ms
+=== 4. Baseline row counts after rollback ===
+psql:/workspace/graded-lab/tests/01_schema_integrity_test.sql:457: NOTICE:  PASS: Zero product price accepted
+psql:/workspace/graded-lab/tests/01_schema_integrity_test.sql:457: NOTICE:  PASS: Zero order item price accepted
+psql:/workspace/graded-lab/tests/01_schema_integrity_test.sql:457: NOTICE:  PASS: Zero order total accepted
+psql:/workspace/graded-lab/tests/01_schema_integrity_test.sql:457: NOTICE:  PASS: Zero inventory movement accepted
+psql:/workspace/graded-lab/tests/01_schema_integrity_test.sql:457: NOTICE:  RESULT: 16 of 16 rejection tests passed
+  table_name   | row_count
+---------------+-----------
+ categories    |        94
+ products      |      4023
+ customers     |     40420
+ orders        |    159384
+ order_items   |    336559
+ inventory_log |    282352
+(6 rows)
+
+Time: 50.381 ms
+Exit code: 0
+=== sql_03_order_placement_01_place_order.sql ===
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.185 ms
+CREATE FUNCTION
+Time: 2.587 ms
+COMMENT
+Time: 0.537 ms
+COMMIT
+Time: 2.083 ms
+Exit code: 0
+=== tests_02_place_order_functional_test.sql ===
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.211 ms
+=== 1. Database identity ===
+ database_name
+---------------
+ kloudkart_lab
+(1 row)
+
+Time: 0.522 ms
+=== 2. Functional purchase tests ===
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  Fixture product: 10023, customer: 100001, stock: 5, price: 100.00
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  PASS T1: Purchase two units | success=t | order_id=659386 | stock=3 | message=Order placed successfully
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  PASS T2: Insufficient stock | success=f | order_id=<NULL> | stock=3 | message=Out of stock or product unavailable for requested quantity
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  PASS T3: Zero quantity | success=f | order_id=<NULL> | stock=3 | message=Quantity must be positive
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  PASS T4: Negative quantity | success=f | order_id=<NULL> | stock=3 | message=Quantity must be positive
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  PASS T5: NULL quantity | success=f | order_id=<NULL> | stock=3 | message=Quantity must be positive
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  PASS T6: Invalid customer | success=f | order_id=<NULL> | stock=3 | message=Customer not found
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  PASS T7: Invalid product | success=f | order_id=<NULL> | stock=3 | message=Product not found
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  PASS T8: NULL customer | success=f | order_id=<NULL> | stock=3 | message=Customer not found
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  PASS T9: NULL product | success=f | order_id=<NULL> | stock=3 | message=Product not found
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  PASS T10: Purchase remaining three units | success=t | order_id=659387 | stock=0 | message=Order placed successfully
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  PASS T11: Purchase after sellout | success=f | order_id=<NULL> | stock=0 | message=Out of stock or product unavailable for requested quantity
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  RESULT: 11 of 11 functional tests passed
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  Successful purchases: 2, refusals: 9
+psql:/workspace/graded-lab/tests/02_place_order_functional_test.sql:520: NOTICE:  Generated order IDs: {659386,659387}
+DO
+Time: 1262.994 ms (00:01.263)
+=== 3. Purchase reconciliation before rollback ===
+ product_id | remaining_stock | successful_orders | units_sold | item_value | order_value
+------------+-----------------+-------------------+------------+------------+-------------
+      10023 |               0 |                 2 |          5 |     500.00 |      500.00
+(1 row)
+
+Time: 24.560 ms
+=== 4. Inventory movement reconciliation ===
+ product_id | movement_count | net_stock_movement
+------------+----------------+--------------------
+      10023 |              2 |                 -5
+(1 row)
+
+Time: 20.196 ms
+=== 5. Roll back all fixture changes ===
+ROLLBACK
+Time: 0.302 ms
+=== 6. Baseline reconciliation after rollback ===
+  table_name   | expected_rows | actual_rows | difference | result
+---------------+---------------+-------------+------------+--------
+ categories    |            94 |          94 |          0 | PASS
+ customers     |         40420 |       40420 |          0 | PASS
+ inventory_log |        282352 |      282352 |          0 | PASS
+ order_items   |        336559 |      336559 |          0 | PASS
+ orders        |        159384 |      159384 |          0 | PASS
+ products      |          4023 |        4023 |          0 | PASS
+(6 rows)
+
+Time: 33.604 ms
+=== 7. Fixture cleanup verification ===
+ remaining_test_products
+-------------------------
+                       0
+(1 row)
+
+Time: 0.713 ms
+Exit code: 0
+=== tests_03_place_order_atomicity_test.sql ===
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.200 ms
+=== 1. Database identity and safety guard ===
+ database_name
+---------------
+ kloudkart_lab
+(1 row)
+
+Time: 0.537 ms
+DO
+Time: 1.245 ms
+=== 2. Create controlled failure fixture ===
+CREATE TABLE
+Time: 2.433 ms
+INSERT 0 1
+Time: 1.652 ms
+INSERT 0 1
+Time: 0.532 ms
+ product_id | customer_id | initial_stock | unit_price
+------------+-------------+---------------+------------
+      10023 |      100001 |             5 |     100.00
+(1 row)
+
+Time: 0.320 ms
+=== 3. Install failure-injection trigger ===
+CREATE FUNCTION
+Time: 0.942 ms
+CREATE TRIGGER
+Time: 0.428 ms
+=== 4. Execute purchase with injected failure ===
+psql:/workspace/graded-lab/tests/03_place_order_atomicity_test.sql:363: NOTICE:  PASS A01: Stock deduction observed before failure: 3
+psql:/workspace/graded-lab/tests/03_place_order_atomicity_test.sql:363: NOTICE:  PASS A02: Order 659388 exists before failure
+psql:/workspace/graded-lab/tests/03_place_order_atomicity_test.sql:363: NOTICE:  PASS A03: Order item exists before failure
+psql:/workspace/graded-lab/tests/03_place_order_atomicity_test.sql:363: NOTICE:  PASS A04: Expected failure propagated (P0001) DE03_INJECTED_INVENTORY_FAILURE
+psql:/workspace/graded-lab/tests/03_place_order_atomicity_test.sql:363: NOTICE:  PASS A05: Stock restored from failed purchase: 5
+psql:/workspace/graded-lab/tests/03_place_order_atomicity_test.sql:363: NOTICE:  PASS A06: Order count difference = 0
+psql:/workspace/graded-lab/tests/03_place_order_atomicity_test.sql:363: NOTICE:  PASS A07: Order item count difference = 0
+psql:/workspace/graded-lab/tests/03_place_order_atomicity_test.sql:363: NOTICE:  PASS A08: Inventory log count difference = 0
+psql:/workspace/graded-lab/tests/03_place_order_atomicity_test.sql:363: NOTICE:  RESULT: Failure atomicity assertions passed
+DO
+Time: 142.217 ms
+=== 5. Remove injected failure ===
+DROP TRIGGER
+Time: 0.805 ms
+DROP FUNCTION
+Time: 0.334 ms
+=== 6. Verify recovery with successful purchase ===
+psql:/workspace/graded-lab/tests/03_place_order_atomicity_test.sql:465: NOTICE:  PASS A09: Recovery purchase successful, order 659389, stock 3
+DO
+Time: 65.889 ms
+=== 7. Roll back all test changes ===
+ROLLBACK
+Time: 0.418 ms
+=== 8. Verify cleanup and baseline ===
+psql:/workspace/graded-lab/tests/03_place_order_atomicity_test.sql:578: NOTICE:  PASS: categories baseline count = 94
+psql:/workspace/graded-lab/tests/03_place_order_atomicity_test.sql:578: NOTICE:  PASS: products baseline count = 4023
+psql:/workspace/graded-lab/tests/03_place_order_atomicity_test.sql:578: NOTICE:  PASS: customers baseline count = 40420
+psql:/workspace/graded-lab/tests/03_place_order_atomicity_test.sql:578: NOTICE:  PASS: orders baseline count = 159384
+psql:/workspace/graded-lab/tests/03_place_order_atomicity_test.sql:578: NOTICE:  PASS: order_items baseline count = 336559
+psql:/workspace/graded-lab/tests/03_place_order_atomicity_test.sql:578: NOTICE:  PASS: inventory_log baseline count = 282352
+psql:/workspace/graded-lab/tests/03_place_order_atomicity_test.sql:578: NOTICE:  PASS A10: All fixtures and test objects removed
+psql:/workspace/graded-lab/tests/03_place_order_atomicity_test.sql:578: NOTICE:  RESULT: All 10 atomicity test assertions passed
+DO
+Time: 48.012 ms
+Exit code: 0
+=== sql_04_reporting_03_reporting_foundation.sql ===
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.159 ms
+DO
+Time: 1.297 ms
+=== 1. Normalize order statuses ===
+CREATE VIEW
+Time: 1.995 ms
+COMMENT
+Time: 0.323 ms
+=== 2. Define spending eligibility ===
+CREATE VIEW
+Time: 0.917 ms
+COMMENT
+Time: 0.140 ms
+=== 3. Parameterized as-of eligibility ===
+CREATE FUNCTION
+Time: 0.681 ms
+COMMENT
+Time: 0.270 ms
+=== 4. Parameterized reporting date exceptions ===
+CREATE FUNCTION
+Time: 0.524 ms
+COMMENT
+Time: 0.202 ms
+=== 5. Current future-dated order exceptions ===
+CREATE VIEW
+Time: 0.956 ms
+COMMENT
+Time: 0.174 ms
+COMMIT
+Time: 2.216 ms
+Exit code: 0
+=== sql_04_reporting_04_customer_spending_summary.sql ===
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.206 ms
+DO
+Time: 1.487 ms
+=== 1. Customer spending summary ===
+CREATE FUNCTION
+Time: 1.735 ms
+COMMENT
+Time: 0.371 ms
+=== 2. Spending attribution reconciliation ===
+CREATE FUNCTION
+Time: 0.455 ms
+COMMENT
+Time: 0.172 ms
+COMMIT
+Time: 2.029 ms
+Exit code: 0
+=== sql_04_reporting_08_customer_monthly_spending.sql ===
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.214 ms
+DO
+Time: 1.543 ms
+=== 1. Reporting window metadata ===
+CREATE FUNCTION
+Time: 2.041 ms
+=== 2. Sparse monthly spending aggregate ===
+CREATE FUNCTION
+Time: 1.226 ms
+=== 3. Dense monthly spending report ===
+CREATE FUNCTION
+Time: 0.547 ms
+=== 4. Wide-format spending export ===
+CREATE FUNCTION
+Time: 0.930 ms
+COMMENT
+Time: 0.282 ms
+COMMENT
+Time: 0.230 ms
+COMMENT
+Time: 0.162 ms
+COMMENT
+Time: 0.251 ms
+COMMIT
+Time: 2.762 ms
+Exit code: 0
+=== sql_04_reporting_12_customer_running_spending.sql ===
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.224 ms
+SET
+Time: 0.175 ms
+SET
+Time: 0.075 ms
+DO
+Time: 1.249 ms
+CREATE FUNCTION
+Time: 1.799 ms
+COMMENT
+Time: 0.310 ms
+CREATE FUNCTION
+Time: 0.799 ms
+COMMENT
+Time: 0.176 ms
+COMMIT
+Time: 2.061 ms
+=== Running spending functions deployed ===
+Exit code: 0
+=== sql_04_reporting_16_customer_ranking.sql ===
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.142 ms
+SET
+Time: 0.168 ms
+SET
+Time: 0.128 ms
+DO
+Time: 1.181 ms
+=== 1. Shared customer spending totals ===
+CREATE FUNCTION
+Time: 1.772 ms
+COMMENT
+Time: 0.349 ms
+=== 2. Full-population ranking ===
+CREATE FUNCTION
+Time: 0.693 ms
+COMMENT
+Time: 0.243 ms
+=== 3. Top-100 customer report ===
+CREATE FUNCTION
+Time: 0.513 ms
+COMMENT
+Time: 0.219 ms
+=== 4. Top-100 cutoff metadata ===
+CREATE FUNCTION
+Time: 1.107 ms
+COMMENT
+Time: 0.201 ms
+COMMIT
+Time: 1.939 ms
+=== Customer ranking deployment completed ===
+Exit code: 0
+=== tests_08_reporting_foundation_test.sql ===
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.236 ms
+DO
+Time: 1.392 ms
+=== 1. Status normalization reconciliation ===
+ normalized_status | order_count | recorded_value
+-------------------+-------------+----------------
+ cancelled         |       12697 |    38163973.23
+ completed         |      111351 |   339609366.03
+ pending           |       16009 |    48499632.57
+ refunded          |        6479 |    19834083.11
+ shipped           |       12848 |    40956904.87
+(5 rows)
+
+Time: 106.891 ms
+=== 2. Raw-to-normalized status mapping ===
+  raw_status  | normalized_status | order_count
+--------------+-------------------+-------------
+ 'canceled'   | cancelled         |        3209
+ 'cancelled'  | cancelled         |        3238
+ 'Cancelled'  | cancelled         |        3131
+ 'CANCELLED'  | cancelled         |        3119
+ 'complete'   | completed         |       22285
+ ' completed' | completed         |       22395
+ 'completed'  | completed         |       22091
+ 'Completed'  | completed         |       22188
+ 'COMPLETED'  | completed         |       22392
+ 'pending'    | pending           |        7928
+ 'Pending'    | pending           |        8081
+ 'refunded'   | refunded          |        3217
+ 'Refunded'   | refunded          |        3262
+ 'shipped'    | shipped           |        6516
+ 'Shipped'    | shipped           |        6332
+(15 rows)
+
+Time: 165.438 ms
+=== 3. Unrestricted eligibility ===
+ eligible_orders | distinct_orders | recorded_value
+-----------------+-----------------+----------------
+          111351 |          111351 |   339609366.03
+(1 row)
+
+Time: 156.345 ms
+=== 4. As-of reporting reconciliation ===
+ as_of_date | eligible_orders | eligible_value | attributed_orders | attributed_value | unattributed_orders | unattributed_value | customers_with_eligible_orders
+------------+-----------------+----------------+-------------------+------------------+---------------------+--------------------+--------------------------------
+ 2026-08-31 |          111334 |   339565617.77 |            111190 |     339176836.88 |                 144 |          388780.89 |                          37900
+ 2026-11-26 |          111339 |   339573765.42 |            111195 |     339184984.53 |                 144 |          388780.89 |                          37900
+(2 rows)
+
+Time: 1025.147 ms (00:01.025)
+=== 5. Reporting date exception reconciliation ===
+ as_of_date | excluded_orders | excluded_eligible_orders | excluded_eligible_value
+------------+-----------------+--------------------------+-------------------------
+ 2026-08-31 |              24 |                       17 |                43748.26
+ 2026-11-26 |              15 |                       12 |                35600.61
+(2 rows)
+
+Time: 29.569 ms
+=== 6. Dynamic future-dated order view ===
+ observation_date | future_orders | eligible_future_orders | eligible_future_value
+------------------+---------------+------------------------+-----------------------
+ 2026-11-27       |            15 |                     12 |              35600.61
+(1 row)
+
+Time: 23.005 ms
+=== 7. Automated reporting assertions ===
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R01: All 159384 orders preserved
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R02: One row per order
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R03: Original fields preserved
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R04: Status distribution reconciles
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R05: Eligible count and value
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R06: Exact eligible order membership
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R07: As-of totals for 2026-08-31
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R08: Exact as-of membership for 2026-08-31
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R07: As-of totals for 2026-11-26
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R08: Exact as-of membership for 2026-11-26
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R09: Date exception reconciliation for 2026-08-31
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R09: Date exception reconciliation for 2026-11-26
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R10: Empty historical period
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R11: Full historical coverage
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R12: NULL date returns no rows
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R13: Dynamic future-date membership
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  PASS R14: Historical baseline reconciles
+psql:/workspace/graded-lab/tests/08_reporting_foundation_test.sql:738: NOTICE:  RESULT: All 14 reporting foundation check groups passed
+DO
+Time: 3735.463 ms (00:03.735)
+ROLLBACK
+Time: 0.201 ms
+Exit code: 0
+=== tests_09_customer_spending_summary_test.sql ===
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.225 ms
+DO
+Time: 1.622 ms
+=== 1. Customer summary reconciliation ===
+ as_of_date | customer_rows | distinct_customers | total_spent  | total_orders | customers_with_orders | customers_without_orders
+------------+---------------+--------------------+--------------+--------------+-----------------------+--------------------------
+ 2026-08-31 |         40420 |              40420 | 339176836.88 |       111190 |                 37900 |                     2520
+ 2026-11-26 |         40420 |              40420 | 339184984.53 |       111195 |                 37900 |                     2520
+(2 rows)
+
+Time: 720.002 ms
+=== 2. Financial attribution reconciliation ===
+ as_of_date | eligible_orders | eligible_value | attributed_orders | attributed_value | unattributed_orders | unattributed_value
+------------+-----------------+----------------+-------------------+------------------+---------------------+--------------------
+ 2026-08-31 |          111334 |   339565617.77 |            111190 |     339176836.88 |                 144 |          388780.89
+ 2026-11-26 |          111339 |   339573765.42 |            111195 |     339184984.53 |                 144 |          388780.89
+(2 rows)
+
+Time: 737.962 ms
+=== 3. Sample customers with eligible orders ===
+ customer_id | total_spent | order_count |  first_order_date   |   last_order_date
+-------------+-------------+-------------+---------------------+---------------------
+      100001 |      122.07 |           4 | 2025-09-14 15:41:22 | 2026-08-28 20:45:50
+      100002 |    20763.97 |           8 | 2025-10-19 16:24:19 | 2026-08-17 11:13:18
+      100003 |     1439.63 |           3 | 2026-05-26 11:00:34 | 2026-07-21 13:59:43
+      100004 |     4791.41 |           7 | 2025-11-19 13:10:38 | 2026-08-11 08:52:05
+      100005 |    16606.21 |           5 | 2025-09-04 15:09:49 | 2026-08-27 16:31:55
+      100007 |     6745.82 |           2 | 2026-06-22 13:06:23 | 2026-08-05 09:37:33
+      100008 |     6367.42 |           3 | 2025-12-07 17:00:03 | 2026-08-15 16:48:46
+      100010 |      199.36 |           2 | 2025-11-25 19:49:06 | 2026-08-15 13:37:53
+      100011 |      239.76 |           2 | 2026-06-30 07:03:14 | 2026-07-27 11:43:13
+      100012 |      870.88 |           2 | 2026-04-26 13:12:55 | 2026-06-09 19:10:35
+(10 rows)
+
+Time: 344.148 ms
+=== 4. Sample customers without eligible orders ===
+ customer_id | total_spent | order_count | first_order_date | last_order_date
+-------------+-------------+-------------+------------------+-----------------
+      100006 |           0 |           0 |                  |
+      100009 |           0 |           0 |                  |
+      100019 |           0 |           0 |                  |
+      100020 |           0 |           0 |                  |
+      100029 |           0 |           0 |                  |
+      100037 |           0 |           0 |                  |
+      100043 |           0 |           0 |                  |
+      100089 |           0 |           0 |                  |
+      100121 |           0 |           0 |                  |
+      100127 |           0 |           0 |                  |
+(10 rows)
+
+Time: 326.772 ms
+=== 5. Historical customer population observation ===
+ current_customer_population | registered_after_headline_date | missing_registration_dates
+-----------------------------+--------------------------------+----------------------------
+                       40420 |                              0 |                          0
+(1 row)
+
+Time: 5.831 ms
+=== 6. Automated customer summary assertions ===
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S01: Customer coverage for 2026-08-31
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S02: Spending totals for 2026-08-31
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S03: Customer activity coverage for 2026-08-31
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S04: Zero-order customers for 2026-08-31
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S05: Customer date ranges for 2026-08-31
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S06: All customer records verified for 2026-08-31
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S07: Financial reconciliation for 2026-08-31
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S08: Financial partition for 2026-08-31
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S01: Customer coverage for 2026-11-26
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S02: Spending totals for 2026-11-26
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S03: Customer activity coverage for 2026-11-26
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S04: Zero-order customers for 2026-11-26
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S05: Customer date ranges for 2026-11-26
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S06: All customer records verified for 2026-11-26
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S07: Financial reconciliation for 2026-11-26
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S08: Financial partition for 2026-11-26
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S09: Empty spending period
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S10: Empty financial reconciliation
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S11: NULL date handling
+DO
+Time: 4194.844 ms (00:04.195)
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  PASS S12: Historical baseline reconciles
+psql:/workspace/graded-lab/tests/09_customer_spending_summary_test.sql:626: NOTICE:  RESULT: All 12 customer summary check groups passed
+ROLLBACK
+Time: 0.248 ms
+Exit code: 0
+=== tests_10_customer_monthly_spending_test.sql ===
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.192 ms
+SET
+Time: 0.218 ms
+SET
+Time: 0.119 ms
+SET
+Time: 0.155 ms
+SET
+Time: 0.170 ms
+DO
+Time: 1.279 ms
+=== 1. Reporting window metadata ===
+ as_of_date | window_start | window_end_exclusive | month_count | is_partial_month |                                                                                 coverage_warning
+------------+--------------+----------------------+-------------+------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 2026-08-31 | 2025-09-01   | 2026-09-01 00:00:00  |          12 | f                | Zero orders means no eligible records were found. Source-data completeness is not independently verified. The supplied baseline has unusually sparse activity after August 2026.
+ 2026-11-26 | 2025-12-01   | 2026-11-27 00:00:00  |          12 | t                | Zero orders means no eligible records were found. Source-data completeness is not independently verified. The supplied baseline has unusually sparse activity after August 2026.
+(2 rows)
+
+Time: 1.176 ms
+=== 2. Dense monthly financial reconciliation ===
+ as_of_date | report_rows | customers | reporting_months | active_customer_months | zero_order_months | partial_month_rows | attributed_orders | attributed_spending
+------------+-------------+-----------+------------------+------------------------+-------------------+--------------------+-------------------+---------------------
+ 2026-08-31 |      485040 |     40420 |               12 |                  92677 |            392363 |                  0 |            109702 |        334634759.00
+ 2026-11-26 |      485040 |     40420 |               12 |                  85681 |            399359 |              40420 |            102463 |        313014045.03
+(2 rows)
+
+Time: 3252.864 ms (00:03.253)
+=== 3. Headline monthly totals ===
+ order_month | order_count |  spending   | purchasing_customers
+-------------+-------------+-------------+----------------------
+ 2025-09-01  |        1761 |  5313423.07 |                 1714
+ 2025-10-01  |        2460 |  7608681.53 |                 2381
+ 2025-11-01  |        3023 |  8706757.02 |                 2906
+ 2025-12-01  |        3836 | 11773386.73 |                 3645
+ 2026-01-01  |        5153 | 16816058.30 |                 4842
+ 2026-02-01  |        5326 | 16086645.57 |                 4974
+ 2026-03-01  |        7055 | 21837074.59 |                 6467
+ 2026-04-01  |        9976 | 30080595.04 |                 8839
+ 2026-05-01  |       11715 | 35751841.28 |                10188
+ 2026-06-01  |       15537 | 47361107.98 |                12971
+ 2026-07-01  |       18570 | 56633957.32 |                14899
+ 2026-08-01  |       25290 | 76665230.57 |                18851
+(12 rows)
+
+Time: 1098.439 ms (00:01.098)
+=== 4. Wide-format sample (generating report; timeout 120 seconds) ===
+ as_of_date | customer_id | window_start | is_partial_month | month_01 | month_02 | month_03 | month_04 | month_05 | month_06 | month_07 | month_08 | month_09 | month_10 | month_11 | month_12 | window_spending | window_order_count
+------------+-------------+--------------+------------------+----------+----------+----------+----------+----------+----------+----------+----------+----------+----------+----------+----------+-----------------+--------------------
+ 2026-08-31 |      100001 | 2025-09-01   | f                |    52.28 |        0 |        0 |        0 |        0 |        0 |    11.38 |        0 |        0 |        0 |    39.81 |    18.60 |          122.07 |                  4
+ 2026-08-31 |      100002 | 2025-09-01   | f                |        0 |  5386.61 |        0 |        0 |        0 |  3900.04 |        0 |        0 |  8077.38 |        0 |  2746.95 |   652.99 |        20763.97 |                  8
+ 2026-08-31 |      100003 | 2025-09-01   | f                |        0 |        0 |        0 |        0 |        0 |        0 |        0 |        0 |   894.39 |   312.02 |   233.22 |        0 |         1439.63 |                  3
+ 2026-08-31 |      100004 | 2025-09-01   | f                |        0 |        0 |  1001.41 |        0 |        0 |    95.31 |        0 |  2340.51 |        0 |        0 |  1300.99 |    53.19 |         4791.41 |                  7
+ 2026-08-31 |      100005 | 2025-09-01   | f                |  1885.24 |   145.86 |        0 |        0 |        0 |        0 |        0 |        0 | 10109.76 |        0 |        0 |  4465.35 |        16606.21 |                  5
+(5 rows)
+
+Time: 1761.456 ms (00:01.761)
+=== 5. Automated monthly reporting assertions ===
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  Starting checks for 2026-08-31
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  RUN M01: Reporting metadata. 2026-08-31
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  PASS M01: Metadata for 2026-08-31
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  RUN M02: Dense output coverage and grain. 2026-08-31
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  PASS M02: Dense coverage for 2026-08-31
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  RUN M03: Active and zero-order months. 2026-08-31
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  PASS M03: Monthly density for 2026-08-31
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  RUN M04: Financial reconciliation. 2026-08-31
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  PASS M04: Financial totals for 2026-08-31
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  RUN M05: Partial-month coverage. 2026-08-31
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  PASS M05: Partial-month coverage for 2026-08-31
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  RUN M06: Sparse multiset comparison for 2026-08-31
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  PASS M06: Sparse activity for 2026-08-31
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  RUN M07: Dense multiset comparison for 2026-08-31
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  PASS M07: All dense records for 2026-08-31
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  RUN M08: Wide-format coverage. 2026-08-31
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  PASS M08: Wide coverage for 2026-08-31
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  RUN M09: Wide multiset comparison for 2026-08-31
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  PASS M09: Wide export values for 2026-08-31
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  Starting checks for 2026-11-26
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  RUN M01: Reporting metadata. 2026-11-26
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  PASS M01: Metadata for 2026-11-26
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  RUN M02: Dense output coverage and grain. 2026-11-26
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  PASS M02: Dense coverage for 2026-11-26
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  RUN M03: Active and zero-order months. 2026-11-26
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  PASS M03: Monthly density for 2026-11-26
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  RUN M04: Financial reconciliation. 2026-11-26
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  PASS M04: Financial totals for 2026-11-26
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  RUN M05: Partial-month coverage. 2026-11-26
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  PASS M05: Partial-month coverage for 2026-11-26
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  RUN M06: Sparse multiset comparison for 2026-11-26
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  PASS M06: Sparse activity for 2026-11-26
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  RUN M07: Dense multiset comparison for 2026-11-26
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  PASS M07: All dense records for 2026-11-26
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  RUN M08: Wide-format coverage. 2026-11-26
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  PASS M08: Wide coverage for 2026-11-26
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  RUN M09: Wide multiset comparison for 2026-11-26
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  PASS M09: Wide export values for 2026-11-26
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  RUN M10: Empty historical reporting window.
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  PASS M10: Empty historical window
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  RUN M11: NULL date handling.
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  PASS M11: NULL date handling
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  RUN M12: Historical baseline counts.
+DO
+Time: 23340.799 ms (00:23.341)
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  PASS M12: Historical baseline reconciles
+psql:/workspace/graded-lab/tests/10_customer_monthly_spending_test.sql:544: NOTICE:  RESULT: All 12 monthly reporting check groups passed
+ROLLBACK
+Time: 0.270 ms
+Exit code: 0
+=== tests_11_customer_running_spending_test.sql ===
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.223 ms
+SET
+Time: 0.196 ms
+SET
+Time: 0.053 ms
+SET
+Time: 0.034 ms
+DO
+Time: 1.381 ms
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  Starting checks for 2026-08-31
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C01: Monthly coverage
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C01: Monthly coverage for 2026-08-31
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C02: Monthly multiset comparison
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C02: All monthly records for 2026-08-31
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C03: Transaction coverage
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C03: Transaction coverage for 2026-08-31
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C04: Transaction multiset comparison
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C04: All transaction records for 2026-08-31
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C05: Final monthly balances
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C05: Final monthly balances for 2026-08-31
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C06: Transaction reconciliation
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C06: Transaction totals for 2026-08-31
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C07: Opening-only customers
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C07: Opening-only customers for 2026-08-31
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C08: Inactive customer coverage
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C08: Inactive customers for 2026-08-31
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C09: Pre-window NULL semantics
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C09: NULL semantics for 2026-08-31
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  Starting checks for 2026-11-26
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C01: Monthly coverage
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C01: Monthly coverage for 2026-11-26
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C02: Monthly multiset comparison
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C02: All monthly records for 2026-11-26
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C03: Transaction coverage
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C03: Transaction coverage for 2026-11-26
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C04: Transaction multiset comparison
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C04: All transaction records for 2026-11-26
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C05: Final monthly balances
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C05: Final monthly balances for 2026-11-26
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C06: Transaction reconciliation
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C06: Transaction totals for 2026-11-26
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C07: Opening-only customers
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C07: Opening-only customers for 2026-11-26
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C08: Inactive customer coverage
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C08: Inactive customers for 2026-11-26
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C09: Pre-window NULL semantics
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C09: NULL semantics for 2026-11-26
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C10: Empty historical window
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C10: Empty historical window
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C11: NULL date handling
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C11: NULL date handling
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C12: Synthetic timestamp ties
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C12: Synthetic timestamp-tie expression
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RUN C13: Historical baseline counts
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  PASS C13: Historical baseline reconciles
+psql:/workspace/graded-lab/tests/11_customer_running_spending_test.sql:959: NOTICE:  RESULT: All 13 running spending check groups passed
+DO
+Time: 39212.594 ms (00:39.213)
+ROLLBACK
+Time: 0.282 ms
+Exit code: 0
+=== tests_12_customer_ranking_test.sql ===
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.249 ms
+SET
+Time: 0.182 ms
+SET
+Time: 0.133 ms
+SET
+Time: 0.117 ms
+DO
+Time: 1.599 ms
+=== A. Independent baseline verification ===
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A01: Independent shared totals match (2026-08-31)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A02: Coverage and partition identities (2026-08-31)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A03: D028 customer summary matches (2026-08-31)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A04: D029 monthly totals match (2026-08-31)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A05: D030 final cumulative balances match (2026-08-31)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A06: Exact ranking records match (2026-08-31, trailing_12_months)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A07: Ranking integrity (2026-08-31, trailing_12_months)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A08: Financial reconciliation (2026-08-31, trailing_12_months): selected=14781340.27, remaining=319853418.73, unattributed=388780.89, eligible=335023539.89
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A09: Independent metadata matches (2026-08-31, trailing_12_months)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A06: Exact ranking records match (2026-08-31, recorded_history)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A07: Ranking integrity (2026-08-31, recorded_history)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A08: Financial reconciliation (2026-08-31, recorded_history): selected=14836678.67, remaining=324340158.21, unattributed=388780.89, eligible=339565617.77
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A09: Independent metadata matches (2026-08-31, recorded_history)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A10: Default ranking basis (2026-08-31)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A01: Independent shared totals match (2026-11-26)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A02: Coverage and partition identities (2026-11-26)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A03: D028 customer summary matches (2026-11-26)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A04: D029 monthly totals match (2026-11-26)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A05: D030 final cumulative balances match (2026-11-26)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A06: Exact ranking records match (2026-11-26, trailing_12_months)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A07: Ranking integrity (2026-11-26, trailing_12_months)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A08: Financial reconciliation (2026-11-26, trailing_12_months): selected=14329991.90, remaining=298684053.13, unattributed=321481.76, eligible=313335526.79
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A09: Independent metadata matches (2026-11-26, trailing_12_months)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A06: Exact ranking records match (2026-11-26, recorded_history)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A07: Ranking integrity (2026-11-26, recorded_history)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A08: Financial reconciliation (2026-11-26, recorded_history): selected=14836678.67, remaining=324348305.86, unattributed=388780.89, eligible=339573765.42
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A09: Independent metadata matches (2026-11-26, recorded_history)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:880: NOTICE:  PASS A10: Default ranking basis (2026-11-26)
+DO
+Time: 40205.799 ms (00:40.206)
+ROLLBACK
+Time: 0.566 ms
+=== B. Transactional edge-case verification ===
+BEGIN
+Time: 0.469 ms
+SET
+Time: 0.533 ms
+SET
+Time: 0.393 ms
+SET
+Time: 0.239 ms
+DO
+Time: 0.298 ms
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:963: NOTICE:  PASS B01: Empty population (trailing_12_months)
+DO
+Time: 1201.394 ms (00:01.201)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:963: NOTICE:  PASS B01: Empty population (recorded_history)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1062: NOTICE:  PASS B02a: Invalid basis rejected
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1062: NOTICE:  PASS B02b: Invalid metadata basis rejected
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1062: NOTICE:  PASS B02c: NULL basis rejected
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1062: NOTICE:  PASS B02d: NULL metadata basis rejected
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1062: NOTICE:  PASS B02e: NULL date behaviour
+DO
+Time: 2.947 ms
+DO
+Time: 8.138 ms
+SELECT 103
+Time: 1.527 ms
+INSERT 0 103
+Time: 2.770 ms
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1170: NOTICE:  PASS B03: 103 synthetic orders inserted
+DO
+Time: 0.706 ms
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1229: NOTICE:  PASS B04: Small population without padding (trailing_12_months)
+DO
+Time: 1397.063 ms (00:01.397)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1229: NOTICE:  PASS B04: Small population without padding (recorded_history)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1435: NOTICE:  PASS B05: Full-population rank and exact precision (trailing_12_months)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1435: NOTICE:  PASS B06: Deterministic cutoff selection (trailing_12_months)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1435: NOTICE:  PASS B07: Three cutoff ties, one selected, two excluded (trailing_12_months)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1435: NOTICE:  PASS B08: Synthetic financial reconciliation (trailing_12_months)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1435: NOTICE:  PASS B05: Full-population rank and exact precision (recorded_history)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1435: NOTICE:  PASS B06: Deterministic cutoff selection (recorded_history)
+DO
+Time: 2652.711 ms (00:02.653)
+=== Synthetic cutoff metadata before rollback ===
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1435: NOTICE:  PASS B07: Three cutoff ties, one selected, two excluded (recorded_history)
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1435: NOTICE:  PASS B08: Synthetic financial reconciliation (recorded_history)
+   ranking_basis    | qualifying_customer_count | selected_customer_count | cutoff_spending | customers_at_cutoff | cutoff_customers_selected | cutoff_customers_excluded | has_excluded_cutoff_ties | qualifying_spending | selected_spending | remaining_qualifying_spending
+--------------------+---------------------------+-------------------------+-----------------+---------------------+---------------------------+---------------------------+--------------------------+---------------------+-------------------+-------------------------------
+ trailing_12_months |                       103 |                     100 |          100.00 |                   3 |                         1 |                         2 | t                        |            20199.99 |          19900.00 |                        299.99
+(1 row)
+
+Time: 343.734 ms
+ROLLBACK
+Time: 0.343 ms
+BEGIN
+Time: 0.148 ms
+SET
+Time: 0.129 ms
+SET
+Time: 0.141 ms
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1529: NOTICE:  PASS C01: Synthetic fixtures removed by rollback
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1529: NOTICE:  PASS C02: All six baseline table counts preserved
+psql:/workspace/graded-lab/tests/12_customer_ranking_test.sql:1529: NOTICE:  PASS C03: Empty reporting period restored
+DO
+Time: 397.886 ms
+ROLLBACK
+Time: 0.669 ms
+=== All customer ranking verification tests passed ===
+Exit code: 0
+=== sql_05_inventory_01_low_stock_rollup.sql ===
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.170 ms
+SET
+Time: 0.123 ms
+SET
+Time: 0.159 ms
+DO
+Time: 1.188 ms
+CREATE VIEW
+Time: 2.412 ms
+CREATE FUNCTION
+Time: 0.612 ms
+CREATE VIEW
+Time: 1.187 ms
+CREATE VIEW
+Time: 0.716 ms
+COMMENT
+Time: 0.282 ms
+COMMIT
+Time: 2.514 ms
+Exit code: 0
+=== sql_05_inventory_02_stock_movement_audit.sql ===
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.193 ms
+SET
+Time: 1.037 ms
+SET
+Time: 0.176 ms
+DO
+Time: 1.147 ms
+ALTER TABLE
+Time: 1.007 ms
+CREATE FUNCTION
+Time: 0.685 ms
+psql:/workspace/graded-lab/sql/05_inventory/02_stock_movement_audit.sql:31: NOTICE:  trigger "trg_audit_stock_update" for relation "public.products" does not exist, skipping
+DROP TRIGGER
+Time: 0.352 ms
+CREATE TRIGGER
+Time: 0.419 ms
+CREATE FUNCTION
+Time: 1.039 ms
+CREATE FUNCTION
+Time: 0.450 ms
+COMMENT
+Time: 0.282 ms
+COMMENT
+Time: 0.265 ms
+COMMIT
+Time: 2.031 ms
+Exit code: 0
+=== tests_13_low_stock_rollup_test.sql ===
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.148 ms
+SET
+Time: 0.158 ms
+SET
+Time: 0.092 ms
+psql:/workspace/graded-lab/tests/13_low_stock_rollup_test.sql:55: NOTICE:  PASS L01: independent ancestor counts, threshold 1
+psql:/workspace/graded-lab/tests/13_low_stock_rollup_test.sql:55: NOTICE:  PASS L02: threshold 1, total 591, rooted 584, exceptions 7
+psql:/workspace/graded-lab/tests/13_low_stock_rollup_test.sql:55: NOTICE:  PASS L01: independent ancestor counts, threshold 10
+psql:/workspace/graded-lab/tests/13_low_stock_rollup_test.sql:55: NOTICE:  PASS L02: threshold 10, total 1949, rooted 1931, exceptions 18
+psql:/workspace/graded-lab/tests/13_low_stock_rollup_test.sql:55: NOTICE:  PASS L01: independent ancestor counts, threshold 20
+psql:/workspace/graded-lab/tests/13_low_stock_rollup_test.sql:55: NOTICE:  PASS L02: threshold 20, total 2225, rooted 2203, exceptions 22
+psql:/workspace/graded-lab/tests/13_low_stock_rollup_test.sql:55: NOTICE:  PASS L03: category coverage
+psql:/workspace/graded-lab/tests/13_low_stock_rollup_test.sql:55: NOTICE:  PASS L04: invalid thresholds rejected
+DO
+Time: 44.142 ms
+=== Root totals ===
+ category_id |   category_name   | parent_id | root_id | depth |   category_path   | direct_low_stock_count | low_stock_count | negative_stock_count | zero_stock_count | unknown_stock_count
+-------------+-------------------+-----------+---------+-------+-------------------+------------------------+-----------------+----------------------+------------------+---------------------
+         101 | Electronics       |           |     101 |     1 | Electronics       |                      0 |             599 |                    6 |              176 |                   0
+         155 | Groceries         |           |     155 |     1 | Groceries         |                      0 |             376 |                    2 |              116 |                   0
+         141 | Fashion           |           |     141 |     1 | Fashion           |                      0 |             345 |                    1 |               91 |                   0
+         128 | Home Appliances   |           |     128 |     1 | Home Appliances   |                      0 |             272 |                    4 |               88 |                   0
+         172 | Health and Beauty |           |     172 |     1 | Health and Beauty |                      0 |             179 |                    1 |               48 |                   0
+         182 | Baby and Toys     |           |     182 |     1 | Baby and Toys     |                      0 |             160 |                    0 |               51 |                   0
+        9004 | Flash Sale Items  |           |    9004 |     1 | Flash Sale Items  |                      0 |               0 |                    0 |                0 |                   0
+(7 rows)
+
+Time: 2.516 ms
+=== Unrooted categories ===
+ category_id |    category_name    | parent_id
+-------------+---------------------+-----------
+        9001 | Seasonal Promotions |      9002
+        9002 | Promotions          |      9001
+        9003 | Clearance           |      8999
+(3 rows)
+
+Time: 2.434 ms
+=== Product exception totals ===
+     coverage      | products | low_stock | unknown_stock
+-------------------+----------+-----------+---------------
+ uncategorised     |       37 |        15 |             0
+ unrooted_category |        6 |         3 |             0
+(2 rows)
+
+Time: 2.665 ms
+=== Current stock totals ===
+ products | low_stock | negative_stock | zero_stock | unknown_stock
+----------+-----------+----------------+------------+---------------
+     4023 |      1949 |             14 |        577 |             0
+(1 row)
+
+Time: 1.346 ms
+=== Rollup plan ===
+                                                               QUERY PLAN
+----------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=60.08..62.58 rows=1000 width=120) (actual time=1.689..1.694 rows=91.00 loops=1)
+   Sort Key: category_id
+   Sort Method: quicksort  Memory: 35kB
+   Buffers: shared hit=45
+   ->  Function Scan on low_stock_category_rollup  (cost=0.25..10.25 rows=1000 width=120) (actual time=1.666..1.671 rows=91.00 loops=1)
+         Buffers: shared hit=45
+ Planning Time: 0.114 ms
+ Execution Time: 1.718 ms
+(8 rows)
+
+Time: 2.825 ms
+ROLLBACK
+Time: 0.177 ms
+BEGIN
+Time: 0.141 ms
+SET
+Time: 0.097 ms
+SET
+Time: 0.240 ms
+INSERT 0 1
+Time: 0.517 ms
+INSERT 0 8
+Time: 1.084 ms
+INSERT 0 2
+Time: 0.258 ms
+UPDATE 1
+Time: 0.389 ms
+INSERT 0 4
+Time: 0.657 ms
+psql:/workspace/graded-lab/tests/13_low_stock_rollup_test.sql:87: NOTICE:  PASS L05: depth nine, direct/ancestor counts, zero and boundary
+DO
+Time: 9.241 ms
+psql:/workspace/graded-lab/tests/13_low_stock_rollup_test.sql:87: NOTICE:  PASS L06: cycle excluded and product visible
+ROLLBACK
+Time: 0.225 ms
+psql:/workspace/graded-lab/tests/13_low_stock_rollup_test.sql:92: NOTICE:  PASS L07: fixtures absent after rollback
+DO
+Time: 0.540 ms
+Exit code: 0
+=== tests_14_stock_movement_audit_test.sql ===
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.180 ms
+SET
+Time: 0.148 ms
+SET
+Time: 0.125 ms
+DO
+Time: 1.224 ms
+INSERT 0 2
+Time: 0.794 ms
+psql:/workspace/graded-lab/tests/14_stock_movement_audit_test.sql:41: NOTICE:  PASS A01: restock and audit context
+psql:/workspace/graded-lab/tests/14_stock_movement_audit_test.sql:41: NOTICE:  PASS A02: negative correction
+psql:/workspace/graded-lab/tests/14_stock_movement_audit_test.sql:41: NOTICE:  PASS A03: sale, order reference and exactly one movement
+psql:/workspace/graded-lab/tests/14_stock_movement_audit_test.sql:41: NOTICE:  PASS A04: multi-row direct update and no-op
+psql:/workspace/graded-lab/tests/14_stock_movement_audit_test.sql:41: NOTICE:  PASS A05: invalid requests and insufficient stock leave no movement
+DO
+Time: 166.786 ms
+psql:/workspace/graded-lab/tests/14_stock_movement_audit_test.sql:41: NOTICE:  PASS A06: adjustment rollback
+CREATE FUNCTION
+Time: 3.362 ms
+CREATE TRIGGER
+Time: 0.552 ms
+DO
+Time: 72.902 ms
+psql:/workspace/graded-lab/tests/14_stock_movement_audit_test.sql:56: NOTICE:  PASS A07: failure after deduction rolls back stock, order and audit
+ product_id | change_qty |   reason   | stock_before | stock_after | changed_by |                         note
+------------+------------+------------+--------------+-------------+------------+------------------------------------------------------
+    -960001 |          5 | restock    |            5 |          10 | postgres   | Delivery TEST
+    -960001 |         -2 | correction |           10 |           8 | postgres   | Count TEST
+    -960001 |         -3 | sale       |            8 |           5 | postgres   | Order ID: 659390
+    -960002 |          1 | correction |            2 |           3 | postgres   | Direct stock update (no business reference supplied)
+    -960001 |          1 | correction |            5 |           6 | postgres   | Direct stock update (no business reference supplied)
+(5 rows)
+
+Time: 15.515 ms
+ROLLBACK
+Time: 0.277 ms
+DO
+Time: 42.791 ms
+psql:/workspace/graded-lab/tests/14_stock_movement_audit_test.sql:62: NOTICE:  PASS A08: fixtures and failure trigger absent after rollback
+Exit code: 0
+=== tests_04_race_preflight.sql ===
+Pager usage is off.
+BEGIN
+ database_name
+---------------
+ kloudkart_lab
+(1 row)
+
+ transaction_isolation
+-----------------------
+ read committed
+(1 row)
+
+ max_connections
+-----------------
+ 500
+(1 row)
+
+ current_connections
+---------------------
+                   9
+(1 row)
+
+=== Race test fixture safety ===
+DO
+psql:/workspace/graded-lab/tests/04_race_preflight.sql:102: NOTICE:  PASS: No existing race fixtures
+psql:/workspace/graded-lab/tests/04_race_preflight.sql:102: NOTICE:  PASS: No historical reference collisions
+psql:/workspace/graded-lab/tests/04_race_preflight.sql:102: NOTICE:  Race fixture IDs: {10023,10024,10025,10026,10027,10028,10029,10030,10031,10032,10033,10034,10035,10036,10037,10038,10039,10040,10041,10042,10043,10044,10045,10046,10047,10123,10223,10323}
+psql:/workspace/graded-lab/tests/04_race_preflight.sql:102: NOTICE:  RESULT: Race fixture safety checks passed
+ROLLBACK
+Exit code: 0
+=== official_race ===
+race_test.py — Kloud Kart order placement under contention
+==================================================================
+  place_order found: place_order(p_customer_id bigint, p_product_id bigint, p_quantity integer)
+
+Test 1 — two buyers, one unit, 25 rounds
+        [  0] success=False order_id=None    11.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  1] success=True order_id=659392     9.5ms msg='Order placed successfully' err=''
+        [  0] success=False order_id=None    13.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  1] success=True order_id=659393    10.7ms msg='Order placed successfully' err=''
+        [  0] success=True order_id=659394     8.6ms msg='Order placed successfully' err=''
+        [  1] success=False order_id=None    10.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  0] success=False order_id=None    10.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  1] success=True order_id=659395     9.1ms msg='Order placed successfully' err=''
+        [  0] success=True order_id=659396    11.5ms msg='Order placed successfully' err=''
+        [  1] success=False order_id=None    14.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  0] success=False order_id=None    10.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  1] success=True order_id=659397     7.9ms msg='Order placed successfully' err=''
+        [  0] success=False order_id=None     9.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  1] success=True order_id=659398     7.3ms msg='Order placed successfully' err=''
+        [  0] success=True order_id=659399     9.7ms msg='Order placed successfully' err=''
+        [  1] success=False order_id=None    12.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  0] success=True order_id=659400     7.4ms msg='Order placed successfully' err=''
+        [  1] success=False order_id=None     9.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  0] success=False order_id=None    13.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  1] success=True order_id=659401    10.2ms msg='Order placed successfully' err=''
+        [  0] success=False order_id=None    12.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  1] success=True order_id=659402     9.6ms msg='Order placed successfully' err=''
+        [  0] success=False order_id=None    11.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  1] success=True order_id=659403     8.8ms msg='Order placed successfully' err=''
+        [  0] success=False order_id=None    10.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  1] success=True order_id=659404     8.9ms msg='Order placed successfully' err=''
+        [  0] success=False order_id=None    16.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  1] success=True order_id=659405    10.9ms msg='Order placed successfully' err=''
+        [  0] success=True order_id=659406     8.5ms msg='Order placed successfully' err=''
+        [  1] success=False order_id=None    10.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  0] success=True order_id=659407     8.7ms msg='Order placed successfully' err=''
+        [  1] success=False order_id=None    10.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  0] success=True order_id=659408    10.7ms msg='Order placed successfully' err=''
+        [  1] success=False order_id=None    13.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  0] success=False order_id=None    10.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  1] success=True order_id=659409     7.8ms msg='Order placed successfully' err=''
+        [  0] success=True order_id=659410     7.6ms msg='Order placed successfully' err=''
+        [  1] success=False order_id=None     9.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  0] success=False order_id=None    12.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  1] success=True order_id=659411    12.0ms msg='Order placed successfully' err=''
+        [  0] success=False order_id=None     9.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  1] success=True order_id=659412     7.3ms msg='Order placed successfully' err=''
+        [  0] success=False order_id=None     9.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  1] success=True order_id=659413     7.3ms msg='Order placed successfully' err=''
+        [  0] success=True order_id=659414     9.6ms msg='Order placed successfully' err=''
+        [  1] success=False order_id=None    15.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  0] success=False order_id=None     9.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  1] success=True order_id=659415     8.0ms msg='Order placed successfully' err=''
+        [  0] success=True order_id=659416     7.1ms msg='Order placed successfully' err=''
+        [  1] success=False order_id=None     9.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+  ok    25/25 rounds: exactly one winner, stock 0, one order, no errors
+
+Test 2 — flash sale: 400 buyers, 50 units
+        [  0] success=False order_id=None  1506.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  1] success=False order_id=None  1812.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  2] success=False order_id=None  1986.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  3] success=False order_id=None  1851.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  4] success=False order_id=None  1863.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  5] success=False order_id=None  1002.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  6] success=False order_id=None  1325.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  7] success=True order_id=659454   956.6ms msg='Order placed successfully' err=''
+        [  8] success=False order_id=None  1683.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  9] success=True order_id=659419   436.9ms msg='Order placed successfully' err=''
+        [ 10] success=True order_id=659465  1091.3ms msg='Order placed successfully' err=''
+        [ 11] success=True order_id=659452   933.6ms msg='Order placed successfully' err=''
+        [ 12] success=False order_id=None  1919.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 13] success=False order_id=None  1870.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 14] success=False order_id=None  1533.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 15] success=False order_id=None  1670.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 16] success=False order_id=None  1715.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 17] success=False order_id=None  1364.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 18] success=False order_id=None  1601.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 19] success=False order_id=None  1171.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 20] success=False order_id=None  1140.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 21] success=False order_id=None  1403.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 22] success=False order_id=None  1584.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 23] success=True order_id=659418   387.5ms msg='Order placed successfully' err=''
+        [ 24] success=False order_id=None  1575.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 25] success=False order_id=None  1646.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 26] success=False order_id=None  1423.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 27] success=False order_id=None  1554.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 28] success=False order_id=None  1359.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 29] success=False order_id=None  1324.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 30] success=True order_id=659430   603.7ms msg='Order placed successfully' err=''
+        [ 31] success=False order_id=None  1921.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 32] success=False order_id=None  1775.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 33] success=True order_id=659448   877.1ms msg='Order placed successfully' err=''
+        [ 34] success=False order_id=None  1289.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 35] success=False order_id=None  1430.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 36] success=False order_id=None  1110.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 37] success=False order_id=None  1632.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 38] success=False order_id=None  1796.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 39] success=False order_id=None  1798.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 40] success=False order_id=None  1184.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 41] success=False order_id=None  1910.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 42] success=False order_id=None  1870.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 43] success=False order_id=None  1191.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 44] success=False order_id=None  1550.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 45] success=False order_id=None  1723.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 46] success=False order_id=None  1842.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 47] success=False order_id=None  1951.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 48] success=False order_id=None  1698.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 49] success=False order_id=None   908.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 50] success=False order_id=None  1635.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 51] success=False order_id=None  1154.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 52] success=False order_id=None  1584.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 53] success=False order_id=None  1874.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 54] success=False order_id=None  1572.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 55] success=False order_id=None  1807.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 56] success=True order_id=659438   730.9ms msg='Order placed successfully' err=''
+        [ 57] success=False order_id=None  1319.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 58] success=False order_id=None  1927.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 59] success=False order_id=None  1823.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 60] success=False order_id=None  1793.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 61] success=True order_id=659441   763.6ms msg='Order placed successfully' err=''
+        [ 62] success=False order_id=None  1349.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 63] success=False order_id=None  1489.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 64] success=False order_id=None  1288.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 65] success=False order_id=None   939.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 66] success=False order_id=None  1927.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 67] success=False order_id=None  1364.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 68] success=False order_id=None  1335.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 69] success=False order_id=None  1908.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 70] success=True order_id=659427   584.1ms msg='Order placed successfully' err=''
+        [ 71] success=False order_id=None  1327.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 72] success=False order_id=None  1893.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 73] success=False order_id=None  1841.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 74] success=False order_id=None  1080.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 75] success=False order_id=None  1956.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 76] success=True order_id=659451   705.9ms msg='Order placed successfully' err=''
+        [ 77] success=False order_id=None  1424.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 78] success=False order_id=None  1097.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 79] success=True order_id=659450   863.7ms msg='Order placed successfully' err=''
+        [ 80] success=False order_id=None  1716.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 81] success=False order_id=None  1464.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 82] success=False order_id=None  1779.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 83] success=False order_id=None  1645.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 84] success=False order_id=None  1179.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 85] success=False order_id=None  1911.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 86] success=False order_id=None  1790.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 87] success=False order_id=None  1442.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 88] success=False order_id=None  1698.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 89] success=False order_id=None  1324.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 90] success=False order_id=None  1509.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 91] success=False order_id=None  1975.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 92] success=False order_id=None  1599.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 93] success=False order_id=None  1268.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 94] success=False order_id=None  1427.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 95] success=False order_id=None  1894.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 96] success=False order_id=None  1612.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 97] success=True order_id=659433   647.8ms msg='Order placed successfully' err=''
+        [ 98] success=False order_id=None  1104.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 99] success=False order_id=None  1992.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [100] success=False order_id=None  1986.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [101] success=False order_id=None  1351.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [102] success=True order_id=659460  1019.4ms msg='Order placed successfully' err=''
+        [103] success=False order_id=None  1851.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [104] success=False order_id=None  1636.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [105] success=False order_id=None  1136.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [106] success=False order_id=None  1168.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [107] success=False order_id=None  1673.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [108] success=False order_id=None  1425.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [109] success=False order_id=None  1112.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [110] success=False order_id=None  1109.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [111] success=True order_id=659421   457.0ms msg='Order placed successfully' err=''
+        [112] success=False order_id=None  1513.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [113] success=False order_id=None  1525.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [114] success=False order_id=None  1644.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [115] success=False order_id=None  1796.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [116] success=False order_id=None  1562.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [117] success=False order_id=None  1639.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [118] success=False order_id=None  1300.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [119] success=False order_id=None  1691.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [120] success=False order_id=None  1939.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [121] success=False order_id=None  1932.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [122] success=False order_id=None  1339.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [123] success=False order_id=None  1449.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [124] success=True order_id=659435   654.8ms msg='Order placed successfully' err=''
+        [125] success=False order_id=None  1479.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [126] success=False order_id=None  1834.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [127] success=False order_id=None  1133.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [128] success=False order_id=None  1796.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [129] success=True order_id=659425   537.6ms msg='Order placed successfully' err=''
+        [130] success=False order_id=None  1862.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [131] success=False order_id=None  1571.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [132] success=False order_id=None  1015.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [133] success=False order_id=None  1897.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [134] success=False order_id=None  1262.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [135] success=False order_id=None  1915.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [136] success=False order_id=None  1723.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [137] success=True order_id=659436   661.7ms msg='Order placed successfully' err=''
+        [138] success=False order_id=None  1800.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [139] success=False order_id=None  1964.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [140] success=False order_id=None  1216.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [141] success=True order_id=659423   412.9ms msg='Order placed successfully' err=''
+        [142] success=False order_id=None  1062.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [143] success=False order_id=None  1842.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [144] success=False order_id=None  1089.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [145] success=False order_id=None  1669.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [146] success=False order_id=None  1250.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [147] success=False order_id=None  1037.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [148] success=False order_id=None  1831.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [149] success=False order_id=None  1259.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [150] success=False order_id=None  1980.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [151] success=False order_id=None  1686.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [152] success=False order_id=None  1289.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [153] success=False order_id=None  1857.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [154] success=False order_id=None  1309.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [155] success=False order_id=None  1842.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [156] success=False order_id=None  1410.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [157] success=False order_id=None  1070.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [158] success=False order_id=None  1210.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [159] success=False order_id=None  1642.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [160] success=False order_id=None  1855.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [161] success=False order_id=None  1245.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [162] success=True order_id=659422   448.7ms msg='Order placed successfully' err=''
+        [163] success=False order_id=None  1422.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [164] success=False order_id=None  1987.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [165] success=True order_id=659428   594.1ms msg='Order placed successfully' err=''
+        [166] success=False order_id=None  1948.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [167] success=False order_id=None  1334.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [168] success=False order_id=None  1588.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [169] success=False order_id=None  1617.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [170] success=False order_id=None  1846.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [171] success=False order_id=None  1372.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [172] success=False order_id=None  1256.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [173] success=False order_id=None  1737.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [174] success=False order_id=None  1396.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [175] success=False order_id=None  1799.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [176] success=False order_id=None  1687.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [177] success=False order_id=None  1671.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [178] success=False order_id=None  1798.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [179] success=False order_id=None  1520.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [180] success=False order_id=None  1492.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [181] success=True order_id=659449   708.1ms msg='Order placed successfully' err=''
+        [182] success=False order_id=None  1758.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [183] success=False order_id=None  1282.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [184] success=False order_id=None  1598.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [185] success=False order_id=None  1367.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [186] success=False order_id=None  1991.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [187] success=False order_id=None  1089.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [188] success=False order_id=None  1662.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [189] success=False order_id=None  1254.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [190] success=False order_id=None  1127.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [191] success=True order_id=659446   672.9ms msg='Order placed successfully' err=''
+        [192] success=False order_id=None  1677.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [193] success=False order_id=None  1591.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [194] success=False order_id=None  1776.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [195] success=False order_id=None  1398.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [196] success=False order_id=None  1236.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [197] success=False order_id=None  1117.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [198] success=False order_id=None  1465.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [199] success=False order_id=None  1837.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [200] success=False order_id=None  1285.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [201] success=False order_id=None   950.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [202] success=False order_id=None  1290.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [203] success=False order_id=None  1593.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [204] success=False order_id=None  1766.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [205] success=False order_id=None  1084.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [206] success=False order_id=None  1876.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [207] success=False order_id=None  1341.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [208] success=False order_id=None   963.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [209] success=False order_id=None  1426.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [210] success=False order_id=None  1452.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [211] success=False order_id=None  1114.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [212] success=False order_id=None  1553.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [213] success=False order_id=None  1174.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [214] success=False order_id=None  1835.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [215] success=False order_id=None  1709.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [216] success=False order_id=None  1345.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [217] success=False order_id=None  1930.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [218] success=False order_id=None  1463.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [219] success=False order_id=None  1076.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [220] success=False order_id=None  1151.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [221] success=True order_id=659437   692.8ms msg='Order placed successfully' err=''
+        [222] success=False order_id=None  1378.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [223] success=False order_id=None  1050.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [224] success=False order_id=None  1595.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [225] success=True order_id=659443   732.2ms msg='Order placed successfully' err=''
+        [226] success=False order_id=None  1551.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [227] success=False order_id=None  1631.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [228] success=False order_id=None  1421.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [229] success=False order_id=None  1120.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [230] success=False order_id=None  1576.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [231] success=False order_id=None  1673.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [232] success=True order_id=659440   731.5ms msg='Order placed successfully' err=''
+        [233] success=False order_id=None  1566.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [234] success=False order_id=None  1524.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [235] success=True order_id=659424   517.0ms msg='Order placed successfully' err=''
+        [236] success=False order_id=None  1490.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [237] success=False order_id=None  1841.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [238] success=True order_id=659432   554.4ms msg='Order placed successfully' err=''
+        [239] success=False order_id=None  1238.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [240] success=False order_id=None  1066.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [241] success=True order_id=659444   744.6ms msg='Order placed successfully' err=''
+        [242] success=False order_id=None  1273.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [243] success=False order_id=None  1688.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [244] success=False order_id=None  1549.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [245] success=False order_id=None  1574.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [246] success=False order_id=None  1572.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [247] success=False order_id=None  1429.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [248] success=False order_id=None  1760.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [249] success=False order_id=None  1449.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [250] success=False order_id=None  1394.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [251] success=False order_id=None  1442.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [252] success=False order_id=None  1837.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [253] success=False order_id=None  1836.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [254] success=False order_id=None  1080.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [255] success=False order_id=None  1191.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [256] success=False order_id=None  1052.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [257] success=True order_id=659459   971.4ms msg='Order placed successfully' err=''
+        [258] success=False order_id=None  1201.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [259] success=False order_id=None   978.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [260] success=False order_id=None  1394.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [261] success=True order_id=659463   933.9ms msg='Order placed successfully' err=''
+        [262] success=False order_id=None  1365.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [263] success=True order_id=659429   572.9ms msg='Order placed successfully' err=''
+        [264] success=False order_id=None  1539.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [265] success=False order_id=None  1022.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [266] success=False order_id=None  1927.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [267] success=False order_id=None  1302.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [268] success=False order_id=None  1222.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [269] success=False order_id=None  1502.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [270] success=False order_id=None  1279.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [271] success=False order_id=None  1340.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [272] success=False order_id=None  1058.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [273] success=True order_id=659455   845.0ms msg='Order placed successfully' err=''
+        [274] success=True order_id=659453   882.4ms msg='Order placed successfully' err=''
+        [275] success=True order_id=659457   922.1ms msg='Order placed successfully' err=''
+        [276] success=False order_id=None  1805.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [277] success=False order_id=None  1520.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [278] success=False order_id=None  1321.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [279] success=False order_id=None  1392.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [280] success=False order_id=None  1904.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [281] success=False order_id=None  1691.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [282] success=False order_id=None  1722.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [283] success=False order_id=None  1394.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [284] success=False order_id=None  1010.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [285] success=False order_id=None  1716.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [286] success=False order_id=None  1310.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [287] success=False order_id=None  1773.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [288] success=False order_id=None  1368.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [289] success=False order_id=None  1843.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [290] success=False order_id=None  1286.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [291] success=True order_id=659431   579.7ms msg='Order placed successfully' err=''
+        [292] success=True order_id=659466  1016.2ms msg='Order placed successfully' err=''
+        [293] success=False order_id=None  1570.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [294] success=False order_id=None  1168.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [295] success=False order_id=None  1042.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [296] success=False order_id=None  1654.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [297] success=False order_id=None  1187.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [298] success=True order_id=659447   791.6ms msg='Order placed successfully' err=''
+        [299] success=False order_id=None  1561.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [300] success=False order_id=None  1799.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [301] success=False order_id=None  1466.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [302] success=False order_id=None  1361.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [303] success=False order_id=None  1598.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [304] success=False order_id=None  1693.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [305] success=False order_id=None  1921.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [306] success=True order_id=659420   371.1ms msg='Order placed successfully' err=''
+        [307] success=False order_id=None  1429.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [308] success=False order_id=None  1394.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [309] success=False order_id=None  1669.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [310] success=False order_id=None  1804.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [311] success=False order_id=None  1222.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [312] success=False order_id=None  1473.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [313] success=False order_id=None  1450.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [314] success=False order_id=None  1097.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [315] success=False order_id=None  1472.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [316] success=False order_id=None  1374.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [317] success=False order_id=None  1313.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [318] success=True order_id=659434   613.7ms msg='Order placed successfully' err=''
+        [319] success=False order_id=None  1545.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [320] success=False order_id=None  1173.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [321] success=False order_id=None  1549.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [322] success=False order_id=None  1176.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [323] success=False order_id=None  1102.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [324] success=False order_id=None  1942.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [325] success=False order_id=None  1132.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [326] success=True order_id=659461   967.7ms msg='Order placed successfully' err=''
+        [327] success=False order_id=None  1646.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [328] success=False order_id=None  1500.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [329] success=False order_id=None  1121.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [330] success=False order_id=None  1461.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [331] success=False order_id=None  1724.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [332] success=False order_id=None  1836.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [333] success=False order_id=None  1812.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [334] success=True order_id=659439   672.4ms msg='Order placed successfully' err=''
+        [335] success=False order_id=None  1229.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [336] success=False order_id=None  1558.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [337] success=False order_id=None  1818.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [338] success=False order_id=None  1022.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [339] success=False order_id=None  1954.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [340] success=False order_id=None  1780.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [341] success=False order_id=None  1035.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [342] success=False order_id=None  1803.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [343] success=False order_id=None  1281.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [344] success=False order_id=None  1727.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [345] success=False order_id=None  1268.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [346] success=False order_id=None  1879.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [347] success=False order_id=None  1530.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [348] success=False order_id=None  1346.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [349] success=False order_id=None  1491.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [350] success=False order_id=None  1794.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [351] success=False order_id=None  1463.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [352] success=False order_id=None  1719.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [353] success=False order_id=None  1522.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [354] success=False order_id=None  1533.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [355] success=False order_id=None  1282.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [356] success=False order_id=None   930.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [357] success=True order_id=659456   808.5ms msg='Order placed successfully' err=''
+        [358] success=False order_id=None  1906.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [359] success=True order_id=659464   891.3ms msg='Order placed successfully' err=''
+        [360] success=False order_id=None  1470.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [361] success=False order_id=None  1494.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [362] success=False order_id=None  1608.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [363] success=False order_id=None  1678.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [364] success=False order_id=None  1505.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [365] success=True order_id=659458   819.0ms msg='Order placed successfully' err=''
+        [366] success=False order_id=None  1220.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [367] success=False order_id=None  1046.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [368] success=True order_id=659442   612.1ms msg='Order placed successfully' err=''
+        [369] success=False order_id=None  1243.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [370] success=False order_id=None  1516.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [371] success=False order_id=None  1811.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [372] success=False order_id=None   922.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [373] success=False order_id=None  1240.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [374] success=False order_id=None  1835.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [375] success=False order_id=None  1737.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [376] success=False order_id=None  1783.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [377] success=False order_id=None  1230.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [378] success=False order_id=None  1230.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [379] success=False order_id=None  1257.3ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [380] success=False order_id=None   931.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [381] success=False order_id=None  1200.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [382] success=False order_id=None   904.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [383] success=False order_id=None   974.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [384] success=False order_id=None  1147.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [385] success=True order_id=659462   860.1ms msg='Order placed successfully' err=''
+        [386] success=False order_id=None  1207.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [387] success=True order_id=659417    20.2ms msg='Order placed successfully' err=''
+        [388] success=False order_id=None   898.4ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [389] success=True order_id=659445   668.6ms msg='Order placed successfully' err=''
+        [390] success=False order_id=None  1096.1ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [391] success=False order_id=None  1614.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [392] success=False order_id=None  1513.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [393] success=True order_id=659426   372.8ms msg='Order placed successfully' err=''
+        [394] success=False order_id=None  1752.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [395] success=False order_id=None   935.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [396] success=False order_id=None   977.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [397] success=False order_id=None  1282.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [398] success=False order_id=None  1531.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [399] success=False order_id=None  1398.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        50 sold, 350 refused, 0 errored, wall clock 3.59s
+  ok    exactly 50 sold, none oversold, no errors, 3.59s
+
+Test 3 — asking for more than exists
+        [  0] success=False order_id=None     4.9ms msg='Out of stock or product unavailable for requested quantity' err=''
+  ok    refused cleanly, stock untouched
+
+Test 4 — audit trail after contention
+        [  0] success=True order_id=659469    14.5ms msg='Order placed successfully' err=''
+        [  1] success=False order_id=None    38.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  2] success=False order_id=None    32.7ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  3] success=False order_id=None    27.5ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  4] success=False order_id=None    43.2ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  5] success=True order_id=659467     7.4ms msg='Order placed successfully' err=''
+        [  6] success=False order_id=None    34.0ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  7] success=True order_id=659468    12.4ms msg='Order placed successfully' err=''
+        [  8] success=False order_id=None    29.6ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [  9] success=False order_id=None    45.8ms msg='Out of stock or product unavailable for requested quantity' err=''
+        [ 10] success=True order_id=659471    23.6ms msg='Order placed successfully' err=''
+        [ 11] success=True order_id=659470    17.7ms msg='Order placed successfully' err=''
+  ok    5 sold, 5 movements recorded
+
+==================================================================
+PASSED — exactly one buyer gets the last unit, every time.
+Exit code: 0
+=== tests_05_race_cleanup_verification.sql ===
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.218 ms
+ database_name
+---------------
+ kloudkart_lab
+(1 row)
+
+Time: 0.518 ms
+=== 1. Baseline reconciliation ===
+  table_name   | expected_rows | actual_rows | difference | result
+---------------+---------------+-------------+------------+--------
+ categories    |            94 |          94 |          0 | PASS
+ customers     |         40420 |       40420 |          0 | PASS
+ inventory_log |        282352 |      282352 |          0 | PASS
+ order_items   |        336559 |      336559 |          0 | PASS
+ orders        |        159384 |      159384 |          0 | PASS
+ products      |          4023 |        4023 |          0 | PASS
+(6 rows)
+
+Time: 46.958 ms
+=== 2. Automated cleanup assertions ===
+DO
+Time: 270.587 ms
+=== 3. Remaining historical negative stock ===
+psql:/workspace/graded-lab/tests/05_race_cleanup_verification.sql:142: NOTICE:  PASS: All race fixture products removed
+psql:/workspace/graded-lab/tests/05_race_cleanup_verification.sql:142: NOTICE:  PASS: All race fixture order items removed
+psql:/workspace/graded-lab/tests/05_race_cleanup_verification.sql:142: NOTICE:  PASS: All race fixture inventory logs removed
+psql:/workspace/graded-lab/tests/05_race_cleanup_verification.sql:142: NOTICE:  PASS: No orders above source maximum or item references in generated-ID gap
+psql:/workspace/graded-lab/tests/05_race_cleanup_verification.sql:142: NOTICE:  PASS: Historical orphan count preserved (692)
+psql:/workspace/graded-lab/tests/05_race_cleanup_verification.sql:142: NOTICE:  PASS: All six baseline counts reconciled
+psql:/workspace/graded-lab/tests/05_race_cleanup_verification.sql:142: NOTICE:  RESULT: Race cleanup verification passed
+ negative_stock_products
+-------------------------
+                      14
+(1 row)
+
+Time: 0.935 ms
+=== 4. Identifier sequence state ===
+ last_value | is_called
+------------+-----------
+     659471 | t
+(1 row)
+
+Time: 0.184 ms
+ROLLBACK
+Time: 0.071 ms
+Exit code: 0
+=== readiness_reference ===
+Environment: {'db': 'kloudkart_lab', 'isolation': 'repeatable read', 'read_only': 'on'}
+=== 2026-08-31 ===
+Customer reference: 40420 rows, 3302.501 ms (query + fetch)
+Exception reference: 1140.555 ms (query + fetch)
+Window orders: 109702; window amount: 334634759.00; qualifying customers: 37816; top100 amount: 14781340.27
+eligible_orders: 111334
+eligible_value: 339565617.77
+attributed_orders: 111190
+attributed_value: 339176836.88
+unattributed_orders: 144
+unattributed_value: 388780.89
+mismatch_orders: 1624
+mismatch_absolute_gap: 2074053.86
+mismatch_recorded_value: 5848525.33
+incomplete_orders: 95
+incomplete_recorded_value: 455904.42
+no_item_orders: 0
+null_header_amount_orders: 0
+missing_date_count: 0
+after_cutoff_count: 17
+missing_date_value: 0
+after_cutoff_value: 43748.26
+shared_email_groups: 533
+shared_email_accounts: 1068
+PASS: independent reference matches historical baseline and internal identities (2026-08-31)
+=== 2026-11-26 ===
+Customer reference: 40420 rows, 2874.562 ms (query + fetch)
+Exception reference: 1166.249 ms (query + fetch)
+Window orders: 102463; window amount: 313014045.03; qualifying customers: 37285; top100 amount: 14329991.90
+eligible_orders: 111339
+eligible_value: 339573765.42
+attributed_orders: 111195
+attributed_value: 339184984.53
+unattributed_orders: 144
+unattributed_value: 388780.89
+mismatch_orders: 1624
+mismatch_absolute_gap: 2074053.86
+mismatch_recorded_value: 5848525.33
+incomplete_orders: 95
+incomplete_recorded_value: 455904.42
+no_item_orders: 0
+null_header_amount_orders: 0
+missing_date_count: 0
+after_cutoff_count: 12
+missing_date_value: 0
+after_cutoff_value: 35600.61
+shared_email_groups: 533
+shared_email_accounts: 1068
+PASS: independent reference matches historical baseline and internal identities (2026-11-26)
+PASS: E060a reference probe complete; read-only transaction rolled back
+Exit code: 0
+=== publication_2026-08-31 ===
+Environment: {'db': 'kloudkart_lab', 'snapshot': '1290:1290:', 'isolation': 'repeatable read', 'read_only': 'on'}
+customer_summary: 40420 rows
+monthly_running: 485040 rows
+top100: 100 rows
+ranking_metadata: 1 rows
+reconciliation: 1 rows
+period_metadata: 1 rows
+R01 PASS Customer population: 0 comparison differences (positional; not unique affected records).
+R02 PASS Customer summary and financial reconciliation: 0 comparison differences (positional; not unique affected records).
+R03 PASS Monthly, cumulative and period outputs: 0 comparison differences (positional; not unique affected records).
+R04 PASS Ranking and metadata: 0 comparison differences (positional; not unique affected records).
+R05 PASS Orders without valid customer attribution; recorded spending: 144 of 111,334 eligible orders (0.1293%); 388,780.89 recorded monetary units (0.1145% of eligible recorded spending).
+R06 WARN Complete valuations disagree with checkout totals; absolute differences, not proven loss: 1,624 of 111,334 eligible orders (1.4587%); 2,074,053.86 recorded monetary units (0.6108% of eligible recorded spending).
+R07 PASS Incomplete item valuations; associated checkout value, not missing item value: 95 of 111,334 eligible orders (0.0853%); 455,904.42 recorded monetary units (0.1343% of eligible recorded spending).
+R09 INFO Final month is complete through 2026-08-31; no month-over-month comparison is generated.
+R10 INFO Completed-status orders excluded: 0 missing dates, 17 after cutoff; after-cutoff records are not automatically errors.
+R11 INFO 533 shared email groups across 1068 accounts; not proof of duplicate people.
+R12 INFO 111,334 eligible orders found through the selected cutoff.
+D01 DISCLOSURE Source completeness and real-world financial accuracy are not independently verified. Zero recorded spending does not prove absence of business activity. Historical order status and customer population reflect the current extract. Currency is unconfirmed.
+Run: e4494a12-e553-46d7-9439-898f01c47835 Status: WARN Action: REVIEW AND DISCLOSE
+Manifest: /home/<local-user>/projects/de03-kloudkart-acceptance/graded-lab/generated/e4494a12-e553-46d7-9439-898f01c47835/manifest.json
+Timings: {'report_seconds': 14.190183621998585, 'reference_seconds': 4.343880485997943, 'evaluation_seconds': 1.6461682859953726, 'elapsed_seconds': 20.235536048996437}
+Exit code: 0
+=== package_2026-08-31 ===
+PASS: 2026-08-31 WARN; seven output hashes and six CSV row counts verified
+Exit code: 0
+=== publication_2026-11-26 ===
+Environment: {'db': 'kloudkart_lab', 'snapshot': '1290:1290:', 'isolation': 'repeatable read', 'read_only': 'on'}
+customer_summary: 40420 rows
+monthly_running: 485040 rows
+top100: 100 rows
+ranking_metadata: 1 rows
+reconciliation: 1 rows
+period_metadata: 1 rows
+R01 PASS Customer population: 0 comparison differences (positional; not unique affected records).
+R02 PASS Customer summary and financial reconciliation: 0 comparison differences (positional; not unique affected records).
+R03 PASS Monthly, cumulative and period outputs: 0 comparison differences (positional; not unique affected records).
+R04 PASS Ranking and metadata: 0 comparison differences (positional; not unique affected records).
+R05 PASS Orders without valid customer attribution; recorded spending: 144 of 111,339 eligible orders (0.1293%); 388,780.89 recorded monetary units (0.1145% of eligible recorded spending).
+R06 WARN Complete valuations disagree with checkout totals; absolute differences, not proven loss: 1,624 of 111,339 eligible orders (1.4586%); 2,074,053.86 recorded monetary units (0.6108% of eligible recorded spending).
+R07 PASS Incomplete item valuations; associated checkout value, not missing item value: 95 of 111,339 eligible orders (0.0853%); 455,904.42 recorded monetary units (0.1343% of eligible recorded spending).
+R09 INFO Final month is partial through 2026-11-26; no month-over-month comparison is generated.
+R10 INFO Completed-status orders excluded: 0 missing dates, 12 after cutoff; after-cutoff records are not automatically errors.
+R11 INFO 533 shared email groups across 1068 accounts; not proof of duplicate people.
+R12 INFO 111,339 eligible orders found through the selected cutoff.
+D01 DISCLOSURE Source completeness and real-world financial accuracy are not independently verified. Zero recorded spending does not prove absence of business activity. Historical order status and customer population reflect the current extract. Currency is unconfirmed.
+Run: 2928d36f-86db-4baf-ba43-7ba264b5d587 Status: WARN Action: REVIEW AND DISCLOSE
+Manifest: /home/<local-user>/projects/de03-kloudkart-acceptance/graded-lab/generated/2928d36f-86db-4baf-ba43-7ba264b5d587/manifest.json
+Timings: {'report_seconds': 15.081620371005556, 'reference_seconds': 5.183897604001686, 'evaluation_seconds': 1.8021750769985374, 'elapsed_seconds': 22.130811198003357}
+Exit code: 0
+=== package_2026-11-26 ===
+PASS: 2026-11-26 WARN; seven output hashes and six CSV row counts verified
+Exit code: 0
+=== publication_2025-08-01 ===
+Environment: {'db': 'kloudkart_lab', 'snapshot': '1290:1290:', 'isolation': 'repeatable read', 'read_only': 'on'}
+customer_summary: 40420 rows
+monthly_running: 485040 rows
+top100: 0 rows
+ranking_metadata: 1 rows
+reconciliation: 1 rows
+period_metadata: 1 rows
+R01 PASS Customer population: 0 comparison differences (positional; not unique affected records).
+R02 PASS Customer summary and financial reconciliation: 0 comparison differences (positional; not unique affected records).
+R03 PASS Monthly, cumulative and period outputs: 0 comparison differences (positional; not unique affected records).
+R04 PASS Ranking and metadata: 0 comparison differences (positional; not unique affected records).
+R05 PASS Orders without valid customer attribution; recorded spending: 0 of 0 eligible orders (not applicable); 0.00 recorded monetary units (not applicable of eligible recorded spending).
+R06 PASS Complete valuations disagree with checkout totals; absolute differences, not proven loss: 0 of 0 eligible orders (not applicable); 0.00 recorded monetary units (not applicable of eligible recorded spending).
+R07 PASS Incomplete item valuations; associated checkout value, not missing item value: 0 of 0 eligible orders (not applicable); 0.00 recorded monetary units (not applicable of eligible recorded spending).
+R09 INFO Final month is partial through 2025-08-01; no month-over-month comparison is generated.
+R10 INFO Completed-status orders excluded: 0 missing dates, 111351 after cutoff; after-cutoff records are not automatically errors.
+R11 INFO 533 shared email groups across 1068 accounts; not proof of duplicate people.
+R12 INFO No eligible orders were found through the selected cutoff. This does not establish absence of business activity. Review source coverage, cutoff and eligibility rules.
+D01 DISCLOSURE Source completeness and real-world financial accuracy are not independently verified. Zero recorded spending does not prove absence of business activity. Historical order status and customer population reflect the current extract. Currency is unconfirmed.
+Run: 57001287-b184-4b0b-a83a-971636ba85fa Status: PASS Action: NORMAL REVIEW
+Manifest: /home/<local-user>/projects/de03-kloudkart-acceptance/graded-lab/generated/57001287-b184-4b0b-a83a-971636ba85fa/manifest.json
+Timings: {'report_seconds': 13.523588713003846, 'reference_seconds': 3.051670313005161, 'evaluation_seconds': 1.983759036003903, 'elapsed_seconds': 18.647845000006782}
+Exit code: 0
+=== package_2025-08-01 ===
+PASS: 2025-08-01 PASS; seven output hashes and six CSV row counts verified
+Exit code: 0
+PASS: fresh-load functional acceptance and publication package checks completed.
+Performance repeatability is separate; run verify_integrated_workload.py only if needed.
+Runner exit: 0; evidence: /home/<local-user>/projects/de03-kloudkart-acceptance/graded-lab/generated/acceptance-Pr3PBtGI
+Exit code: 0

@@ -1,4 +1,0 @@
-ERROR: KeyError SQLSTATE: None
-Run: 9c67ea5f-b62c-417b-bba6-f6dabcaec5de Status: ERROR Action: HOLD
-Manifest: /home/zabdieladdo/projects/de03-kloudkart/graded-lab/generated/9c67ea5f-b62c-417b-bba6-f6dabcaec5de/manifest.json
-Timings: {'elapsed_seconds': 0.008125221000227612}

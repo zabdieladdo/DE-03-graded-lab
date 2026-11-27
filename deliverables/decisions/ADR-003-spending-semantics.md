@@ -63,6 +63,6 @@ All monetary amounts in this record are in recorded dataset units; currency is u
 
 ## What this survives
 
-Changes in order volume, month boundaries, customers with no orders, opening-only customers, cutoff ties and post-cutoff records without silently changing definitions. It does not reconstruct historical customer populations or status changes; the extract contains current values. Fresh-load and final operational acceptance remain pending.
+Changes in order volume, month boundaries, customers with no orders, opening-only customers, cutoff ties and post-cutoff records without silently changing definitions. It does not reconstruct historical customer populations or status changes; the extract contains current values. Candidate fresh-load functional acceptance passed (E077c); final merged revision verification remains pending.
 
 See [evidence and decision index](../EVIDENCE_INDEX.md) for checkpoint identifiers.

@@ -15,18 +15,18 @@ Use shared eligibility definitions, set-based aggregation, window functions and 
 ## Alternatives considered
 
 - **Rank from sparse monthly aggregates:** Reuses monthly activity but repeats aggregation. Equivalent direct ranking took a median 484.836 ms versus 930.033 ms for the sparse alternative (47.87% lower). Both reporting dates and ranking bases matched across 14 fields. Direct ranking remained faster with JIT disabled; this does not isolate aggregation grain as the sole cause.
-- **Persist precomputed reporting results:** Could accelerate repeated reads but adds refresh, freshness, storage and maintenance obligations. No measured need justifies those costs at present.
+- **Persist precomputed reporting results:** Could accelerate repeated reads but adds refresh, freshness, storage and maintenance obligations. Repeated internal target misses justify investigation, but not yet the added refresh and maintenance costs; D039 retains on-demand reporting.
 
 ## Consequences
 
 - **What this buys:** Verified reporting semantics and consistent snapshots without additional persistent reporting objects or infrastructure. Integrated SQL workload measured 3.487 s alone and 4.227 s during checkout in one trial each.
 - **What this costs:** Repeated calculations across interfaces, dense monthly output and temporary storage. Earlier integrated runs took 5.276–5.929 s and all four missed the provisional five-second target. The complete workflow is not a single physical scan.
 - **What it costs the client if I am wrong:** Slow or unavailable reports, checkout contention or delayed decisions as volume grows.
-- **What would make me revisit this:** Repeated target misses, growth, checkout degradation or changed freshness requirements. Verify equivalent outputs before adopting any alternative.
+- **What would make me revisit this:** Repeated misses have already occurred. D039 retains the current design with the five-second target unchanged; revisit for growth, checkout degradation, stricter client timing or new equivalent optimization evidence. Verify equivalent outputs before adopting any alternative.
 
 ## What this survives
 
-Correctness tests cover two cutoffs, monthly and running totals and deterministic ranking. The integrated checkout trial passed with 50 wins, 350 refusals and no errors. Different session setup and uncontrolled caches prevent a causal speedup claim. Consistent five-second compliance, projected growth and final fresh-load acceptance remain unverified. The full verified file publication is a separate workload (ADR-007).
+Correctness tests cover two cutoffs, monthly and running totals and deterministic ranking. The integrated checkout trial passed with 50 wins, 350 refusals and no errors. Different session setup and uncontrolled caches prevent a causal speedup claim. All six acceptance concurrent trials missed five seconds (5.041–8.665 s); checkout completed in 2.64–4.39 s with no overselling or unexpected errors. D039 is the engineer’s decision, not a client waiver. Projected growth is unverified. Candidate fresh-load functional acceptance passed (E077c); final merged revision verification remains pending. The full verified file publication is a separate workload (ADR-007).
 
 See [customer reporting measurements](../performance/customer_reporting_performance.md) and [integrated workload measurements](../performance/integrated_workload_performance.md).
 

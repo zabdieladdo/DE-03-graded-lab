@@ -1,0 +1,729 @@
+
+==============================================================================
+ORIGINAL FILE: 00_baseline_load.txt
+ORIGINAL SHA256: 48b5dac034adaeb32deb9b08daf0cab38b7d2345c6db851a8ef085c38b5b51a4
+==============================================================================
+
+psql:schema.sql:5: NOTICE:  table "order_items" does not exist, skipping
+psql:schema.sql:5: NOTICE:  table "orders" does not exist, skipping
+psql:schema.sql:5: NOTICE:  table "inventory_log" does not exist, skipping
+psql:schema.sql:5: NOTICE:  table "products" does not exist, skipping
+psql:schema.sql:5: NOTICE:  table "customers" does not exist, skipping
+psql:schema.sql:5: NOTICE:  table "categories" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+Timing is on.
+COPY 94
+Time: 1.208 ms
+COPY 4023
+Time: 19.047 ms
+COPY 40420
+Time: 113.796 ms
+COPY 159384
+Time: 341.740 ms
+COPY 336559
+Time: 830.500 ms
+COPY 282352
+Time: 751.579 ms
+ANALYZE
+Time: 599.482 ms
+  table_name   | count
+---------------+--------
+ categories    |     94
+ customers     |  40420
+ inventory_log | 282352
+ order_items   | 336559
+ orders        | 159384
+ products      |   4023
+(6 rows)
+
+Time: 75.399 ms
+
+==============================================================================
+ORIGINAL FILE: 00_baseline_reconciliation.txt
+ORIGINAL SHA256: 28d56ec776ed172ce10d6562926de0f36c81a90598496494eb286bbf3e628230
+==============================================================================
+
+  table_name   | expected | actual | difference | status
+---------------+----------+--------+------------+--------
+ categories    |       94 |     94 |          0 | PASS
+ customers     |    40420 |  40420 |          0 | PASS
+ inventory_log |   282352 | 282352 |          0 | PASS
+ order_items   |   336559 | 336559 |          0 | PASS
+ orders        |   159384 | 159384 |          0 | PASS
+ products      |     4023 |   4023 |          0 | PASS
+(6 rows)
+
+==============================================================================
+ORIGINAL FILE: 00_bundle_verification.txt
+ORIGINAL SHA256: 7b58cb7ccf178e1136a7329a999733cef9e67ef904b2af00cff61d4c0d8a1842
+==============================================================================
+
+schema.sql: OK
+load.sql: OK
+race_test.py: OK
+data/categories.csv: OK
+data/customers.csv: OK
+data/inventory_log.csv: OK
+data/order_items.csv: OK
+data/orders.csv: OK
+data/products.csv: OK
+
+==============================================================================
+ORIGINAL FILE: 00_database_before_load.txt
+ORIGINAL SHA256: 22cd3d6a4c9ef0f0d8ee417d38d408d6bff9b4c9fbb3a10c657e5957a115d602
+==============================================================================
+
+ current_database | current_user
+------------------+--------------
+ kloudkart_lab    | postgres
+(1 row)
+
+Did not find any tables.
+                       List of functions
+ Schema | Name | Result data type | Argument data types | Type
+--------+------+------------------+---------------------+------
+(0 rows)
+
+==============================================================================
+ORIGINAL FILE: 00_setup_verification.txt
+ORIGINAL SHA256: 17eaae754346495c59ef8f35e1135a22abf209ac042138bfd944ac4b4ce59674
+==============================================================================
+
+Using active Python virtual environment
+
+--- Docker container ---
+CONTAINER ID   IMAGE         COMMAND                  CREATED        STATUS        PORTS                      NAMES
+7e30524c5a98   postgres:18   "docker-entrypoint.s…"   45 hours ago   Up 45 hours   127.0.0.1:5432->5432/tcp   kloudkart
+
+--- PostgreSQL readiness ---
+/var/run/postgresql:5432 - accepting connections
+
+--- PostgreSQL settings ---
+18.7 (Debian 18.7-1.pgdg13+5)
+500
+
+--- Both database connections ---
+kloudkart_learning: PASS | PostgreSQL 18.7 (Debian 18.7-1.pgdg13+5) | max_connections=500 | isolation=read committed
+kloudkart_lab: PASS | PostgreSQL 18.7 (Debian 18.7-1.pgdg13+5) | max_connections=500 | isolation=read committed
+Both database endpoints passed.
+Imported data and graded tests are not verified by this script.
+
+==============================================================================
+ORIGINAL FILE: 01_schema_inspection.txt
+ORIGINAL SHA256: 948d0cef7544ad23062483562929b75df17318f5bd482f724b78bfc1c96fe284
+==============================================================================
+
+Pager usage is off.
+BEGIN
+=== 1. Database identity ===
+ database_name | database_user | isolation_level
+---------------+---------------+-----------------
+ kloudkart_lab | postgres      | read committed
+(1 row)
+
+=== 2. Tables ===
+  table_name
+---------------
+ categories
+ customers
+ inventory_log
+ order_items
+ orders
+ products
+(6 rows)
+
+=== 3. Columns and nullability ===
+  table_name   | ordinal_position |  column_name   |          data_type          | is_nullable | column_default
+---------------+------------------+----------------+-----------------------------+-------------+----------------
+ categories    |                1 | category_id    | integer                     | NO          |
+ categories    |                2 | category_name  | text                        | YES         |
+ categories    |                3 | parent_id      | integer                     | YES         |
+ customers     |                1 | customer_id    | integer                     | NO          |
+ customers     |                2 | full_name      | text                        | YES         |
+ customers     |                3 | email          | text                        | YES         |
+ customers     |                4 | phone          | text                        | YES         |
+ customers     |                5 | city           | text                        | YES         |
+ customers     |                6 | registered_at  | timestamp without time zone | YES         |
+ inventory_log |                1 | log_id         | integer                     | NO          |
+ inventory_log |                2 | product_id     | integer                     | YES         |
+ inventory_log |                3 | change_qty     | integer                     | YES         |
+ inventory_log |                4 | reason         | text                        | YES         |
+ inventory_log |                5 | created_at     | timestamp without time zone | YES         |
+ inventory_log |                6 | note           | text                        | YES         |
+ order_items   |                1 | order_item_id  | integer                     | NO          |
+ order_items   |                2 | order_id       | integer                     | YES         |
+ order_items   |                3 | product_id     | integer                     | YES         |
+ order_items   |                4 | quantity       | integer                     | YES         |
+ order_items   |                5 | unit_price     | numeric                     | YES         |
+ orders        |                1 | order_id       | integer                     | NO          |
+ orders        |                2 | customer_id    | integer                     | YES         |
+ orders        |                3 | order_date     | timestamp without time zone | YES         |
+ orders        |                4 | status         | text                        | YES         |
+ orders        |                5 | total_amount   | numeric                     | YES         |
+ products      |                1 | product_id     | integer                     | NO          |
+ products      |                2 | product_name   | text                        | YES         |
+ products      |                3 | category_id    | integer                     | YES         |
+ products      |                4 | price          | numeric                     | YES         |
+ products      |                5 | stock_quantity | integer                     | YES         |
+ products      |                6 | created_at     | timestamp without time zone | YES         |
+(31 rows)
+
+=== 4. Existing constraints ===
+  table_name   |          constraint_name           | constraint_type |         definition          | validated
+---------------+------------------------------------+-----------------+-----------------------------+-----------
+ categories    | categories_category_id_not_null    | NOT NULL        | NOT NULL category_id        | t
+ categories    | categories_pkey                    | PRIMARY KEY     | PRIMARY KEY (category_id)   | t
+ customers     | customers_customer_id_not_null     | NOT NULL        | NOT NULL customer_id        | t
+ customers     | customers_pkey                     | PRIMARY KEY     | PRIMARY KEY (customer_id)   | t
+ inventory_log | inventory_log_log_id_not_null      | NOT NULL        | NOT NULL log_id             | t
+ inventory_log | inventory_log_pkey                 | PRIMARY KEY     | PRIMARY KEY (log_id)        | t
+ order_items   | order_items_order_item_id_not_null | NOT NULL        | NOT NULL order_item_id      | t
+ order_items   | order_items_pkey                   | PRIMARY KEY     | PRIMARY KEY (order_item_id) | t
+ orders        | orders_order_id_not_null           | NOT NULL        | NOT NULL order_id           | t
+ orders        | orders_pkey                        | PRIMARY KEY     | PRIMARY KEY (order_id)      | t
+ products      | products_product_id_not_null       | NOT NULL        | NOT NULL product_id         | t
+ products      | products_pkey                      | PRIMARY KEY     | PRIMARY KEY (product_id)    | t
+(12 rows)
+
+=== 5. Existing indexes ===
+  table_name   |     index_name     |                                    index_definition
+---------------+--------------------+----------------------------------------------------------------------------------------
+ categories    | categories_pkey    | CREATE UNIQUE INDEX categories_pkey ON public.categories USING btree (category_id)
+ customers     | customers_pkey     | CREATE UNIQUE INDEX customers_pkey ON public.customers USING btree (customer_id)
+ inventory_log | inventory_log_pkey | CREATE UNIQUE INDEX inventory_log_pkey ON public.inventory_log USING btree (log_id)
+ order_items   | order_items_pkey   | CREATE UNIQUE INDEX order_items_pkey ON public.order_items USING btree (order_item_id)
+ orders        | orders_pkey        | CREATE UNIQUE INDEX orders_pkey ON public.orders USING btree (order_id)
+ products      | products_pkey      | CREATE UNIQUE INDEX products_pkey ON public.products USING btree (product_id)
+(6 rows)
+
+=== 6. Existing triggers ===
+ table_name | trigger_name | event | action_timing
+------------+--------------+-------+---------------
+(0 rows)
+
+ROLLBACK
+
+==============================================================================
+ORIGINAL FILE: 02_referential_integrity.txt
+ORIGINAL SHA256: bf65ccb4057f171d399c4dabe0ef83aff53415b49cfd1eb67d4945653f1e18b9
+==============================================================================
+
+Pager usage is off.
+BEGIN
+=== 1. Database identity ===
+ database_name
+---------------
+ kloudkart_lab
+(1 row)
+
+=== 2. Referential integrity summary ===
+          relationship           | total_rows | matched_references | null_references | orphan_references | orphan_percentage | reconciliation_difference
+---------------------------------+------------+--------------------+-----------------+-------------------+-------------------+---------------------------
+ order_items -> orders           |     336559 |             335867 |               0 |               692 |            0.2056 |                         0
+ orders -> customers             |     159384 |             159174 |               0 |               210 |            0.1318 |                         0
+ inventory_log -> products       |     282352 |             282232 |               0 |               120 |            0.0425 |                         0
+ categories -> parent categories |         94 |                 86 |               7 |                 1 |            1.0638 |                         0
+ order_items -> products         |     336559 |             336559 |               0 |                 0 |            0.0000 |                         0
+ products -> categories          |       4023 |               3986 |              37 |                 0 |            0.0000 |                         0
+(6 rows)
+
+ROLLBACK
+
+==============================================================================
+ORIGINAL FILE: 03_business_value_validation.txt
+ORIGINAL SHA256: 46263b8778c0c2022d99bdeab9b638b11bc78459d62abcc08bd9ee1d762b7c94
+==============================================================================
+
+Pager usage is off.
+BEGIN
+=== 1. Database identity ===
+ database_name
+---------------
+ kloudkart_lab
+(1 row)
+
+=== 2. Raw order status distribution ===
+  raw_status  | character_count | order_count | missing_amounts | recorded_amount
+--------------+-----------------+-------------+-----------------+-----------------
+ ' completed' |              10 |       22395 |               0 |     69151925.44
+ 'COMPLETED'  |               9 |       22392 |               0 |     67618128.94
+ 'complete'   |               8 |       22285 |               0 |     68086741.07
+ 'Completed'  |               9 |       22188 |               0 |     68271874.79
+ 'completed'  |               9 |       22091 |               0 |     66480695.79
+ 'Pending'    |               7 |        8081 |               0 |     24289314.93
+ 'pending'    |               7 |        7928 |               0 |     24210317.64
+ 'shipped'    |               7 |        6516 |               0 |     20176735.18
+ 'Shipped'    |               7 |        6332 |               0 |     20780169.69
+ 'Refunded'   |               8 |        3262 |               0 |     10354065.27
+ 'cancelled'  |               9 |        3238 |               0 |      9396828.73
+ 'refunded'   |               8 |        3217 |               0 |      9480017.84
+ 'canceled'   |               8 |        3209 |               0 |      8976160.54
+ 'Cancelled'  |               9 |        3131 |               0 |      9559396.68
+ 'CANCELLED'  |               9 |        3119 |               0 |     10231587.28
+(15 rows)
+
+=== 3. Candidate status normalization ===
+ candidate_status | order_count | recorded_amount
+------------------+-------------+-----------------
+ completed        |      111351 |    339609366.03
+ pending          |       16009 |     48499632.57
+ shipped          |       12848 |     40956904.87
+ cancelled        |       12697 |     38163973.23
+ refunded         |        6479 |     19834083.11
+(5 rows)
+
+=== 4. Numeric value profiling ===
+          field           | total_rows | missing_values | negative_values | zero_values | positive_values | minimum_value | maximum_value
+--------------------------+------------+----------------+-----------------+-------------+-----------------+---------------+---------------
+ inventory_log.change_qty |     282352 |              0 |          262646 |          90 |           19616 |           -10 |            82
+ order_items.quantity     |     336559 |              0 |               0 |           0 |          336559 |             1 |          9999
+ order_items.unit_price   |     336559 |            148 |               0 |         152 |          336259 |          0.00 |      21961.78
+ orders.total_amount      |     159384 |              0 |               0 |           0 |          159384 |          3.51 |     227750.97
+ products.price           |       4023 |              0 |               0 |           0 |            4023 |          5.04 |      21961.78
+ products.stock_quantity  |       4023 |              0 |              14 |         577 |            3432 |            -4 |           400
+(6 rows)
+
+=== 5. Potential duplicate customer emails ===
+ duplicate_email_groups | affected_customer_rows | excess_rows_if_unique | largest_group
+------------------------+------------------------+-----------------------+---------------
+                    533 |                   1068 |                   535 |             3
+(1 row)
+
+=== 6. Missing customer information ===
+ total_customers | missing_names | missing_emails | missing_phones | missing_cities | missing_registration_dates
+-----------------+---------------+----------------+----------------+----------------+----------------------------
+           40420 |             0 |              0 |              0 |              0 |                          0
+(1 row)
+
+=== 7. Inventory movement reason and direction ===
+ movement_reason | total_movements | negative_movements | positive_movements | zero_movements | unknown_movements | net_quantity_change
+-----------------+-----------------+--------------------+--------------------+----------------+-------------------+---------------------
+ 'sale'          |          262088 |             262088 |                  0 |              0 |                 0 |             -412645
+ 'restock'       |           18857 |                  0 |              18857 |              0 |                 0 |              671371
+ 'return'        |             564 |                  0 |                564 |              0 |                 0 |                1017
+ 'correction'    |             485 |                290 |                195 |              0 |                 0 |                -528
+ 'damage'        |             268 |                268 |                  0 |              0 |                 0 |                -622
+ 'stock_take'    |              90 |                  0 |                  0 |             90 |                 0 |                   0
+(6 rows)
+
+ROLLBACK
+
+==============================================================================
+ORIGINAL FILE: 04_business_impact.txt
+ORIGINAL SHA256: de7e1f3635606c5a023ee338773eac51a35873e93aff78c79026a037c65b64b4
+==============================================================================
+
+Pager usage is off.
+Output format is aligned.
+BEGIN
+=== 1. Database identity ===
+ database_name
+---------------
+ kloudkart_lab
+(1 row)
+
+=== 2. Orphaned order item exposure ===
+ affected_items | missing_order_ids | recorded_units | incomplete_line_values | known_line_value
+----------------+-------------------+----------------+------------------------+------------------
+            692 |               689 |            968 |                      0 |        826327.80
+(1 row)
+
+=== 3. Orders without valid customers ===
+ candidate_status | affected_orders | missing_customer_ids | recorded_order_amount
+------------------+-----------------+----------------------+-----------------------
+ completed        |             144 |                  136 |             388780.89
+ pending          |              24 |                   23 |             155193.44
+ cancelled        |              21 |                   20 |              65340.33
+ shipped          |              11 |                   11 |              38887.98
+ refunded         |              10 |                   10 |              16977.97
+(5 rows)
+
+=== 4. Missing and zero item prices ===
+ price_condition | affected_items | affected_order_ids | affected_units
+-----------------+----------------+--------------------+----------------
+ Missing price   |            148 |                147 |            226
+ Zero price      |            152 |                151 |            229
+(2 rows)
+
+=== 5. Negative stock exposure ===
+ affected_products | stock_deficit_units | indicative_catalogue_value
+-------------------+---------------------+----------------------------
+                14 |                  27 |                   20627.76
+(1 row)
+
+=== 6. Negative stock details ===
+ product_id |        product_name         | stock_quantity |  price  | indicative_value
+------------+-----------------------------+----------------+---------+------------------
+       5391 | Unilever Keyboard Lite      |             -4 | 2771.47 |         11085.88
+       5005 | LG Mice XL                  |             -4 |  843.69 |          3374.76
+       5057 | Asus Fan                    |             -4 |  492.49 |          1969.96
+       7390 | Ideal Kettle Mini           |             -3 |  388.22 |          1164.66
+       7049 | Tecno Feature Phone 3       |             -1 |  842.65 |           842.65
+       5322 | Midea Rice 3                |             -2 |  340.18 |           680.36
+       6295 | JBL Kettle Mini             |             -1 |  488.20 |           488.20
+       6392 | Tecno Blender 2             |             -1 |  337.09 |           337.09
+       8353 | Infinix TV Accessorie       |             -1 |  276.89 |           276.89
+       8862 | Sunlight Women Accessorie 2 |             -1 |  114.77 |           114.77
+       6399 | Anker Sunscreen Max         |             -1 |  109.64 |           109.64
+       8659 | Zeepay Soft Drink 3         |             -1 |   90.90 |            90.90
+       8107 | JBL Speaker Mini            |             -2 |   31.18 |            62.36
+       6148 | Kasapreko Mice              |             -1 |   29.64 |            29.64
+(14 rows)
+
+=== 7. Order and item value reconciliation ===
+    reconciliation_status     | order_count | recorded_order_amount | known_item_amount | absolute_difference
+------------------------------+-------------+-----------------------+-------------------+---------------------
+ Exact match                  |      156958 |          478400674.32 |      478400674.32 |                0.00
+ Order total below item total |        1341 |            4552577.72 |        7768127.48 |          3215549.76
+ Order total above item total |         938 |            3368527.92 |        2823079.70 |           545448.22
+ Incomplete item values       |         147 |             742179.85 |        1472772.21 |
+(4 rows)
+
+=== 8. Orphaned inventory movement exposure ===
+ reason | affected_movements | missing_product_ids | net_quantity | gross_movement_units
+--------+--------------------+---------------------+--------------+----------------------
+ sale   |                120 |                 111 |         -120 |                  120
+(1 row)
+
+=== 9. Largest order item quantities ===
+ order_item_id | order_id | product_id |       product_name        | quantity | unit_price | line_value |   status   | recorded_order_total
+---------------+----------+------------+---------------------------+----------+------------+------------+------------+----------------------
+       1074989 |   583621 |       8308 | Unilever Trouser Mini     |     9999 |      87.35 |  873412.65 | canceled   |                87.35
+       1189700 |   637704 |       6714 | Nasco Cooker Mini         |     9999 |      11.23 |  112288.77 | pending    |              1794.61
+       1008218 |   551664 |       7471 | Xiaomi Paper Good Plus    |      999 |     827.35 |  826522.65 | completed  |              1879.21
+       1044961 |   569332 |       7653 | Nasco Haircare Lite       |      999 |    1143.30 | 1142156.70 | Cancelled  |             14794.09
+       1111508 |   600888 |       7260 | Acer Detergent Plus       |      999 |      99.05 |   98950.95 | shipped    |              4017.21
+       1152051 |   620022 |       7504 | JBL First Aid Lite        |      999 |      20.13 |   20109.87 | Completed  |                20.13
+        900312 |   500142 |       6671 | Itel Tea and Coffee 3     |       10 |       7.43 |      74.30 | COMPLETED  |              2971.07
+        900467 |   500205 |       8726 | Unilever Trouser Max      |       10 |     106.83 |    1068.30 | Pending    |              1203.16
+        900526 |   500230 |       8631 | Ideal Screen Protector XL |       10 |   19816.66 |  198166.60 | pending    |            198210.34
+        900559 |   500246 |       7795 | Itel Blender 2            |       10 |      60.32 |     603.20 | Completed  |              1006.08
+        900607 |   500266 |       5258 | Anker Desktop             |       10 |    3150.40 |   31504.00 | completed  |             32415.61
+        900735 |   500328 |       6357 | Kasapreko Mice Max        |       10 |      16.24 |     162.40 | Pending    |              1902.72
+        900788 |   500354 |       7451 | Nasco Neo Lite            |       10 |    1422.92 |   14229.20 | COMPLETED  |             15979.42
+        900965 |   500445 |       5800 | Zeepay Dresse 2           |       10 |     261.24 |    2612.40 | Completed  |             13922.14
+        900969 |   500446 |       8429 | Voltic Shirt Mini         |       10 |     840.83 |    8408.30 |  completed |              8408.30
+        901007 |   500464 |       5076 | Dell Pro Max              |       10 |      34.01 |     340.10 | COMPLETED  |               340.10
+        901360 |   500644 |       5632 | Nasco Outdoor Toy XL      |       10 |      30.63 |     306.30 |  completed |              1728.16
+        901436 |   500680 |       5617 | Nasco Washing Machine     |       10 |     118.29 |    1182.90 | Completed  |              1182.90
+        901564 |   500739 |       5772 | Sunlight Desktop 3        |       10 |      68.84 |     688.40 | shipped    |               688.40
+        901570 |   500743 |       5852 | Oraimo Diaper             |       10 |      18.83 |     188.30 | CANCELLED  |               387.85
+(20 rows)
+
+ROLLBACK
+
+==============================================================================
+ORIGINAL FILE: 05_status_sensitivity.txt
+ORIGINAL SHA256: 10538fef4c89a00deaa981e2dc875a16c0e4ca416ef07b7eaea5252ffa4b5e2d
+==============================================================================
+
+Pager usage is off.
+Output format is unaligned.
+Field separator is "|".
+BEGIN
+=== Database identity ===
+database_name|isolation_level
+kloudkart_lab|repeatable read
+(1 row)
+=== Scenario sensitivity comparison ===
+comparison_id|reference_scenario|alternative_scenario|comparison_purpose|eligible_order_count|eligible_order_amount|unattributed_orders|unattributed_amount|customers_with_orders|attributed_spending|spending_delta|spending_change_pct|customers_with_changed_spending|absolute_customer_spending_change|largest_customer_spending_change|top_100_overlap|top_100_entrants|top_100_exits|avg_shared_top_100_rank_movement|top_100_spending|top_100_spending_delta|reconciliation_difference
+1|S1|S1|Baseline control|22091|66480695.79|41|59678.80|16958|66421016.99|0.00|0.00|0|0.00|0|100|0|0|0.00|8393404.92|0.00|0.00
+2|S1|S2|Vocabulary: completed only|111351|339609366.03|144|388780.89|37900|339220585.14|272799568.15|410.71|36031|272799568.15|232454.55|18|82|82|32.61|14836678.67|6443273.75|0.00
+3|S1|S3|Eligibility: exact vocabulary|28607|86657430.97|46|63908.55|20458|86593522.42|20172505.43|30.37|6031|20172505.43|175743.30|76|24|24|12.87|9315075.16|921670.24|0.00
+4|S1|S4|Combined: completed and shipped|124199|380566270.90|155|427668.87|38582|380138602.03|313717585.04|472.32|37237|313717585.04|240756.10|15|85|85|33.07|15876900.64|7483495.72|0.00
+5|S1|S5|Broad eligibility: exact|152929|468187113.24|200|657534.94|39519|467529578.30|401108561.31|603.89|38852|401108561.31|253105.92|14|86|86|40.14|17282720.23|8889315.31|0.00
+6|S1|S6|Combined: broad eligibility|140208|429065903.47|179|582862.31|39194|428483041.16|362062024.17|545.10|38281|362062024.17|253005.52|15|85|85|38.67|16616236.56|8222831.64|0.00
+7|S3|S4|Vocabulary: completed and shipped|124199|380566270.90|155|427668.87|38582|380138602.03|293545079.61|338.99|36664|293545079.61|240756.10|21|79|79|29.57|15876900.64|6561825.48|0.00
+8|S5|S6|Vocabulary: broad eligibility|140208|429065903.47|179|582862.31|39194|428483041.16|-39046537.14|-8.35|10916|39046537.14|208478.40|91|9|9|7.23|16616236.56|-666483.67|0.00
+9|S2|S4|Eligibility: normalized shipped|124199|380566270.90|155|427668.87|38582|380138602.03|40918016.89|12.06|10962|40918016.89|219173.69|80|20|20|10.23|15876900.64|1040221.97|0.00
+10|S2|S6|Eligibility: normalized broad|140208|429065903.47|179|582862.31|39194|428483041.16|89262456.02|26.31|20637|89262456.02|219173.69|67|33|33|15.52|16616236.56|1779557.89|0.00
+11|S4|S6|Eligibility: normalized pending|140208|429065903.47|179|582862.31|39194|428483041.16|48344439.13|12.72|13213|48344439.13|198210.34|84|16|16|7.54|16616236.56|739335.92|0.00
+(11 rows)
+ROLLBACK
+
+==============================================================================
+ORIGINAL FILE: 06_exception_investigation.txt
+ORIGINAL SHA256: 0ad8510a13a4274b64e66733f19e92a70ae7bfb2fdf6ac9404a6626b7d6cd979
+==============================================================================
+
+Pager usage is off.
+Output format is aligned.
+BEGIN
+=== 1. Database identity ===
+ database_name
+---------------
+ kloudkart_lab
+(1 row)
+
+=== 2. Order item quantity distribution ===
+ quantity | item_count | distinct_order_ids | known_line_value
+----------+------------+--------------------+------------------
+        1 |     235989 |             133416 |     219068964.07
+        2 |      57133 |              48512 |     103273785.58
+        3 |      26669 |              24573 |      72688626.27
+        5 |      13485 |              12930 |      60790793.10
+       10 |       3277 |               3234 |      32395370.90
+      999 |          4 |                  4 |       2087740.17
+     9999 |          2 |                  2 |        985701.42
+(7 rows)
+
+=== 3. Unusually large quantities in order context ===
+ order_item_id | order_id | quantity | unit_price | line_value | item_count | known_item_total | missing_prices | checkout_total |  status
+---------------+----------+----------+------------+------------+------------+------------------+----------------+----------------+-----------
+       1074989 |   583621 |     9999 |      87.35 |  873412.65 |          1 |        873412.65 |              0 |          87.35 | canceled
+       1189700 |   637704 |     9999 |      11.23 |  112288.77 |          2 |        114049.69 |              0 |        1794.61 | pending
+       1008218 |   551664 |      999 |     827.35 |  826522.65 |          2 |        826747.16 |              0 |        1879.21 | completed
+       1044961 |   569332 |      999 |    1143.30 | 1142156.70 |          5 |       1145387.10 |              1 |       14794.09 | Cancelled
+       1111508 |   600888 |      999 |      99.05 |   98950.95 |          5 |        102869.11 |              0 |        4017.21 | shipped
+       1152051 |   620022 |      999 |      20.13 |   20109.87 |          1 |         20109.87 |              0 |          20.13 | Completed
+(6 rows)
+
+=== 4. Missing and zero prices in business context ===
+ price_condition | candidate_status | affected_items | affected_order_ids | affected_units
+-----------------+------------------+----------------+--------------------+----------------
+ Missing price   | cancelled        |             14 |                 14 |             16
+ Missing price   | completed        |             95 |                 95 |            155
+ Missing price   | pending          |             16 |                 15 |             23
+ Missing price   | refunded         |              8 |                  8 |             10
+ Missing price   | shipped          |             15 |                 15 |             22
+ Zero price      | cancelled        |             14 |                 14 |             16
+ Zero price      | completed        |            102 |                102 |            150
+ Zero price      | pending          |             18 |                 17 |             25
+ Zero price      | refunded         |              4 |                  4 |             15
+ Zero price      | shipped          |             14 |                 14 |             23
+(10 rows)
+
+=== 5. Order total discrepancy distribution ===
+ difference_band | affected_orders | absolute_difference | net_difference
+-----------------+-----------------+---------------------+----------------
+ 02: Up to 1     |               8 |                5.91 |           3.15
+ 03: Up to 10    |             185 |             1046.97 |         -44.87
+ 04: Up to 100   |             847 |            39507.80 |       -7647.50
+ 05: Up to 1000  |             920 |           335059.64 |      -61605.46
+ 06: Above 1000  |             319 |          3385377.66 |    -2600806.86
+(5 rows)
+
+=== 6. Duplicate email identity characteristics ===
+ duplicate_email_groups | same_name_groups | different_name_groups | same_phone_groups | different_phone_groups | different_city_groups
+------------------------+------------------+-----------------------+-------------------+------------------------+-----------------------
+                    533 |              533 |                     0 |                 0 |                    533 |                   206
+(1 row)
+
+=== 7. Category hierarchy investigation ===
+ hierarchy_status | affected_categories
+------------------+---------------------
+ Cycle detected   |                   2
+ Missing ancestor |                   1
+ Root reachable   |                  91
+(3 rows)
+
+=== 8. Products without assigned categories ===
+ uncategorised_products | recorded_stock | candidate_low_stock_products | negative_stock_products
+------------------------+----------------+------------------------------+-------------------------
+                     37 |           3112 |                           15 |                       0
+(1 row)
+
+=== 9. Inventory history coverage ===
+ total_products | products_without_history | products_with_history | stock_equals_net_movement | stock_differs_from_net_movement
+----------------+--------------------------+-----------------------+---------------------------+---------------------------------
+           4023 |                        0 |                  4023 |                      3879 |                             144
+(1 row)
+
+=== 10. Negative stock and recorded movement history ===
+ product_id | stock_quantity | movement_count | net_movement | implied_opening_or_unrecorded_stock |  earliest_movement  |   latest_movement
+------------+----------------+----------------+--------------+-------------------------------------+---------------------+---------------------
+       5005 |             -4 |             78 |           -4 |                                   0 | 2025-08-16 17:32:07 | 2026-08-28 19:22:34
+       5057 |             -4 |             60 |           -4 |                                   0 | 2025-10-30 14:29:18 | 2026-08-31 19:38:02
+       5322 |             -2 |             59 |           -2 |                                   0 | 2025-08-27 07:12:01 | 2026-08-31 19:11:46
+       5391 |             -4 |             53 |           -4 |                                   0 | 2025-08-11 17:35:12 | 2026-08-31 16:43:08
+       6148 |             -1 |             66 |           -1 |                                   0 | 2025-08-18 15:05:01 | 2026-08-31 17:45:21
+       6295 |             -1 |             64 |            3 |                                  -4 | 2025-10-08 13:19:30 | 2026-08-31 09:05:26
+       6392 |             -1 |             75 |           -1 |                                   0 | 2025-09-22 04:59:05 | 2026-08-26 20:01:50
+       6399 |             -1 |             79 |           -1 |                                   0 | 2025-08-11 23:44:35 | 2026-08-26 07:03:35
+       7049 |             -1 |             58 |           -1 |                                   0 | 2025-10-30 15:36:43 | 2026-08-31 12:39:14
+       7390 |             -3 |             62 |           -3 |                                   0 | 2025-08-04 15:50:06 | 2026-08-31 20:23:39
+       8107 |             -2 |             54 |           -2 |                                   0 | 2025-08-02 06:13:51 | 2026-08-26 11:40:51
+       8353 |             -1 |             77 |           -1 |                                   0 | 2025-09-06 11:55:59 | 2026-08-30 16:04:49
+       8659 |             -1 |             64 |           -1 |                                   0 | 2025-09-08 23:20:00 | 2026-08-26 15:59:16
+       8862 |             -1 |             63 |           -1 |                                   0 | 2025-08-16 15:36:53 | 2026-08-27 17:49:18
+(14 rows)
+
+ROLLBACK
+
+==============================================================================
+ORIGINAL FILE: 07_raw_status_investigation.txt
+ORIGINAL SHA256: 51fa61e20a5619a80b06b67c3410a70f2425734efe66c600dbca36ad045cb4c6
+==============================================================================
+
+Pager usage is off.
+Output format is aligned.
+BEGIN
+=== 1. Database identity ===
+ database_name
+---------------
+ kloudkart_lab
+(1 row)
+
+=== 2. Original order status distribution ===
+  raw_status  | character_count | order_count | recorded_amount
+--------------+-----------------+-------------+-----------------
+ ' completed' |              10 |       22395 |     69151925.44
+ 'COMPLETED'  |               9 |       22392 |     67618128.94
+ 'complete'   |               8 |       22285 |     68086741.07
+ 'Completed'  |               9 |       22188 |     68271874.79
+ 'completed'  |               9 |       22091 |     66480695.79
+ 'Pending'    |               7 |        8081 |     24289314.93
+ 'pending'    |               7 |        7928 |     24210317.64
+ 'shipped'    |               7 |        6516 |     20176735.18
+ 'Shipped'    |               7 |        6332 |     20780169.69
+ 'Refunded'   |               8 |        3262 |     10354065.27
+ 'cancelled'  |               9 |        3238 |      9396828.73
+ 'refunded'   |               8 |        3217 |      9480017.84
+ 'canceled'   |               8 |        3209 |      8976160.54
+ 'Cancelled'  |               9 |        3131 |      9559396.68
+ 'CANCELLED'  |               9 |        3119 |     10231587.28
+(15 rows)
+
+=== 3. Missing and zero prices by original status ===
+  raw_status  | missing_price_items | zero_price_items | missing_price_orders | zero_price_orders | missing_price_units | zero_price_units
+--------------+---------------------+------------------+----------------------+-------------------+---------------------+------------------
+ 'canceled'   |                   4 |                3 |                    4 |                 3 |                   4 |                3
+ 'cancelled'  |                   3 |                1 |                    3 |                 1 |                   5 |                1
+ 'Cancelled'  |                   5 |                3 |                    5 |                 3 |                   5 |                5
+ 'CANCELLED'  |                   2 |                7 |                    2 |                 7 |                   2 |                7
+ 'complete'   |                  13 |               16 |                   13 |                16 |                  14 |               23
+ ' completed' |                  22 |               24 |                   22 |                24 |                  43 |               34
+ 'completed'  |                  18 |               17 |                   18 |                17 |                  31 |               22
+ 'Completed'  |                  14 |               23 |                   14 |                23 |                  26 |               30
+ 'COMPLETED'  |                  28 |               22 |                   28 |                22 |                  41 |               41
+ 'pending'    |                   9 |                6 |                    8 |                 6 |                  12 |               12
+ 'Pending'    |                   7 |               12 |                    7 |                11 |                  11 |               13
+ 'refunded'   |                   3 |                3 |                    3 |                 3 |                   3 |               13
+ 'Refunded'   |                   5 |                1 |                    5 |                 1 |                   7 |                2
+ 'shipped'    |                   8 |               11 |                    8 |                11 |                  12 |               19
+ 'Shipped'    |                   7 |                3 |                    7 |                 3 |                  10 |                4
+(15 rows)
+
+=== 4. Orders without valid customers by original status ===
+  raw_status  | affected_orders | missing_customer_ids | recorded_order_amount
+--------------+-----------------+----------------------+-----------------------
+ 'completed'  |              41 |                   40 |              59678.80
+ 'COMPLETED'  |              29 |                   29 |              62780.11
+ ' completed' |              27 |                   26 |             122476.62
+ 'complete'   |              26 |                   26 |              87544.26
+ 'Completed'  |              21 |                   20 |              56301.10
+ 'pending'    |              12 |                   12 |              30330.34
+ 'Pending'    |              12 |                   12 |             124863.10
+ 'Cancelled'  |               7 |                    7 |              13338.41
+ 'Shipped'    |               6 |                    6 |              34658.23
+ 'refunded'   |               6 |                    6 |               6272.24
+ 'canceled'   |               5 |                    5 |              22748.71
+ 'shipped'    |               5 |                    5 |               4229.75
+ 'CANCELLED'  |               5 |                    5 |              27879.78
+ 'cancelled'  |               4 |                    4 |               1373.43
+ 'Refunded'   |               4 |                    4 |              10705.73
+(15 rows)
+
+=== 5. Missing and zero price reconciliation ===
+ missing_price_items | zero_price_items | missing_price_units | zero_price_units
+---------------------+------------------+---------------------+------------------
+                 148 |              152 |                 226 |              229
+(1 row)
+
+ROLLBACK
+
+==============================================================================
+ORIGINAL FILE: 29_reporting_date_investigation.txt
+ORIGINAL SHA256: 2ce10e8f3bd9728fd90d13d0fbb5046fffe07757e3ea78915ad8da54ec4c6cf8
+==============================================================================
+
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.257 ms
+DO
+Time: 1.324 ms
+=== 1. Investigation parameters ===
+ as_of_date | main_period_end
+------------+-----------------
+ 2026-11-26 | 2026-08-31
+(1 row)
+
+Time: 0.252 ms
+=== 2. Orders after the main dataset period ===
+ order_id |     order_date      | customer_id |   status   | total_amount | spending_status | date_classification |  customer_check  | item_count | item_value | missing_prices | maximum_quantity | financial_check
+----------+---------------------+-------------+------------+--------------+-----------------+---------------------+------------------+------------+------------+----------------+------------------+-----------------
+   628258 | 2026-09-06 15:03:00 |      133340 | Pending    |     15819.99 | NOT ELIGIBLE    | AFTER MAIN PERIOD   | NO DATE CONFLICT |          2 |   15819.99 |              0 |                2 | MATCH
+   617040 | 2026-09-09 12:54:00 |      120276 | completed  |       227.95 | ELIGIBLE        | AFTER MAIN PERIOD   | NO DATE CONFLICT |          2 |     227.95 |              0 |                1 | MATCH
+   520901 | 2026-09-11 12:29:00 |      140167 | completed  |       145.88 | ELIGIBLE        | AFTER MAIN PERIOD   | NO DATE CONFLICT |          2 |     145.88 |              0 |                1 | MATCH
+   647447 | 2026-09-11 22:21:00 |      118102 | complete   |      3836.30 | ELIGIBLE        | AFTER MAIN PERIOD   | NO DATE CONFLICT |          1 |    3836.30 |              0 |                1 | MATCH
+   559453 | 2026-09-21 03:44:00 |      128303 |  completed |      2169.51 | ELIGIBLE        | AFTER MAIN PERIOD   | NO DATE CONFLICT |          1 |    2169.51 |              0 |                3 | MATCH
+   545339 | 2026-10-07 18:49:00 |      138411 | completed  |      1768.01 | ELIGIBLE        | AFTER MAIN PERIOD   | NO DATE CONFLICT |          1 |    1768.01 |              0 |                1 | MATCH
+   521401 | 2026-10-15 19:48:00 |      104349 | Pending    |      1304.53 | NOT ELIGIBLE    | AFTER MAIN PERIOD   | NO DATE CONFLICT |          2 |    1304.53 |              0 |                3 | MATCH
+   650810 | 2026-11-23 07:06:00 |      116155 | refunded   |      1419.10 | NOT ELIGIBLE    | AFTER MAIN PERIOD   | NO DATE CONFLICT |          1 |    1419.10 |              0 |                1 | MATCH
+   540830 | 2026-11-26 05:46:00 |      113864 | refunded   |       477.15 | NOT ELIGIBLE    | AFTER MAIN PERIOD   | NO DATE CONFLICT |          1 |     477.15 |              0 |                1 | MATCH
+   601520 | 2026-12-04 09:30:00 |      123631 | completed  |     11272.95 | ELIGIBLE        | FUTURE DATED        | NO DATE CONFLICT |          3 |   11272.95 |              0 |                2 | MATCH
+   534697 | 2027-01-14 17:40:00 |      102506 | COMPLETED  |       527.22 | ELIGIBLE        | FUTURE DATED        | NO DATE CONFLICT |          3 |     527.22 |              0 |                1 | MATCH
+   602604 | 2027-01-29 22:51:00 |      106540 | completed  |      1852.63 | ELIGIBLE        | FUTURE DATED        | NO DATE CONFLICT |          4 |    1852.63 |              0 |                3 | MATCH
+   508015 | 2027-03-11 19:00:00 |      130411 | shipped    |      4437.02 | NOT ELIGIBLE    | FUTURE DATED        | NO DATE CONFLICT |          5 |    4437.02 |              0 |                2 | MATCH
+   566179 | 2027-04-03 23:03:00 |      104633 | CANCELLED  |       579.84 | NOT ELIGIBLE    | FUTURE DATED        | NO DATE CONFLICT |          2 |     579.84 |              0 |                1 | MATCH
+   528748 | 2027-04-14 11:07:00 |      133372 |  completed |      3742.05 | ELIGIBLE        | FUTURE DATED        | NO DATE CONFLICT |          3 |    3742.05 |              0 |               10 | MATCH
+   633536 | 2027-04-20 05:18:00 |      117003 | COMPLETED  |        34.01 | ELIGIBLE        | FUTURE DATED        | NO DATE CONFLICT |          1 |      34.01 |              0 |                1 | MATCH
+   605356 | 2027-05-11 11:57:00 |      104318 | complete   |        95.07 | ELIGIBLE        | FUTURE DATED        | NO DATE CONFLICT |          1 |      95.07 |              0 |                1 | MATCH
+   522138 | 2027-06-16 05:37:00 |      133609 | COMPLETED  |      8943.72 | ELIGIBLE        | FUTURE DATED        | NO DATE CONFLICT |          5 |    8943.72 |              0 |               10 | MATCH
+   580354 | 2027-07-04 13:50:00 |      104683 | Completed  |        67.99 | ELIGIBLE        | FUTURE DATED        | NO DATE CONFLICT |          1 |      67.99 |              0 |                1 | MATCH
+   537282 | 2027-07-31 13:38:00 |      115830 |  completed |       261.38 | ELIGIBLE        | FUTURE DATED        | NO DATE CONFLICT |          3 |     261.38 |              0 |                1 | MATCH
+   510989 | 2027-08-12 08:23:00 |      115674 | shipped    |       254.13 | NOT ELIGIBLE    | FUTURE DATED        | NO DATE CONFLICT |          1 |     254.13 |              0 |                1 | MATCH
+   637010 | 2027-08-12 16:32:00 |      140072 |  completed |      7222.02 | ELIGIBLE        | FUTURE DATED        | NO DATE CONFLICT |          1 |    7222.02 |              0 |                1 | MATCH
+   648345 | 2027-08-14 18:26:00 |      111421 |  completed |        55.67 | ELIGIBLE        | FUTURE DATED        | NO DATE CONFLICT |          1 |      55.67 |              0 |                1 | MATCH
+   507464 | 2027-08-20 19:30:00 |      124813 | completed  |      1525.90 | ELIGIBLE        | FUTURE DATED        | NO DATE CONFLICT |          1 |    1525.90 |              0 |                1 | MATCH
+(24 rows)
+
+Time: 39.018 ms
+=== 3. Future-dated order status distribution ===
+   status   | order_count | recorded_order_value
+------------+-------------+----------------------
+  completed |           4 |             11281.12
+ completed  |           3 |             14651.48
+ COMPLETED  |           3 |              9504.95
+ shipped    |           2 |              4691.15
+ CANCELLED  |           1 |               579.84
+ complete   |           1 |                95.07
+ Completed  |           1 |                67.99
+(7 rows)
+
+Time: 6.309 ms
+=== 4. Future-dated eligible order attribution ===
+ eligible_future_orders | eligible_future_value | attributed_orders | attributed_value | unattributed_orders | unattributed_value | affected_existing_customers
+------------------------+-----------------------+-------------------+------------------+---------------------+--------------------+-----------------------------
+                     12 |              35600.61 |                12 |         35600.61 |                   0 |                  0 |                          12
+(1 row)
+
+Time: 8.644 ms
+=== 5. Reporting date sensitivity ===
+               scenario                |     start_date      |       end_exclusive        | eligible_orders | eligible_value | attributed_orders | attributed_value | unattributed_orders | unattributed_value | customers_with_eligible_orders
+---------------------------------------+---------------------+----------------------------+-----------------+----------------+-------------------+------------------+---------------------+--------------------+--------------------------------
+ S1 - Unrestricted                     |                     |                            |          111351 |   339609366.03 |            111207 |     339220585.14 |                 144 |          388780.89 |                          37900
+ S2 - All history as of reporting date |                     | 2026-11-27 00:00:00        |          111339 |   339573765.42 |            111195 |     339184984.53 |                 144 |          388780.89 |                          37900
+ S3 - Current month plus previous 11   | 2025-12-01 00:00:00 | 2026-11-27 00:00:00        |          102592 |   313335526.79 |            102463 |     313014045.03 |                 129 |          321481.76 |                          37285
+ S4 - Last 12 completed months         | 2025-11-01 00:00:00 | 2026-11-01 00:00:00        |          105621 |   322057238.99 |            105486 |     321720802.05 |                 135 |          336436.94 |                          37525
+ S5 - Main dataset period, 12 months   | 2025-09-01 00:00:00 | 2026-09-01 00:00:00        |          109846 |   335023539.89 |            109702 |     334634759.00 |                 144 |          388780.89 |                          37816
+ S6 - Latest order month, 12 months    | 2026-09-01 00:00:00 | 2027-08-20 19:30:00.000001 |              17 |       43748.26 |                17 |         43748.26 |                   0 |                  0 |                             17
+(6 rows)
+
+Time: 1639.856 ms (00:01.640)
+=== 6. Top-100 ranking sensitivity ===
+ unrestricted_top_100 | as_of_top_100 | retained_top_100 | customers_leaving_top_100 | customers_entering_top_100 | customers_with_changed_spending | excluded_attributed_value
+----------------------+---------------+------------------+---------------------------+----------------------------+---------------------------------+---------------------------
+                  100 |           100 |              100 |                         0 |                          0 |                              12 |                  35600.61
+(1 row)
+
+Time: 182.575 ms
+ROLLBACK
+Time: 0.283 ms

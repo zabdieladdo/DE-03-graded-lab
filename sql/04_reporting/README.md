@@ -2,7 +2,7 @@
 
 ## Status
 
-Implemented and functionally verified. Final performance acceptance and fresh-load verification pending. See ADR-003, ADR-004 and `deliverables/performance/customer_reporting_performance.md` from repository root.
+Implemented and functionally verified. Candidate functional acceptance passed; the five-second concurrent target was missed in six acceptance trials. Final merged revision verification pending. See ADR-003, ADR-004 and `deliverables/performance/customer_reporting_performance.md` from repository root.
 
 ## Deployment order
 
@@ -72,4 +72,4 @@ Headline reference: 40,420 customers; 111,190 attributed eligible history orders
 
 ## Performance and remaining verification
 
-Four original integrated runs exceeded the provisional five-second SQL target. A later solo run (3.487 s) and concurrent run (4.227 s) met it. These are not controlled before/after comparisons or a guarantee. Fresh-load acceptance remains pending. See the integrated workload performance report.
+Four original integrated runs exceeded the provisional five-second SQL target. A later solo run (3.487 s) and concurrent run (4.227 s) met it. These are not controlled before/after comparisons or a guarantee. Candidate fresh-load functional acceptance passed (E077c); final merged revision verification remains pending. See the integrated workload performance report.

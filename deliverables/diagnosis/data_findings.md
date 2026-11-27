@@ -2,7 +2,7 @@
 
 **Date:** 2026-11-26  
 **Scope:** DE-03 graded baseline, `kloudkart_lab`, PostgreSQL 18  
-**Status:** Baseline diagnosis complete; subsequent implementation and local verification are documented separately. Final fresh-load acceptance remains pending.
+**Status:** Baseline diagnosis complete; subsequent implementation and local verification are documented separately. Candidate fresh-load functional acceptance passed (E077c); final merged revision verification remains pending.
 
 ## Summary
 
@@ -31,7 +31,7 @@ The accepted approach is to prevent new damage, preserve and flag historical exc
 | Products: stock-to-movement comparison | 4,023 | 0 | 3,879 matches + 144 differences |
 | Categories: ancestry classification | 94 | 0 | 91 root reachable + two cycle encountered + one missing ancestor |
 
-Baseline evidence: `evidence/00_baseline_load.txt`, `evidence/00_baseline_reconciliation.txt`. Investigation evidence: `evidence/02_referential_integrity.txt`, `evidence/03_business_value_validation.txt`, `evidence/04_business_impact.txt`, `evidence/06_exception_investigation.txt`, `evidence/07_raw_status_investigation.txt`. Zero delta means the relevant population reconciles; it does not establish that all values are correct. A post-implementation baseline preservation check remains pending.
+Baseline evidence: `evidence/01_data_diagnosis.txt (original: 00_baseline_load.txt; lines 7-45)`, `evidence/01_data_diagnosis.txt (original: 00_baseline_reconciliation.txt; lines 52-60)`. Investigation evidence: `evidence/01_data_diagnosis.txt (original: 02_referential_integrity.txt; lines 217-236)`, `evidence/01_data_diagnosis.txt (original: 03_business_value_validation.txt; lines 243-315)`, `evidence/01_data_diagnosis.txt (original: 04_business_impact.txt; lines 322-419)`, `evidence/01_data_diagnosis.txt (original: 06_exception_investigation.txt; lines 455-557)`, `evidence/01_data_diagnosis.txt (original: 07_raw_status_investigation.txt; lines 564-639)`. Zero delta means the relevant population reconciles; it does not establish that all values are correct. Post-implementation reconciliation confirmed all six baseline row counts. This does not establish exact row-by-row equality.
 
 ### Relationship reconciliation
 
@@ -61,7 +61,7 @@ Each relationship reconciles independently. The 1,023 broken references are rela
 ### F-01: Unsafe concurrent order placement — Severity: Critical
 
 - **What it is:** The brief reports simultaneous purchases of the same last unit on two occasions. A read-check-write sequence without adequate concurrency control can approve both purchases against the same stock. The baseline schema has no business constraint against negative stock; a constraint alone would not prevent every lost-update scenario.
-- **How I detected it:** Engagement incident description; schema inspection (`evidence/01_schema_inspection.txt`); learner-reported synthetic Read Committed practice experiment in which two sessions read one available unit, both committed sales, and only one unit was deducted. The practice result is not a production trace or a graded race-test result.
+- **How I detected it:** Engagement incident description; schema inspection (`evidence/01_data_diagnosis.txt (original: 01_schema_inspection.txt; lines 122-210)`); learner-reported synthetic Read Committed practice experiment in which two sessions read one available unit, both committed sales, and only one unit was deducted. The practice result is not a production trace or a graded race-test result.
 - **Scale:** Two reported historical incidents; approximately 400 orders in ten seconds expected on one product. Historical incident quantities and refund amounts are unknown.
 - **Effect on the client's number:** Stock can be overstated or understated relative to accepted sales, and customers can pay for unavailable goods. Refunds, support work and reputational harm follow. The direct cost cannot be calculated without refund, handling and incident records. A final stock of zero does not prove that overselling did not occur.
 - **What I did about it:** Ranked transaction safety first. Planned a single atomic purchase operation with concurrency-safe stock validation/deduction, order and item creation, and movement recording. Require a clear out-of-stock refusal and the supplied unmodified race test, plus independent atomicity checks. The routine was subsequently verified; see ADR-002 and the order-placement performance report.
@@ -70,7 +70,7 @@ Each relationship reconciles independently. The 1,023 broken references are rela
 ### F-02: Inventory accuracy and auditability — Severity: High
 
 - **What it is:** Negative recorded stock, differences between stock snapshots and net logged movements, and movements without valid product references undermine inventory confidence. A movement history existing for a product does not prove it is complete.
-- **How I detected it:** Negative-stock filter, movement aggregation by product, comparison of stock to net movement, and anti-join to products (`evidence/02_referential_integrity.txt`, `03_business_value_validation.txt`, `04_business_impact.txt`, `06_exception_investigation.txt` under `evidence/`).
+- **How I detected it:** Negative-stock filter, movement aggregation by product, comparison of stock to net movement, and anti-join to products (`evidence/01_data_diagnosis.txt (original: 02_referential_integrity.txt; lines 217-236)`, `03_business_value_validation.txt`, `04_business_impact.txt`, `06_exception_investigation.txt` under `evidence/`).
 - **Scale:** 14 negative-stock products, combined deficit 27 units, indicative catalogue value 20,627.76. All 4,023 products have movement history; 3,879 match net movement and 144 differ (3.58%). Thirteen of the 14 negative-stock products match their net movement. Product 6295 has stock −1, net movement +3 and residual −4. Separately, 120 orphaned sale movements reference 111 missing product IDs, with net quantity −120.
 - **Effect on the client's number:** Availability, replenishment and audit reports may be unreliable. The catalogue valuation is an indicative deficit measure, not inventory cost, a refund total or proven loss. The residual −4 is not proof of four missing sales.
 - **What I did about it:** Accepted preservation and flagging of historical records (ADR-001). Planned atomic stock movement recording for new purchases and auditable restocks/corrections. Retain negative balances as exceptions; do not overwrite snapshots with net movement without verified opening balances. Prevent new invalid movements and disclose orphaned history.
@@ -79,7 +79,7 @@ Each relationship reconciles independently. The 1,023 broken references are rela
 ### F-03: Inconsistent order statuses — Severity: High
 
 - **What it is:** Free-text status contains capitalization, whitespace and vocabulary variants. Exact filters can produce materially different reports. Formatting differences are established; semantic equivalence of different words remains an assumption.
-- **How I detected it:** Grouped raw statuses with quoted values and character lengths, compared LOWER/TRIM and candidate vocabulary mapping, and ran six spending scenarios with 11 comparisons (`evidence/03_business_value_validation.txt`, `evidence/05_status_sensitivity.txt`, `evidence/07_raw_status_investigation.txt`).
+- **How I detected it:** Grouped raw statuses with quoted values and character lengths, compared LOWER/TRIM and candidate vocabulary mapping, and ran six spending scenarios with 11 comparisons (`evidence/01_data_diagnosis.txt (original: 03_business_value_validation.txt; lines 243-315)`, `evidence/01_data_diagnosis.txt (original: 05_status_sensitivity.txt; lines 426-448)`, `evidence/01_data_diagnosis.txt (original: 07_raw_status_investigation.txt; lines 564-639)`).
 - **Scale:** 15 raw representations across 159,384 orders. Exact `completed` matches 22,091 orders; formatting-only normalization matches 89,066; including `complete` gives 111,351. The exact filter omits 89,260 candidate completed orders (80.16%) with recorded amounts of 273,128,670.24. Candidate status counts: completed 111,351; shipped 12,848; pending 16,009; cancelled 12,697; refunded 6,479.
 - **Effect on the client's number:** Exact completed attributed spending is 66,421,016.99 versus 339,220,585.14 under the candidate completed mapping; only 18 of the exact-match top 100 remain in the normalized completed top 100. Including shipped adds 40,918,016.89 (12.06%) and changes 20 of the completed-only top 100; including shipped and pending adds 89,262,456.02 (26.31%) and changes 33. These are policy sensitivity results, not actual lost revenue or evidence of Adwoa's existing filter.
 - **What I did about it:** Accepted preservation of raw statuses and centralized reporting normalization, including provisional mappings `complete` → `completed` and `canceled` → `cancelled`. Accepted completed-only eligibility, using an explicit allowlist rather than broad exclusion. Proposed `orders.total_amount` as the spending source, with unattributed amounts separately disclosed and unknown statuses flagged. Raw and normalized investigations reconcile all 148 missing-price items, 152 zero-price items and 210 orphaned orders.
@@ -88,16 +88,16 @@ Each relationship reconciles independently. The 1,023 broken references are rela
 ### F-04: Broken relational references — Severity: High
 
 - **What it is:** Non-null references point to absent parent records. Foreign keys are absent in the baseline. NULL references are assessed separately.
-- **How I detected it:** Six relationship checks using LEFT JOIN/anti-join logic with separate matched, NULL and broken counts (`evidence/02_referential_integrity.txt`, `evidence/04_business_impact.txt`).
+- **How I detected it:** Six relationship checks using LEFT JOIN/anti-join logic with separate matched, NULL and broken counts (`evidence/01_data_diagnosis.txt (original: 02_referential_integrity.txt; lines 217-236)`, `evidence/01_data_diagnosis.txt (original: 04_business_impact.txt; lines 322-419)`).
 - **Scale:** 692 orphaned order items referencing 689 missing order IDs, with 968 recorded units and known line value 826,327.80; 210 orders without valid customers with recorded amounts 665,180.61 across all statuses (144 candidate completed orders, 388,780.89); 120 orphaned inventory movements; one category with a missing parent. No broken non-null order-item product or product-category references. Total: 1,023 broken non-null references.
 - **Effect on the client's number:** Inner joins can silently drop sales lines, order amounts and movement history. Customer reports cannot reliably attribute orphaned orders. These recorded exposures are not verified losses; inventory and hierarchy findings overlap this finding.
 - **What I did about it:** Accepted ADR-001: preserve and flag historical records, do not delete, fabricate parents or reassign without evidence. Plan appropriate foreign keys protecting new writes, considering NOT VALID for existing violations, with explicit validation status. Report unattributed and orphaned populations separately.
-- **Residual risk:** Historical parents cannot be reconstructed from the available data. NOT VALID constraints do not certify existing rows, prevent cycles or disallow NULL by themselves. Local constraint tests passed; final fresh-load verification remains pending.
+- **Residual risk:** Historical parents cannot be reconstructed from the available data. NOT VALID constraints do not certify existing rows, prevent cycles or disallow NULL by themselves. Local constraint tests passed; candidate fresh-load functional acceptance passed (E077c); final merged revision verification remains pending.
 
 ### F-05: Financial value anomalies — Severity: High
 
 - **What it is:** Recorded checkout totals and calculated item totals disagree for some orders; missing prices prevent complete valuations; extreme quantities create unusually large line values. A discrepancy is established, but the correct historical value and the cause are not.
-- **How I detected it:** Numeric profiling, item aggregation per order, missing-price checks, absolute and signed discrepancy bands, and examination of extreme quantities in order context (`evidence/03_business_value_validation.txt`, `evidence/04_business_impact.txt`, `evidence/06_exception_investigation.txt`, `evidence/07_raw_status_investigation.txt`).
+- **How I detected it:** Numeric profiling, item aggregation per order, missing-price checks, absolute and signed discrepancy bands, and examination of extreme quantities in order context (`evidence/01_data_diagnosis.txt (original: 03_business_value_validation.txt; lines 243-315)`, `evidence/01_data_diagnosis.txt (original: 04_business_impact.txt; lines 322-419)`, `evidence/01_data_diagnosis.txt (original: 06_exception_investigation.txt; lines 455-557)`, `evidence/01_data_diagnosis.txt (original: 07_raw_status_investigation.txt; lines 564-639)`).
 - **Scale:** 156,958 exact matches; 1,341 checkout totals below complete item totals; 938 above; 147 incomplete item valuations. Across 2,279 complete-value discrepancies, absolute difference is 3,760,997.98 and signed checkout-minus-item difference is −2,670,101.54. The 319 differences above 1,000 contribute 3,385,377.66 (about 90% of absolute discrepancy). There are 148 missing-price items across 147 orders (226 units), including 95 candidate completed items (155 units). Six extreme quantities (four 999 and two 9,999) total 23,994 recorded units and 3,073,441.59 in calculated line value. Every extreme line exceeds its order's recorded checkout total; two affected orders are candidate completed. One extreme-quantity order also has missing item pricing.
 - **Effect on the client's number:** Item-based spending, demand and inventory analysis can be distorted. Missing prices make totals incomplete; SUM ignores NULL values. The absolute discrepancy is not a loss estimate; discounts, taxes, shipping or other adjustments may explain some differences. Extreme line values overlap discrepancy exposure and must not be added to it.
 - **What I did about it:** Accepted policy: preserve and flag extreme quantities; no unsupported maximum of 10. Preserve missing prices and expose incomplete valuations; do not replace NULL with zero or current catalogue prices. Proposed recorded checkout totals for completed-order spending, with quality caveats. No inferred historical corrections made.
@@ -106,7 +106,7 @@ Each relationship reconciles independently. The 1,023 broken references are rela
 ### F-06: Slow customer spending reports — Severity: High
 
 - **What it is:** Adwoa's Monday report reportedly takes about 40 minutes and sometimes fails to finish. The baseline has only primary-key indexes. This is a confirmed reported service problem; its production query plan and root cause are not established.
-- **How I detected it:** Engagement brief and baseline index inspection (`evidence/01_schema_inspection.txt`). Learning-path query experiments demonstrated that repeated correlated scans can be expensive and set-based aggregation can reduce work, but those are not measurements of the actual Monday report.
+- **How I detected it:** Engagement brief and baseline index inspection (`evidence/01_data_diagnosis.txt (original: 01_schema_inspection.txt; lines 122-210)`). Learning-path query experiments demonstrated that repeated correlated scans can be expensive and set-based aggregation can reduce work, but those are not measurements of the actual Monday report.
 - **Scale:** Approximately 40 minutes per reported completed run, 40,420 customer accounts and 159,384 baseline orders. At one completed run per week for 52 weeks, illustrative elapsed waiting time is 34 hours 40 minutes per year (52 × 40 minutes). This is not measured staff labour; incomplete runs are not included.
 - **Effect on the client's number:** Nana reports making decisions without the report. Labour cost would require verified active staff time and loaded hourly rate; opportunity cost requires evidence of decisions and outcomes. Neither is available.
 - **What I did about it:** Prioritized correctness before optimization. Plan set-based customer aggregation, monthly and running totals, deterministic top-100 ranking and evidence-driven index/query tuning on the existing server. Measure equivalent before/after outputs and timings, including write costs where relevant.
@@ -115,7 +115,7 @@ Each relationship reconciles independently. The 1,023 broken references are rela
 ### F-07: Broken category hierarchy — Severity: Medium–High
 
 - **What it is:** The category structure is not a fully rooted tree. Cycles and missing ancestors can make recursive reporting non-terminating or incomplete.
-- **How I detected it:** Recursive ancestry traversal starting from all categories with visited-path tracking and terminal classification (`evidence/06_exception_investigation.txt`), supported by parent anti-join (`evidence/02_referential_integrity.txt`).
+- **How I detected it:** Recursive ancestry traversal starting from all categories with visited-path tracking and terminal classification (`evidence/01_data_diagnosis.txt (original: 06_exception_investigation.txt; lines 455-557)`), supported by parent anti-join (`evidence/01_data_diagnosis.txt (original: 02_referential_integrity.txt; lines 217-236)`).
 - **Scale:** Of 94 categories, 91 reach a root, two encounter a cycle, and one encounters a missing ancestor. Seven categories have NULL parent IDs (valid root candidates). Thirty-seven products have no assigned category; 15 of those have recorded stock below 10. In the separate learning environment, threshold 10 produced 1,949 low-stock products: 1,931 under valid roots, 15 uncategorised and three in unrooted categories. The graded rollup subsequently reproduced these counts (ADR-005).
 - **Effect on the client's number:** Root-only reporting can omit products and naive recursion can fail to terminate. Summing parent and descendant totals double-counts products. Missing visibility can delay replenishment.
 - **What I did about it:** Accepted configurable threshold with provisional default 10, strict stock < threshold. Plan cycle-safe recursion without hardcoded hierarchy depth, explicit exception groups, effective threshold disclosure and distinct negative/zero/unknown stock handling. Preserve category relationships pending verified correction.
@@ -124,7 +124,7 @@ Each relationship reconciles independently. The 1,023 broken references are rela
 ### F-08: Potential duplicate customer identities — Severity: Medium
 
 - **What it is:** Shared normalized emails and names suggest possible duplicate accounts, but do not establish personal identity.
-- **How I detected it:** Grouped LOWER/TRIM email values and compared normalized names, trimmed phones and normalized cities (`evidence/03_business_value_validation.txt`, `evidence/06_exception_investigation.txt`).
+- **How I detected it:** Grouped LOWER/TRIM email values and compared normalized names, trimmed phones and normalized cities (`evidence/01_data_diagnosis.txt (original: 03_business_value_validation.txt; lines 243-315)`, `evidence/01_data_diagnosis.txt (original: 06_exception_investigation.txt; lines 455-557)`).
 - **Scale:** 533 groups affect 1,068 of 40,420 customer records (2.64%). All 533 groups share normalized names and contain differing trimmed phone numbers; 206 groups contain differing normalized cities. A one-account-per-email assumption would identify 535 excess records, not confirmed duplicate people.
 - **Effect on the client's number:** Spending may be fragmented across accounts belonging to one person, or falsely combined if shared emails are treated as identity. Account-level rankings may differ from person-level rankings even when total spending reconciles.
 - **What I did about it:** Accepted account-identity policy: preserve separate customer IDs and existing order attribution; flag potential duplicates. Do not impose email uniqueness or merge by email/name. Plan one spending summary per existing customer ID and quality joins that do not multiply orders.
@@ -133,7 +133,7 @@ Each relationship reconciles independently. The 1,023 broken references are rela
 ### F-09: Ambiguous but potentially legitimate values — Severity: Review
 
 - **What it is:** Zero-priced items and products without categories may be legitimate business cases, not necessarily defects.
-- **How I detected it:** Numeric profiling, raw/normalized status analysis and NULL-category checks (`evidence/03_business_value_validation.txt`, `evidence/04_business_impact.txt`, `evidence/06_exception_investigation.txt`, `evidence/07_raw_status_investigation.txt`).
+- **How I detected it:** Numeric profiling, raw/normalized status analysis and NULL-category checks (`evidence/01_data_diagnosis.txt (original: 03_business_value_validation.txt; lines 243-315)`, `evidence/01_data_diagnosis.txt (original: 04_business_impact.txt; lines 322-419)`, `evidence/01_data_diagnosis.txt (original: 06_exception_investigation.txt; lines 455-557)`, `evidence/01_data_diagnosis.txt (original: 07_raw_status_investigation.txt; lines 564-639)`).
 - **Scale:** 152 zero-price items across 151 orders and 229 units, including 102 candidate completed items (150 units). Thirty-seven uncategorised products hold 3,112 recorded stock units; 15 are below the provisional threshold and none has negative stock.
 - **Effect on the client's number:** Zero prices could represent promotions or erroneous pricing; treating all as faults could invent revenue. Omitting uncategorised products from category reports hides inventory. No monetary loss is established.
 - **What I did about it:** Preserve both populations. Recommend separate quality visibility for zero prices and an uncategorised reporting group. Do not substitute catalogue prices or invent categories. These treatments follow the accepted preservation policy; uncategorised products are now exposed separately.
@@ -203,8 +203,8 @@ The available data does not contain sufficient status history to reconstruct the
 
 - `sql/04_reporting/01_reporting_profile.sql`
 - `sql/04_reporting/02_reporting_date_investigation.sql`
-- `evidence/28_reporting_profile.txt`
-- `evidence/29_reporting_date_investigation.txt`
+- `evidence/03_performance_comparison.txt (original: 28_reporting_profile.txt; lines 33-122)`
+- `evidence/01_data_diagnosis.txt (original: 29_reporting_date_investigation.txt; lines 646-729)`
 
 **Status:** Investigated; reporting treatment accepted, implemented and locally verified. Correct business dates remain unverified.
 
@@ -214,7 +214,7 @@ The available data does not contain sufficient status history to reconstruct the
 - Spending definitions and reporting performance: ADR-003 and ADR-004.
 - Inventory rollup and movement audit: ADR-005 and ADR-006.
 - Independent publication checks: ADR-007.
-- Final fresh-load acceptance remains pending.
+- Candidate fresh-load functional acceptance passed (E077c); final merged revision verification remains pending.
 
 ## Looked wrong, is not wrong
 

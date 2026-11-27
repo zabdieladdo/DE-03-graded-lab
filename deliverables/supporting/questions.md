@@ -45,6 +45,6 @@
 | Q01–Q05 | Normalize completed statuses; preserve IDs; disclose orphan attribution and valuation gaps. Finance must confirm currency and spending semantics. | [ADR-003](../decisions/ADR-003-spending-semantics.md), [findings](../diagnosis/data_findings.md) |
 | Q06–Q10 | 14 negative stocks; broken references preserved; conditional update and movement audit verified. Historical opening stock remains unknown. | ADR-001, ADR-002, ADR-006 |
 | Q11–Q14 | Cycles and missing parents excluded from rooted rollup; exceptions visible; threshold 10 provisional and configurable. | ADR-005 |
-| Q15–Q17 | Dense monthly report is a major cost; direct ranking measured against sparse alternative. Retain on-demand architecture provisionally. | ADR-004, ADR-007 and performance reports |
+| Q15–Q17 | Dense monthly report is a major cost; direct ranking measured against sparse alternative. D039 retains on-demand architecture despite six concurrent target misses; D037 retains verified publication despite repeated 20 s trigger breaches. Client timing and materiality remain unconfirmed. | ADR-004, ADR-007 and performance reports |
 
 Open business questions: authoritative currency, financial materiality, extract completeness, opening stock, customer identity and publication approval.

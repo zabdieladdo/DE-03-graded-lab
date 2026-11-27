@@ -10,11 +10,11 @@ Windows/WSL2 Docker PostgreSQL 18.7 lab; previously recorded host 32 GB RAM, 8 l
 
 ```bash
 set -o pipefail
-python -u scripts/benchmark_readiness.py --pairs 3 2>&1 | tee evidence/62_readiness_performance_rerun.txt
+python -u scripts/benchmark_readiness.py --pairs 3 2>&1 | tee generated/62_readiness_performance_rerun.txt
 echo $?
 unset DATABASE_URL
 ```
-Evidence `evidence/62_readiness_performance.txt`.
+Evidence `evidence/05_publication_improvement.txt (original: 62_readiness_performance.txt; lines 245-260)`.
 
 ## Results
 | Scenario | Runs | Median | Worst | Target met? |
@@ -51,7 +51,7 @@ Full reference median 3.009490 s, evaluation median 1.209445 s, combined median 
 | Evaluation | 1.575 s |
 | Total recorded internal elapsed | 21.886 s |
 
-Run `5f8b6b6e-aa70-4469-80bb-1a247af2f91c`: WARN / REVIEW AND DISCLOSE, exit 0. All six output row counts matched expectations; R01–R04 had zero differences. All seven output checksums and package metadata independently verified. Evidence: `evidence/60c_02_readiness_november.txt` and `evidence/60c_03_november_package_integrity.txt`. This was the first of two recent observations above the proposed 20 s review trigger. Internal elapsed excludes final manifest writing and is not directly comparable to the August child-process wall time. No November RSS measurement was supplied.
+Run `5f8b6b6e-aa70-4469-80bb-1a247af2f91c`: WARN / REVIEW AND DISCLOSE, exit 0. All six output row counts matched expectations; R01–R04 had zero differences. All seven output checksums and package metadata independently verified. Evidence: `evidence/05_publication_improvement.txt (original: 60c_02_readiness_november.txt; lines 90-110)` and `evidence/05_publication_improvement.txt (original: 60c_03_november_package_integrity.txt; lines 127-135)`. This was the first of two recent observations above the proposed 20 s review trigger. Internal elapsed excludes final manifest writing and is not directly comparable to the August child-process wall time. No November RSS measurement was supplied.
 
 ## R12 live verification (E065b–E065d)
 
@@ -60,9 +60,19 @@ Run `5f8b6b6e-aa70-4469-80bb-1a247af2f91c`: WARN / REVIEW AND DISCLOSE, exit 0. 
 | 2026-08-31 | 14.596 s | 4.794 s | 2.347 s | 21.821 s | WARN |
 | 2025-08-01 | 11.482 s | 2.117 s | 1.172 s | 14.823 s | PASS |
 
-Both packages passed seven output checksum checks and metadata verification. The August run exceeded 20 s, as did the earlier November retry before R12. Investigate during Stage 08; the different workloads and uncontrolled conditions do not isolate R12 overhead. No RSS measurement was supplied for these runs.
+Both packages passed seven output checksum checks and metadata verification. The August run exceeded 20 s, as did the earlier November retry before R12. Stage 08 observations are below; the different workloads and uncontrolled conditions do not isolate R12 overhead. No RSS measurement was supplied for these runs.
 
 ## Caveats
-No cache control, server memory, growth or concurrent checkout test for full package. Peak RSS roughly 35 times CSV size; not an allocation attribution. Same CSV hashes establish repeatability, not real-world financial accuracy. Retain A; see ADR-007 review triggers. Fresh-load acceptance pending.
+No cache control, server memory, growth or concurrent checkout test for full package. Peak RSS roughly 35 times CSV size; not an allocation attribution. Same CSV hashes establish repeatability, not real-world financial accuracy. Retain A; see ADR-007 review triggers. Candidate fresh-load functional acceptance passed (E077c); final merged revision verification remains pending.
 
 See [evidence and decision index](../EVIDENCE_INDEX.md) for checkpoint identifiers.
+
+## Stage 08 acceptance publication (E076 and E077c)
+
+| Cutoff | Manual internal elapsed (s) | Automated internal elapsed (s) | Readiness |
+|---|---:|---:|---|
+| 2026-08-31 | 16.768 | 20.236 | WARN |
+| 2026-11-26 | 17.191 | 22.131 | WARN |
+| 2025-08-01 | 12.086 | 18.648 | PASS |
+
+All three automated packages passed seven output hashes and six CSV row counts each. Both latest nonempty runs exceeded the proposed 20 s review trigger; retain D037 provisionally, with latency investigation still warranted. No RSS measurement or controlled causal comparison for these runs. WARN reflects financial screening, not runtime. Final merged revision verification remains pending.

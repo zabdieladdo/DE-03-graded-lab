@@ -1,86 +1,48 @@
 #!/usr/bin/env python3
-"""Read-only verification of both DE-03 database endpoints."""
-
+"""Read-only verification of the explicitly selected lab endpoint."""
 import os
+import subprocess
 import sys
 from contextlib import closing
-from getpass import getpass
-from urllib.parse import urlparse, unquote
 
-try:
-    import psycopg2
-except ImportError:
-    sys.exit(
-        "Missing psycopg2. Activate the virtual environment "
-        "and install requirements.txt."
-    )
+import psycopg2
 
-# Read connection settings without printing credentials.
-base = os.environ.get(
-    "DE03_DATABASE_BASE",
-    "postgresql://postgres@127.0.0.1:5432"
-)
 
-parsed = urlparse(base)
-
-if parsed.scheme not in ("postgresql", "postgres"):
-    sys.exit("Invalid PostgreSQL connection scheme.")
-
-if parsed.path not in ("", "/"):
-    sys.exit("DE03_DATABASE_BASE must not include a database path.")
-
-password = (
-    unquote(parsed.password)
-    if parsed.password is not None
-    else os.environ.get("PGPASSWORD")
-)
-
-if password is None:
-    password = getpass("Local PostgreSQL password: ")
-
-# Verify both local endpoints against the required configuration.
-for database in ("kloudkart_learning", "kloudkart_lab"):
+def main():
+    container = os.environ.get("KLOUDKART_CONTAINER")
+    dsn = os.environ.get("DATABASE_URL")
+    if not container or not dsn:
+        sys.exit("Set KLOUDKART_CONTAINER and DATABASE_URL explicitly.")
     try:
-        with closing(psycopg2.connect(
-            host=parsed.hostname or "127.0.0.1",
-            port=parsed.port or 5432,
-            user=unquote(parsed.username or "postgres"),
-            password=password,
-            dbname=database,
-            connect_timeout=5
-        )) as conn:
+        result = subprocess.run(
+            ["docker", "exec", container, "psql", "-X", "-U", "postgres",
+             "-d", "kloudkart_lab", "-v", "ON_ERROR_STOP=1", "-Atc",
+             "SELECT system_identifier FROM pg_control_system()"],
+            capture_output=True, text=True, timeout=30, check=True,
+        )
+        docker_id = result.stdout.strip()
+        with closing(psycopg2.connect(dsn, connect_timeout=5,
+                     options="-c statement_timeout=10000 -c default_transaction_read_only=on")) as conn:
             with conn.cursor() as cur:
-                cur.execute("""
-                    SELECT
-                        current_database(),
-                        current_setting('server_version'),
-                        current_setting('max_connections'),
-                        current_setting('transaction_isolation');
-                """)
+                cur.execute("""SELECT current_database(),
+                    current_setting('server_version'),
+                    current_setting('max_connections'),
+                    current_setting('transaction_isolation'),
+                    system_identifier::text FROM pg_control_system()""")
+                db, version, maximum, isolation, python_id = cur.fetchone()
+        print(f"Container: {container}; database: {db}; PostgreSQL {version}; "
+              f"max_connections={maximum}; isolation={isolation}")
+        print(f"Docker system identifier: {docker_id}")
+        print(f"Python system identifier: {python_id}")
+        if not (db == "kloudkart_lab" and version.split(".")[0] == "18"
+                and int(maximum) >= 405 and isolation == "read committed"
+                and docker_id.isdigit() and docker_id == python_id):
+            sys.exit("FAIL: Lab configuration or cluster identity mismatch.")
+    except (psycopg2.Error, OSError, subprocess.SubprocessError, ValueError) as exc:
+        sys.exit(f"FAIL: Setup verification ({type(exc).__name__}); details suppressed.")
+    print("PASS: Lab endpoint and cluster identity verified.")
+    print("Imported data and graded tests are not verified by this script.")
 
-                actual, version, connections, isolation = cur.fetchone()
 
-                passed = (
-                    actual == database
-                    and version.split(".")[0] == "18"
-                    and connections == "500"
-                    and isolation == "read committed"
-                )
-
-                status = "PASS" if passed else "FAIL"
-
-                print(
-                    f"{database}: {status} | "
-                    f"PostgreSQL {version} | "
-                    f"max_connections={connections} | "
-                    f"isolation={isolation}"
-                )
-
-                if not passed:
-                    sys.exit(1)
-
-    except psycopg2.Error as exc:
-        sys.exit(f"{database}: CONNECTION FAILED — {exc}")
-
-print("Both database endpoints passed.")
-print("Imported data and graded tests are not verified by this script.")
+if __name__ == "__main__":
+    main()

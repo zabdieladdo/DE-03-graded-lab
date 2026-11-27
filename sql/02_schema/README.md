@@ -57,7 +57,7 @@ Test record changes are rolled back. Sequence allocations are not rolled back.
 
 ## Evidence
 
-See `evidence/08_foreign_key_migration.txt` through `evidence/16_schema_integrity_test.txt`.
+See `evidence/06_safety_and_recovery.txt (original: 08_foreign_key_migration.txt; lines 7-24)` through `evidence/06_safety_and_recovery.txt (original: 16_schema_integrity_test.txt; lines 256-309)`.
 
 ## Limitations
 

@@ -282,8 +282,8 @@ The original flash-sale performance results remain unchanged.
 
 #### Evidence
 
-- `evidence/25_audit_race_retained.txt`
-- `evidence/26_inventory_audit_reconciliation.txt`
+- `evidence/06_safety_and_recovery.txt (original: 25_audit_race_retained.txt; lines 573-595)`
+- `evidence/06_safety_and_recovery.txt (original: 26_inventory_audit_reconciliation.txt; lines 602-655)`
 - `tests/06_inventory_audit_reconciliation.sql`
 
 Both the supplementary race test and the independent reconciliation script returned exit code 0.
@@ -332,12 +332,12 @@ The benchmark can be reproduced using the original supplied race-test harness an
 set -o pipefail
 
 python -u ../shared-data/race_test.py --verbose \
-    2>&1 | tee evidence/22_race_test_verbose_rerun.txt
+    2>&1 | tee generated/22_race_test_verbose_rerun.txt
 
 race_exit=$?
 
 printf '\nRace test exit code: %s\n' "$race_exit" \
-    | tee -a evidence/22_race_test_verbose_rerun.txt
+    | tee -a generated/22_race_test_verbose_rerun.txt
 
 unset DATABASE_URL
 ```
@@ -348,8 +348,8 @@ unset DATABASE_URL
 set -o pipefail
 
 python scripts/analyze_race_results.py \
-    evidence/22_race_test_verbose_rerun.txt \
-    2>&1 | tee evidence/24_race_performance_analysis_rerun.txt
+    generated/22_race_test_verbose_rerun.txt \
+    2>&1 | tee generated/24_race_performance_analysis_rerun.txt
 
 echo $?
 ```
@@ -360,15 +360,15 @@ The cleanup verification script `tests/05_race_cleanup_verification.sql` contain
 
 | Evidence file | Purpose |
 |---|---|
-| `evidence/17_place_order_deployment.txt` | Purchase function deployment |
-| `evidence/18_place_order_verification.txt` | Function signature and database configuration |
-| `evidence/19_place_order_functional_test.txt` | Eleven functional purchase tests |
-| `evidence/20_place_order_atomicity_test.txt` | Ten failure atomicity assertions |
-| `evidence/21_race_preflight.txt` | Fixture collision and database safety checks |
-| `evidence/21a_race_environment.txt` | Hardware and execution environment measurements |
-| `evidence/22_race_test_verbose.txt` | Official concurrency results and individual latency measurements |
-| `evidence/23_race_cleanup.txt` | Independent fixture cleanup and baseline reconciliation |
-| `evidence/24_race_performance_analysis.txt` | Reproducible latency and throughput calculations |
+| `evidence/06_safety_and_recovery.txt (original: 17_place_order_deployment.txt; lines 316-325)` | Purchase function deployment |
+| `evidence/06_safety_and_recovery.txt (original: 18_place_order_verification.txt; lines 332-370)` | Function signature and database configuration |
+| `evidence/06_safety_and_recovery.txt (original: 19_place_order_functional_test.txt; lines 377-441)` | Eleven functional purchase tests |
+| `evidence/06_safety_and_recovery.txt (original: 20_place_order_atomicity_test.txt; lines 448-513)` | Ten failure atomicity assertions |
+| `evidence/04_concurrent_workload.txt (original: 21_race_preflight.txt; lines 7-35)` | Fixture collision and database safety checks |
+| `evidence/04_concurrent_workload.txt (original: 21a_race_environment.txt; lines 42-60)` | Hardware and execution environment measurements |
+| `evidence/04_concurrent_workload.txt (original: 22_race_test_verbose.txt; lines 67-550)` | Official concurrency results and individual latency measurements |
+| `evidence/06_safety_and_recovery.txt (original: 23_race_cleanup.txt; lines 520-566)` | Independent fixture cleanup and baseline reconciliation |
+| `evidence/03_performance_comparison.txt (original: 24_race_performance_analysis.txt; lines 7-26)` | Reproducible latency and throughput calculations |
 
 ## Caveats
 
@@ -397,7 +397,7 @@ Sequential functional correctness, rollback after an injected inventory failure 
 
 The evidence supports retaining the selected concurrency strategy without increasing the current infrastructure allocation.
 
-Detailed concurrent purchase audit reconciliation was subsequently completed. Controlled performance repeatability and final fresh-load acceptance remain outstanding.
+Detailed concurrent purchase audit reconciliation was subsequently completed. Six integrated acceptance trials and the automated functional rebuild passed checkout correctness; controlled causal comparison and final merged revision verification remain outstanding.
 
 
 ### Final supplementary fixture cleanup
@@ -452,7 +452,7 @@ This establishes successful targeted cleanup and row-count reconciliation, not c
 **Evidence:**
 
 - `tests/07_retained_audit_cleanup.sql`
-- `evidence/27_retained_audit_cleanup.txt`
+- `evidence/06_safety_and_recovery.txt (original: 27_retained_audit_cleanup.txt; lines 662-725)`
 
 **Result:** PASS — final supplementary fixture cleanup committed successfully.
 

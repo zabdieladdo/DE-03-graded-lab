@@ -8,7 +8,7 @@ Existing Windows/WSL2 Docker PostgreSQL lab (32 GB host RAM, 8 logical processor
 
 ```bash
 set -o pipefail
-python -u ../shared-data/race_test.py --verbose 2>&1 | tee evidence/57_race_test_audit_regression_rerun.txt
+python -u ../shared-data/race_test.py --verbose 2>&1 | tee generated/57_race_test_audit_regression_rerun.txt
 echo $?
 unset DATABASE_URL
 ```
@@ -32,6 +32,6 @@ Attempt p95 uses nearest rank on rounded verbose timings. Successful attempts (5
 | Flash-sale attempt median | 730.90 ms | 870.45 ms | +139.55 ms |
 
 ## Caveats
-Single workload runs do not isolate trigger overhead or establish production percentiles. No original inventory rollup timing available. E057 passed all four scenarios; cleanup subsequently confirmed. Concurrent reporting was subsequently tested (see integrated workload report); fresh-load acceptance remains pending. Evidence: 53_low_stock_rollup_test.txt, 57_race_test_audit_regression.txt and earlier 22_race_test_verbose.txt.
+Single workload runs do not isolate trigger overhead or establish production percentiles. No original inventory rollup timing available. E057 passed all four scenarios; cleanup subsequently confirmed. Concurrent reporting was subsequently tested (see integrated workload report); candidate fresh-load functional acceptance passed (E077c); final merged revision verification remains pending. Evidence: 53_low_stock_rollup_test.txt, 57_race_test_audit_regression.txt and earlier 22_race_test_verbose.txt.
 
 See [evidence and decision index](../EVIDENCE_INDEX.md) for checkpoint identifiers.

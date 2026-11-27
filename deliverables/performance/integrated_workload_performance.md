@@ -10,11 +10,11 @@ Windows/WSL2 laptop, previously recorded 32 GB installed RAM and 8 logical CPUs,
 
 ```bash
 set -o pipefail
-python -u scripts/verify_integrated_workload.py 2>&1 | tee evidence/58_integrated_workload_rerun.txt
+python -u scripts/verify_integrated_workload.py 2>&1 | tee generated/58_integrated_workload_rerun.txt
 echo $?
 unset DATABASE_URL
 ```
- Script prints performance misses without failing exit status and checks concurrent report gate only; inspect solo separately.
+ Current script requires KLOUDKART_CONTAINER and verifies Docker/Python cluster identity. It prints separate solo and concurrent performance gates; timing misses alone do not fail exit status. Use a dedicated deployed lab and verify cleanup afterwards.
 
 ## Results
 | Scenario | Runs | Median (s) | Worst (s) | Target met? |
@@ -48,6 +48,19 @@ E058 50 distinct successful order IDs, 350 refusals, no errors or overselling pe
 E058 all 400 min 162.5 ms; 50 wins median 374.5, p95 472.4, max 482.1; 350 refusals median 817.95, p95 1118.9, max 1149.9. Wall time -2.38% versus E057, not proof reporting improves checkout. Concurrent report headroom 772.993 ms; monthly/running 64.05% of total.
 
 ## Caveats
-E050 and E058 same six outputs but different session setup: E050 ran integration assertions first in one snapshot; E058 separate sessions without assertions. No controlled causal speedup or consistent five-second guarantee. Historical cutoff excludes synthetic November sales, not a test of current-day inclusion. Sampling does not establish exact overlap duration. No projected-volume or sustained production test. Original 40-minute SQL unavailable; no historical speedup claimed. No agreed checkout degradation percentage. Retain on-demand reporting provisionally. E050 misses remain valid; revisit repeatable misses or growth. Fresh-load acceptance pending.
+E050 and E058 same six outputs but different session setup: E050 ran integration assertions first in one snapshot; E058 separate sessions without assertions. No controlled causal speedup or consistent five-second guarantee. Historical cutoff excludes synthetic November sales, not a test of current-day inclusion. Sampling does not establish exact overlap duration. No projected-volume or sustained production test. Original 40-minute SQL unavailable; no historical speedup claimed. No agreed checkout degradation percentage. Retain on-demand reporting provisionally. E050 misses remain valid. D039 retains on-demand reporting despite repeatable misses; no client waiver or changed target. Candidate fresh-load functional acceptance passed (E077c); final merged revision verification remains pending.
 
 See [evidence and decision index](../EVIDENCE_INDEX.md) for checkpoint identifiers.
+
+## Acceptance repeatability (E075b–E075d)
+
+| Trial | Solo report (s) | Concurrent report (s) | Checkout (s) |
+|---|---:|---:|---:|
+| Initial | 3.317 | 5.041 | 2.64 |
+| 1 | 6.290 | 8.281 | 4.27 |
+| 2 | 4.942 | 8.489 | 3.85 |
+| 3 | 5.188 | 8.076 | 4.09 |
+| 4 | 4.865 | 8.665 | 4.39 |
+| 5 | 4.889 | 7.508 | 3.52 |
+
+All six trials: 300 wins, 2,100 refusals, zero unexpected errors, no overselling, observed overlap and reconciled cleanup. Concurrent median 8.178 s; solo median 4.916 s; checkout median 3.97 s. Concurrent five-second gate 0/6; solo 4/6; checkout ten-second gate 6/6. Five additional trials were separated by 30 s, without cache reset. Monthly/running was the largest component; this does not isolate a hardware cause. D039 retains the architecture without changing the target. The automated fresh-load runner is functional verification, not another integrated benchmark.

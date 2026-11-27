@@ -18,7 +18,7 @@ Reproduce from graded-lab after deploying reporting definitions:
 
 ```bash
 set -o pipefail
-docker exec -i kloudkart psql -X -U postgres -d kloudkart_lab -v ON_ERROR_STOP=1 -f /workspace/graded-lab/sql/04_reporting/20_monday_report_integration.sql 2>&1 | sed -u 's/[[:blank:]]*$//' | tee evidence/50_monday_report_integration_rerun.txt
+docker exec -i "${KLOUDKART_CONTAINER:?Select the disposable test container}" psql -X -U postgres -d kloudkart_lab -v ON_ERROR_STOP=1 -f /workspace/graded-lab/sql/04_reporting/20_monday_report_integration.sql 2>&1 | sed -u 's/[[:blank:]]*$//' | tee generated/50_monday_report_integration_rerun.txt
 ```
 
 Preserve original evidence before rerunning; use a new filename for a new run.
@@ -54,6 +54,6 @@ Other baselines: E034 summary 209.979/270.880 ms; E039 sparse 333.709 ms, dense 
 
 ## Caveats
 
-The original client-reported forty-minute query is unavailable; no measured speedup against it. E050 misses the provisional budget by 7.44% at median and 18.59% at worst. No controlled growth or final fresh-load proof. Later concurrent checkout and actual delivery measurements are in the integrated workload and readiness performance reports; their different timing boundaries must be respected.
+The original client-reported forty-minute query is unavailable; no measured speedup against it. E050 misses the provisional budget by 7.44% at median and 18.59% at worst. No controlled growth proof. Candidate fresh-load functional acceptance passed (E077c); final merged revision verification remains pending. Later concurrent checkout and actual delivery measurements are in the integrated workload and readiness performance reports; their different timing boundaries must be respected.
 
 See [evidence and decision index](../EVIDENCE_INDEX.md) for checkpoint identifiers.
