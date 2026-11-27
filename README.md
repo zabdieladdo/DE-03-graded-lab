@@ -214,8 +214,6 @@ Run separately and inspect exit codes. PASS/WARN exit 0, FAIL exit 2, ERROR exit
 ## Measured results and limitations
 Official race tests passed; 400 attempts/50 wins/350 refusals, zero errors in tested runs. Development integrated SQL workload measured 3.487 s solo and 4.227 s concurrent (E058). Six independent acceptance-environment observations missed the provisional 5 s concurrent reporting target (5.041–8.665 s); all six checkout runs completed within 10 s (2.64–4.39 s), with zero overselling or unexpected errors. The 5 s target is internal, not a client-approved SLA. Earlier verified publication median was 13.933 s (three runs), approximately 962 MiB Python RSS. Latest automated full publication elapsed 20.236 s (August), 22.131 s (November), and 18.648 s (empty); two exceeded the proposed 20 s investigation threshold. Retain the current architecture with disclosed limitations; timings are environment-dependent, not a causal comparison. No agreed full-publication SLA. Isolated locking comparison passed 12 trials; not a full purchase benchmark. See performance reports for methods and limitations.
 
-## Submission hygiene
-Keep supporting questions, schema findings and verification register. Exclude private defence notes, learning journal, credentials, caches, raw data and generated reports. Preserve failure evidence. Final submission mechanics require confirmation. Preserve raw evidence privately and retain traceability to submitted claims. Verify the final merged revision before submission.
 
 ## Assessor navigation
 
