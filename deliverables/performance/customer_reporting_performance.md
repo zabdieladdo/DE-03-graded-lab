@@ -2,35 +2,41 @@
 
 ## Target
 
-Client: customer spending reports in seconds on an ordinary laptop (DE-03 brief). Provisional engineering target: complete core workload <= 5 seconds; not client-confirmed. Final acceptance pending. No additional infrastructure.
+Client: customer spending reports in seconds on an ordinary laptop.
+
+Provisional engineering target: complete core workload <= 5 seconds; not client-confirmed.
+
+Final acceptance pending. No additional infrastructure.
 
 ## Method
 
 Windows/WSL2, Docker PostgreSQL 18.7, host 32 GB RAM and 8 logical processors (previously reported); E050 database settings: work_mem 4 MiB, shared_buffers 128 MiB, effective_cache_size 4 GiB, JIT on, max_parallel_workers_per_gather 2, 8 KiB blocks, track_io_timing off. Actual CPU load and container resource limits were not independently captured for E050.
 
-Baseline 159,384 orders, 40,420 customers. Headline cutoff 2026-08-31; sensitivity 2026-11-26. E048/E049 use EXPLAIN ANALYZE BUFFERS for equivalent top-100 outputs, three repetitions per configuration. E050 uses one read-only repeatable-read transaction, six correctness gates before timing, then three headline runs and one sensitivity run. Each workload includes six sorted where applicable CSV outputs to local psql discarded to /dev/null; clock_timestamp measures combined elapsed time. Excludes correctness verification, connection startup, persistent file writing, remote delivery and spreadsheet rendering. Repeated/warmed execution, not controlled cold cache. No reliable p95 with three observations.
+Baseline 159,384 orders, 40,420 customers. Headline cutoff 2026-08-31; sensitivity 2026-11-26. E048/E049 use EXPLAIN ANALYZE BUFFERS for equivalent top-100 outputs, three repetitions per configuration. E050 uses one read-only repeatable-read transaction, six correctness gates before timing, then three headline runs and one sensitivity run. Each workload includes six sorted where applicable CSV outputs to local psql discarded to /dev/null; clock_timestamp measures combined elapsed time. Excludes correctness verification, connection startup, persistent file writing, remote delivery and spreadsheet rendering. Repeated/warmed execution, not controlled cold cache.
 
 Reproduce from graded-lab after deploying reporting definitions:
 
 ```bash
 set -o pipefail
-docker exec -i kloudkart psql -X -U postgres -d kloudkart_lab -v ON_ERROR_STOP=1 -f /workspace/graded-lab/sql/04_reporting/20_monday_report_integration.sql 2>&1 | sed -u 's/[[:blank:]]*$//' | tee evidence/50_monday_report_integration.txt
+docker exec -i kloudkart psql -X -U postgres -d kloudkart_lab -v ON_ERROR_STOP=1 -f /workspace/graded-lab/sql/04_reporting/20_monday_report_integration.sql 2>&1 | sed -u 's/[[:blank:]]*$//' | tee evidence/50_monday_report_integration_rerun.txt
 ```
 
-Preserve original evidence before rerunning; use a new filename for a new run. E048 and E049 use scripts 18_customer_ranking_baseline.sql and 19_customer_ranking_jit_sensitivity.sql respectively with the same psql invocation.
+Preserve original evidence before rerunning; use a new filename for a new run.
+
+E048 and E049 use scripts `sql/04_reporting/18_customer_ranking_baseline.sql` and `sql/04_reporting/19_customer_ranking_jit_sensitivity.sql` respectively with the same psql invocation.
 
 ## Results
 
-| Scenario | Runs | Median ms | p95 | Worst ms | Target met? |
-|---|---:|---:|---|---:|---|
-| E048 direct ranking | 3 | 484.836 | Not estimated | 500.371 | Individual query; no separate target |
-| E048 sparse ranking | 3 | 930.033 | Not estimated | 982.288 | Alternative |
-| E049 direct JIT on | 3 | 593.868 | Not estimated | 854.036 | Individual query |
-| E049 sparse JIT on | 3 | 1742.890 | Not estimated | 1743.836 | Alternative |
-| E049 direct JIT off | 3 | 546.396 | Not estimated | 584.284 | Individual query |
-| E049 sparse JIT off | 3 | 1110.108 | Not estimated | 1409.747 | Alternative |
-| E050 headline core workload | 3 | 5371.877 | Not estimated | 5929.448 | No, provisional 5 s |
-| E050 sensitivity core workload | 1 | 5727.490 | Not estimated | 5727.490 | No, provisional 5 s |
+| Scenario | Runs | Median ms | Worst ms | Target met? |
+|---|---:|---:|---:|---|
+| E048 direct ranking | 3 | 484.836 | 500.371 | Individual query; no separate target |
+| E048 sparse ranking | 3 | 930.033 | 982.288 | Alternative |
+| E049 direct JIT on | 3 | 593.868 | 854.036 | Individual query |
+| E049 sparse JIT on | 3 | 1742.890 | 1743.836 | Alternative |
+| E049 direct JIT off | 3 | 546.396 | 584.284 | Individual query |
+| E049 sparse JIT off | 3 | 1110.108 | 1409.747 | Alternative |
+| E050 headline core workload | 3 | 5371.877 | 5929.448 | No, provisional 5 s |
+| E050 sensitivity core workload | 1 | 5727.490 | 5727.490 | No, provisional 5 s |
 
 E050 headline runs 5371.877, 5929.448, 5276.166 ms. Six correctness assertions passed; four workloads completed, rollback and exit 0. Core expected output 525,563 data rows across six interfaces (not counted from discarded CSV). Component medians: summary 404.475, monthly/running 2633.804, top100 867.696, ranking metadata 959.293, financial reconciliation 477.070, period metadata 0.423 ms. Median combined ranking+metadata 1912.950 ms. Component medians need not sum to workload median.
 
@@ -48,4 +54,6 @@ Other baselines: E034 summary 209.979/270.880 ms; E039 sparse 333.709 ms, dense 
 
 ## Caveats
 
-The original client-reported forty-minute query is unavailable; no measured speedup against it. E050 misses the provisional budget by 7.44% at median and 18.59% at worst. No controlled growth, concurrent checkout/report, actual delivery or final fresh-load proof. E051/B1, B2/B3, materialized views and global tuning deferred. Stage 06 should prioritize required final acceptance and one valuable implemented improvement rather than exhaustive tuning.
+The original client-reported forty-minute query is unavailable; no measured speedup against it. E050 misses the provisional budget by 7.44% at median and 18.59% at worst. No controlled growth or final fresh-load proof. Later concurrent checkout and actual delivery measurements are in the integrated workload and readiness performance reports; their different timing boundaries must be respected.
+
+See [evidence and decision index](../EVIDENCE_INDEX.md) for checkpoint identifiers.
