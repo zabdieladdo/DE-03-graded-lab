@@ -18,9 +18,9 @@ Set `DATABASE_URL` privately as described in the root README. **Run in terminal:
 
 ```bash
 set -o pipefail
-python -u scripts/compare_stock_locking.py --buyers 40 --stock 5 --pairs 3 2>&1 | tee evidence/64a_locking_comparison_rerun.txt
-python -u scripts/compare_stock_locking.py --buyers 400 --stock 50 --pairs 3 2>&1 | tee evidence/64b_locking_comparison_rerun.txt
+python -u scripts/compare_stock_locking.py --buyers 40 --stock 5 --pairs 3 2>&1 | tee generated/64a_locking_comparison_rerun.txt
+python -u scripts/compare_stock_locking.py --buyers 400 --stock 50 --pairs 3 2>&1 | tee generated/64b_locking_comparison_rerun.txt
 unset DATABASE_URL
 ```
 
-Stop if either run fails. Successful terminal outputs supplied on 27 November; ensure local `evidence/64a_locking_comparison.txt` and `evidence/64b_locking_comparison.txt` contain these successful runs. The uploaded ZIP predates the successful retry and contains the earlier missing-variable error. Preserve it separately.
+Stop if either run fails. Successful terminal outputs supplied on 27 November; ensure local `evidence/03_performance_comparison.txt (original: 64a_locking_comparison.txt; lines 2690-2701)` and `evidence/03_performance_comparison.txt (original: 64b_locking_comparison.txt; lines 2708-2719)` contain these successful runs. The uploaded ZIP predates the successful retry and contains the earlier missing-variable error. Preserve it separately.

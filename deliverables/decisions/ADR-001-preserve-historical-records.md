@@ -56,11 +56,11 @@ The decision accommodates future recovery of missing references, additional hist
 
 The treatment does not depend on inventing replacement entities or permanently removing unresolved historical records.
 
-Schema verification passed 24 assertions, including 16 rejection tests. Historical row counts remained unchanged. Final fresh-load acceptance remains pending.
+Schema verification passed 24 assertions, including 16 rejection tests. Historical row counts remained unchanged. Candidate fresh-load functional acceptance passed (E077c); final merged revision verification remains pending.
 
 Supporting evidence:
 
 - `sql/01_diagnosis/02_referential_integrity.sql`
-- `evidence/02_referential_integrity.txt`
+- `evidence/01_data_diagnosis.txt (original: 02_referential_integrity.txt; lines 217-236)`
 
 See [evidence and decision index](../EVIDENCE_INDEX.md) for checkpoint identifiers.

@@ -23,16 +23,10 @@ else
     exit 1
 fi
 
-# Verify the container, server settings and Python connectivity.
-printf '\n--- Docker container ---\n'
-docker ps --filter name='^/kloudkart$'
-
+# Require explicit selection; never silently inspect the learning cluster.
+: "${KLOUDKART_CONTAINER:?Set KLOUDKART_CONTAINER explicitly}"
+: "${DATABASE_URL:?Set DATABASE_URL securely}"
 printf '\n--- PostgreSQL readiness ---\n'
-docker exec kloudkart pg_isready -U postgres
-
-printf '\n--- PostgreSQL settings ---\n'
-docker exec kloudkart psql -U postgres -Atc 'SHOW server_version;'
-docker exec kloudkart psql -U postgres -Atc 'SHOW max_connections;'
-
-printf '\n--- Both database connections ---\n'
+docker exec "$KLOUDKART_CONTAINER" pg_isready -U postgres -d kloudkart_lab
+printf '\n--- Lab endpoint and cluster identity ---\n'
 python scripts/verify_setup.py

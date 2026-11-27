@@ -217,18 +217,18 @@ The original supplied harness checksum comparison remains unconfirmed; verify ag
 
 ### Supporting evidence
 
-- `evidence/17_place_order_deployment.txt`
-- `evidence/18_place_order_verification.txt`
-- `evidence/19_place_order_functional_test.txt`
-- `evidence/20_place_order_atomicity_test.txt`
-- `evidence/21_race_preflight.txt`
-- `evidence/21a_race_environment.txt`
-- `evidence/22_race_test_verbose.txt`
-- `evidence/23_race_cleanup.txt`
-- `evidence/24_race_performance_analysis.txt`
-- `evidence/25_audit_race_retained.txt`
-- `evidence/26_inventory_audit_reconciliation.txt`
-- `evidence/27_retained_audit_cleanup.txt`
+- `evidence/06_safety_and_recovery.txt (original: 17_place_order_deployment.txt; lines 316-325)`
+- `evidence/06_safety_and_recovery.txt (original: 18_place_order_verification.txt; lines 332-370)`
+- `evidence/06_safety_and_recovery.txt (original: 19_place_order_functional_test.txt; lines 377-441)`
+- `evidence/06_safety_and_recovery.txt (original: 20_place_order_atomicity_test.txt; lines 448-513)`
+- `evidence/04_concurrent_workload.txt (original: 21_race_preflight.txt; lines 7-35)`
+- `evidence/04_concurrent_workload.txt (original: 21a_race_environment.txt; lines 42-60)`
+- `evidence/04_concurrent_workload.txt (original: 22_race_test_verbose.txt; lines 67-550)`
+- `evidence/06_safety_and_recovery.txt (original: 23_race_cleanup.txt; lines 520-566)`
+- `evidence/03_performance_comparison.txt (original: 24_race_performance_analysis.txt; lines 7-26)`
+- `evidence/06_safety_and_recovery.txt (original: 25_audit_race_retained.txt; lines 573-595)`
+- `evidence/06_safety_and_recovery.txt (original: 26_inventory_audit_reconciliation.txt; lines 602-655)`
+- `evidence/06_safety_and_recovery.txt (original: 27_retained_audit_cleanup.txt; lines 662-725)`
 - `deliverables/performance/order_placement_performance.md`
 
 See [evidence and decision index](../EVIDENCE_INDEX.md) for checkpoint identifiers.

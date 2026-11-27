@@ -6,7 +6,7 @@ Database: kloudkart_lab
 
 Evidence:
 - sql/01_diagnosis/01_schema_inspection.sql
-- evidence/01_schema_inspection.txt
+- evidence/01_data_diagnosis.txt (original: 01_schema_inspection.txt; lines 122-210)
 
 ## Observed facts
 

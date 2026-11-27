@@ -1,0 +1,641 @@
+
+==============================================================================
+ORIGINAL FILE: 60a_readiness_reference.txt
+ORIGINAL SHA256: 9478fad13f45d9b2f24a354ae980aa26a8fd8447848bf99932c030022b73c036
+==============================================================================
+
+Environment: {'db': 'kloudkart_lab', 'isolation': 'repeatable read', 'read_only': 'on'}
+=== 2026-08-31 ===
+Customer reference: 40420 rows, 2282.918 ms (query + fetch)
+Exception reference: 995.718 ms (query + fetch)
+Window orders: 109702; window amount: 334634759.00; qualifying customers: 37816; top100 amount: 14781340.27
+eligible_orders: 111334
+eligible_value: 339565617.77
+attributed_orders: 111190
+attributed_value: 339176836.88
+unattributed_orders: 144
+unattributed_value: 388780.89
+mismatch_orders: 1624
+mismatch_absolute_gap: 2074053.86
+mismatch_recorded_value: 5848525.33
+incomplete_orders: 95
+incomplete_recorded_value: 455904.42
+no_item_orders: 0
+null_header_amount_orders: 0
+missing_date_count: 0
+after_cutoff_count: 17
+missing_date_value: 0
+after_cutoff_value: 43748.26
+shared_email_groups: 533
+shared_email_accounts: 1068
+PASS: independent reference matches historical baseline and internal identities (2026-08-31)
+=== 2026-11-26 ===
+Customer reference: 40420 rows, 1780.868 ms (query + fetch)
+Exception reference: 743.748 ms (query + fetch)
+Window orders: 102463; window amount: 313014045.03; qualifying customers: 37285; top100 amount: 14329991.90
+eligible_orders: 111339
+eligible_value: 339573765.42
+attributed_orders: 111195
+attributed_value: 339184984.53
+unattributed_orders: 144
+unattributed_value: 388780.89
+mismatch_orders: 1624
+mismatch_absolute_gap: 2074053.86
+mismatch_recorded_value: 5848525.33
+incomplete_orders: 95
+incomplete_recorded_value: 455904.42
+no_item_orders: 0
+null_header_amount_orders: 0
+missing_date_count: 0
+after_cutoff_count: 12
+missing_date_value: 0
+after_cutoff_value: 35600.61
+shared_email_groups: 533
+shared_email_accounts: 1068
+PASS: independent reference matches historical baseline and internal identities (2026-11-26)
+PASS: E060a reference probe complete; read-only transaction rolled back
+
+==============================================================================
+ORIGINAL FILE: 60c_01_readiness_august.txt
+ORIGINAL SHA256: 64aaf66967cf7950092da6b802c34204f6c3109f736663d389b2b92e3787bc75
+==============================================================================
+
+Environment: {'db': 'kloudkart_lab', 'snapshot': '2287:2287:', 'isolation': 'repeatable read', 'read_only': 'on'}
+customer_summary: 40420 rows
+monthly_running: 485040 rows
+top100: 100 rows
+ranking_metadata: 1 rows
+reconciliation: 1 rows
+period_metadata: 1 rows
+R01 PASS Customer population: 0 comparison differences (positional; not unique affected records).
+R02 PASS Customer summary and financial reconciliation: 0 comparison differences (positional; not unique affected records).
+R03 PASS Monthly, cumulative and period outputs: 0 comparison differences (positional; not unique affected records).
+R04 PASS Ranking and metadata: 0 comparison differences (positional; not unique affected records).
+R05 PASS Orders without valid customer attribution; recorded spending: 144 of 111,334 eligible orders (0.1293%); 388,780.89 recorded monetary units (0.1145% of eligible recorded spending).
+R06 WARN Complete valuations disagree with checkout totals; absolute differences, not proven loss: 1,624 of 111,334 eligible orders (1.4587%); 2,074,053.86 recorded monetary units (0.6108% of eligible recorded spending).
+R07 PASS Incomplete item valuations; associated checkout value, not missing item value: 95 of 111,334 eligible orders (0.0853%); 455,904.42 recorded monetary units (0.1343% of eligible recorded spending).
+R09 INFO Final month is complete through 2026-08-31; no month-over-month comparison is generated.
+R10 INFO Completed-status orders excluded: 0 missing dates, 17 after cutoff; after-cutoff records are not automatically errors.
+R11 INFO 533 shared email groups across 1068 accounts; not proof of duplicate people.
+D01 DISCLOSURE Source completeness and real-world financial accuracy are not independently verified. Zero recorded spending does not prove absence of business activity. Historical order status and customer population reflect the current extract. Currency is unconfirmed.
+Run: ea51996c-5939-40ae-a910-88c2f83a5ca1 Status: WARN Action: REVIEW AND DISCLOSE
+Manifest: /home/<local-user>/projects/de03-kloudkart/graded-lab/generated/ea51996c-5939-40ae-a910-88c2f83a5ca1/manifest.json
+Timings: {'report_seconds': 10.881867088995932, 'reference_seconds': 3.0209080729982816, 'evaluation_seconds': 1.0938342769950395, 'elapsed_seconds': 15.041318420000607}
+
+==============================================================================
+ORIGINAL FILE: 60c_02_readiness_november.txt
+ORIGINAL SHA256: bec2e45d75a301304d4bd1caecebc08fa785701dd007282c1c407ddc49265dc5
+==============================================================================
+
+Environment: {'db': 'kloudkart_lab', 'snapshot': '4947:4947:', 'isolation': 'repeatable read', 'read_only': 'on'}
+customer_summary: 40420 rows
+monthly_running: 485040 rows
+top100: 100 rows
+ranking_metadata: 1 rows
+reconciliation: 1 rows
+period_metadata: 1 rows
+R01 PASS Customer population: 0 comparison differences (positional; not unique affected records).
+R02 PASS Customer summary and financial reconciliation: 0 comparison differences (positional; not unique affected records).
+R03 PASS Monthly, cumulative and period outputs: 0 comparison differences (positional; not unique affected records).
+R04 PASS Ranking and metadata: 0 comparison differences (positional; not unique affected records).
+R05 PASS Orders without valid customer attribution; recorded spending: 144 of 111,339 eligible orders (0.1293%); 388,780.89 recorded monetary units (0.1145% of eligible recorded spending).
+R06 WARN Complete valuations disagree with checkout totals; absolute differences, not proven loss: 1,624 of 111,339 eligible orders (1.4586%); 2,074,053.86 recorded monetary units (0.6108% of eligible recorded spending).
+R07 PASS Incomplete item valuations; associated checkout value, not missing item value: 95 of 111,339 eligible orders (0.0853%); 455,904.42 recorded monetary units (0.1343% of eligible recorded spending).
+R09 INFO Final month is partial through 2026-11-26; no month-over-month comparison is generated.
+R10 INFO Completed-status orders excluded: 0 missing dates, 12 after cutoff; after-cutoff records are not automatically errors.
+R11 INFO 533 shared email groups across 1068 accounts; not proof of duplicate people.
+D01 DISCLOSURE Source completeness and real-world financial accuracy are not independently verified. Zero recorded spending does not prove absence of business activity. Historical order status and customer population reflect the current extract. Currency is unconfirmed.
+Run: 5f8b6b6e-aa70-4469-80bb-1a247af2f91c Status: WARN Action: REVIEW AND DISCLOSE
+Manifest: /home/<local-user>/projects/de03-kloudkart/graded-lab/generated/5f8b6b6e-aa70-4469-80bb-1a247af2f91c/manifest.json
+Timings: {'report_seconds': 16.244719941998483, 'reference_seconds': 3.9998657239993918, 'evaluation_seconds': 1.5746179429988842, 'elapsed_seconds': 21.88611753100122}
+
+==============================================================================
+ORIGINAL FILE: 60c_02a_november_failed.txt
+ORIGINAL SHA256: c53c28d288b3df54993c3fd1e673cc788528823223980fee3ec0f0505d30a3b0
+==============================================================================
+
+ERROR: KeyError SQLSTATE: None
+Run: 9c67ea5f-b62c-417b-bba6-f6dabcaec5de Status: ERROR Action: HOLD
+Manifest: /home/<local-user>/projects/de03-kloudkart/graded-lab/generated/9c67ea5f-b62c-417b-bba6-f6dabcaec5de/manifest.json
+Timings: {'elapsed_seconds': 0.008125221000227612}
+
+==============================================================================
+ORIGINAL FILE: 60c_03_november_package_integrity.txt
+ORIGINAL SHA256: f4c2606c305b035c0c22f6b910e45e351ac10ad5afd80444656c8efa47b63c64
+==============================================================================
+
+PASS: customer_summary.csv
+PASS: monthly_running.csv
+PASS: period_metadata.csv
+PASS: ranking_metadata.csv
+PASS: readiness.json
+PASS: reconciliation.csv
+PASS: top100.csv
+PASS: Run identity, cutoff and publication status
+PASS: November package integrity
+
+==============================================================================
+ORIGINAL FILE: 60c_03a_november_integrity_failed.txt
+ORIGINAL SHA256: 98cf0d665166e2044b94c7dbd95c1c9b3957f0fe82ee5192ed5af6dea6c9ada9
+==============================================================================
+
+Traceback (most recent call last):
+  File "<stdin>", line 14, in <module>
+  File "/usr/lib/python3.14/pathlib/__init__.py", line 788, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/pathlib/__init__.py", line 772, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'generated/9c67ea5f-b62c-417b-bba6-f6dabcaec5de/readiness.json'
+
+==============================================================================
+ORIGINAL FILE: 61_readiness_fault_injection.txt
+ORIGINAL SHA256: fd3c82fce05fd5df472e16cdcc4326be194884a69a11ed6d24f6c8e72896d9df
+==============================================================================
+
+test_01_pass (__main__.Readiness.test_01_pass) ... ok
+test_02_duplicate (__main__.Readiness.test_02_duplicate) ... ok
+test_03_missing (__main__.Readiness.test_03_missing) ... ok
+test_04_summary_money (__main__.Readiness.test_04_summary_money) ... ok
+test_05_reconciliation (__main__.Readiness.test_05_reconciliation) ... ok
+test_06_monthly (__main__.Readiness.test_06_monthly) ... ok
+test_07_running (__main__.Readiness.test_07_running) ... ok
+test_08_rank (__main__.Readiness.test_08_rank) ... ok
+test_09_rank_metadata (__main__.Readiness.test_09_rank_metadata) ... ok
+test_10_attribution (__main__.Readiness.test_10_attribution) ... ok
+test_11_mismatch (__main__.Readiness.test_11_mismatch) ... ok
+test_12_incomplete (__main__.Readiness.test_12_incomplete) ... ok
+test_13_count_only (__main__.Readiness.test_13_count_only) ... ok
+test_14_value_only (__main__.Readiness.test_14_value_only) ... ok
+test_15_absolute_only (__main__.Readiness.test_15_absolute_only) ... ok
+test_16_equality (__main__.Readiness.test_16_equality) ... ok
+test_17_below (__main__.Readiness.test_17_below) ... ok
+test_18_disabled_absolute (__main__.Readiness.test_18_disabled_absolute) ... ok
+test_19_multiple_limits (__main__.Readiness.test_19_multiple_limits) ... ok
+test_20_empty_denominator (__main__.Readiness.test_20_empty_denominator) ... ok
+test_21_zero_value_nonzero_gap (__main__.Readiness.test_21_zero_value_nonzero_gap) ... ok
+test_22_invalid_population (__main__.Readiness.test_22_invalid_population) ... ok
+test_23_missing_check (__main__.Readiness.test_23_missing_check) ... ok
+test_24_duplicate_check (__main__.Readiness.test_24_duplicate_check) ... ok
+test_25_missing_disclosure (__main__.Readiness.test_25_missing_disclosure) ... ok
+test_26_changed_disclosure (__main__.Readiness.test_26_changed_disclosure) ... ok
+test_27_precedence (__main__.Readiness.test_27_precedence) ... ok
+test_28_invalid_policy (__main__.Readiness.test_28_invalid_policy) ... ok
+test_29_absolute_currency (__main__.Readiness.test_29_absolute_currency) ... ok
+test_30_shared_email (__main__.Readiness.test_30_shared_email) ... ok
+test_31_partial_month (__main__.Readiness.test_31_partial_month) ... ok
+test_32_missing_period_coverage (__main__.Readiness.test_32_missing_period_coverage) ... ok
+test_33_query_error_hold (__main__.Readiness.test_33_query_error_hold) ... ok
+
+----------------------------------------------------------------------
+Ran 33 tests in 0.015s
+
+OK
+
+==============================================================================
+ORIGINAL FILE: 61b_readiness_regression.txt
+ORIGINAL SHA256: 27adefab0ee9f6d81a3c676cc6ffae5f8d479f827b1ca868b77be1a4cdc2e1fb
+==============================================================================
+
+test_01_pass (__main__.Readiness.test_01_pass) ... ok
+test_02_duplicate (__main__.Readiness.test_02_duplicate) ... ok
+test_03_missing (__main__.Readiness.test_03_missing) ... ok
+test_04_summary_money (__main__.Readiness.test_04_summary_money) ... ok
+test_05_reconciliation (__main__.Readiness.test_05_reconciliation) ... ok
+test_06_monthly (__main__.Readiness.test_06_monthly) ... ok
+test_07_running (__main__.Readiness.test_07_running) ... ok
+test_08_rank (__main__.Readiness.test_08_rank) ... ok
+test_09_rank_metadata (__main__.Readiness.test_09_rank_metadata) ... ok
+test_10_attribution (__main__.Readiness.test_10_attribution) ... ok
+test_11_mismatch (__main__.Readiness.test_11_mismatch) ... ok
+test_12_incomplete (__main__.Readiness.test_12_incomplete) ... ok
+test_13_count_only (__main__.Readiness.test_13_count_only) ... ok
+test_14_value_only (__main__.Readiness.test_14_value_only) ... ok
+test_15_absolute_only (__main__.Readiness.test_15_absolute_only) ... ok
+test_16_equality (__main__.Readiness.test_16_equality) ... ok
+test_17_below (__main__.Readiness.test_17_below) ... ok
+test_18_disabled_absolute (__main__.Readiness.test_18_disabled_absolute) ... ok
+test_19_multiple_limits (__main__.Readiness.test_19_multiple_limits) ... ok
+test_20_empty_denominator (__main__.Readiness.test_20_empty_denominator) ... ok
+test_21_zero_value_nonzero_gap (__main__.Readiness.test_21_zero_value_nonzero_gap) ... ok
+test_22_invalid_population (__main__.Readiness.test_22_invalid_population) ... ok
+test_23_missing_check (__main__.Readiness.test_23_missing_check) ... ok
+test_24_duplicate_check (__main__.Readiness.test_24_duplicate_check) ... ok
+test_25_missing_disclosure (__main__.Readiness.test_25_missing_disclosure) ... ok
+test_26_changed_disclosure (__main__.Readiness.test_26_changed_disclosure) ... ok
+test_27_precedence (__main__.Readiness.test_27_precedence) ... ok
+test_28_invalid_policy (__main__.Readiness.test_28_invalid_policy) ... ok
+test_29_absolute_currency (__main__.Readiness.test_29_absolute_currency) ... ok
+test_30_shared_email (__main__.Readiness.test_30_shared_email) ... ok
+test_31_partial_month (__main__.Readiness.test_31_partial_month) ... ok
+test_32_missing_period_coverage (__main__.Readiness.test_32_missing_period_coverage) ... ok
+test_33_query_error_hold (__main__.Readiness.test_33_query_error_hold) ... ok
+
+----------------------------------------------------------------------
+Ran 33 tests in 0.025s
+
+OK
+
+==============================================================================
+ORIGINAL FILE: 62_readiness_performance.txt
+ORIGINAL SHA256: 1822595d56d3f1bbb50ca07b5618ec3fcdb07eb8c0438e004fb725f06ba7b95b
+==============================================================================
+
+E062 cutoff 2026-08-31 pairs 3 alternating order; no explicit warmup or cache reset
+PAIR 1 export {"report_seconds": 9.897722712004906, "elapsed_seconds": 9.93932170199696, "peak_rss_mib": 962.7578125, "bytes": 28799469, "wall_seconds": 10.224088607996237}
+PAIR 1 full {"run_id": "c5cab9cb-1d0a-4d70-ac18-4f98c95e565a", "wall_seconds": 13.932681432997924, "peak_rss_mib": 961.828125, "report_seconds": 9.375933262999752, "reference_seconds": 3.0094904680008767, "evaluation_seconds": 1.2094451529992511, "elapsed_seconds": 13.642815284998505}
+PAIR 2 full {"run_id": "de3697ac-a159-498a-8c5f-0d1ced776bb2", "wall_seconds": 13.042320198001107, "peak_rss_mib": 962.0234375, "report_seconds": 9.047873933996016, "reference_seconds": 2.6142822390029323, "evaluation_seconds": 1.0731070789988735, "elapsed_seconds": 12.771539132998441}
+PAIR 2 export {"report_seconds": 8.900649403003627, "elapsed_seconds": 8.931779685997753, "peak_rss_mib": 962.9296875, "bytes": 28799469, "wall_seconds": 9.139927076997992}
+PAIR 3 export {"report_seconds": 9.036412319997908, "elapsed_seconds": 9.079107681995083, "peak_rss_mib": 962.984375, "bytes": 28799469, "wall_seconds": 9.419333744997857}
+PAIR 3 full {"run_id": "924bc33c-5f7a-4a0b-bc35-ccdfdfd47f1e", "wall_seconds": 14.046193269998184, "peak_rss_mib": 961.8671875, "report_seconds": 9.395790257003682, "reference_seconds": 3.0320117049996043, "evaluation_seconds": 1.294819570000982, "elapsed_seconds": 13.7614195319984}
+export wall_seconds: min=9.140 median=9.419 max=10.224
+export report_seconds: min=8.901 median=9.036 max=9.898
+export peak_rss_mib: min=962.758 median=962.930 max=962.984
+full wall_seconds: min=13.042 median=13.933 max=14.046
+full report_seconds: min=9.048 median=9.376 max=9.396
+full peak_rss_mib: min=961.828 median=961.867 max=962.023
+paired_wall_delta_seconds: min=3.709 median=3.902 max=4.627
+reference_plus_evaluation_seconds: min=3.687 median=4.219 max=4.327
+PASS: All six CSV hashes identical across all runs; full packages verified; export-only temporary files removed
+
+==============================================================================
+ORIGINAL FILE: 65a_readiness_r12_regression.txt
+ORIGINAL SHA256: d66508dbe7ffd7649a57700c104beec35d86ca0539d4a87a093a0bd550f31cd7
+==============================================================================
+
+test_01_pass (__main__.Readiness.test_01_pass) ... ok
+test_02_duplicate (__main__.Readiness.test_02_duplicate) ... ok
+test_03_missing (__main__.Readiness.test_03_missing) ... ok
+test_04_summary_money (__main__.Readiness.test_04_summary_money) ... ok
+test_05_reconciliation (__main__.Readiness.test_05_reconciliation) ... ok
+test_06_monthly (__main__.Readiness.test_06_monthly) ... ok
+test_07_running (__main__.Readiness.test_07_running) ... ok
+test_08_rank (__main__.Readiness.test_08_rank) ... ok
+test_09_rank_metadata (__main__.Readiness.test_09_rank_metadata) ... ok
+test_10_attribution (__main__.Readiness.test_10_attribution) ... ok
+test_11_mismatch (__main__.Readiness.test_11_mismatch) ... ok
+test_12_incomplete (__main__.Readiness.test_12_incomplete) ... ok
+test_13_count_only (__main__.Readiness.test_13_count_only) ... ok
+test_14_value_only (__main__.Readiness.test_14_value_only) ... ok
+test_15_absolute_only (__main__.Readiness.test_15_absolute_only) ... ok
+test_16_equality (__main__.Readiness.test_16_equality) ... ok
+test_17_below (__main__.Readiness.test_17_below) ... ok
+test_18_disabled_absolute (__main__.Readiness.test_18_disabled_absolute) ... ok
+test_19_multiple_limits (__main__.Readiness.test_19_multiple_limits) ... ok
+test_20_empty_denominator (__main__.Readiness.test_20_empty_denominator) ... ok
+test_21_zero_value_nonzero_gap (__main__.Readiness.test_21_zero_value_nonzero_gap) ... ok
+test_22_invalid_population (__main__.Readiness.test_22_invalid_population) ... ok
+test_23_missing_check (__main__.Readiness.test_23_missing_check) ... ok
+test_24_duplicate_check (__main__.Readiness.test_24_duplicate_check) ... ok
+test_25_missing_disclosure (__main__.Readiness.test_25_missing_disclosure) ... ok
+test_26_changed_disclosure (__main__.Readiness.test_26_changed_disclosure) ... ok
+test_27_precedence (__main__.Readiness.test_27_precedence) ... ok
+test_28_invalid_policy (__main__.Readiness.test_28_invalid_policy) ... ok
+test_29_absolute_currency (__main__.Readiness.test_29_absolute_currency) ... ok
+test_30_shared_email (__main__.Readiness.test_30_shared_email) ... ok
+test_31_partial_month (__main__.Readiness.test_31_partial_month) ... ok
+test_32_missing_period_coverage (__main__.Readiness.test_32_missing_period_coverage) ... ok
+test_33_query_error_hold (__main__.Readiness.test_33_query_error_hold) ... ok
+test_34_nonempty_population (__main__.Readiness.test_34_nonempty_population) ... ok
+test_35_empty_population (__main__.Readiness.test_35_empty_population) ... ok
+test_36_zero_value_nonempty_population (__main__.Readiness.test_36_zero_value_nonempty_population) ... ok
+test_37_inconsistent_empty_population (__main__.Readiness.test_37_inconsistent_empty_population) ... ok
+test_38_missing_population_info (__main__.Readiness.test_38_missing_population_info) ... ok
+
+----------------------------------------------------------------------
+Ran 38 tests in 0.022s
+
+OK
+
+==============================================================================
+ORIGINAL FILE: 65b_readiness_r12_august.txt
+ORIGINAL SHA256: 55b11f0b9b137173d2f7f83fa2ecaf405132f69804054a2a0739f534c409ce20
+==============================================================================
+
+Environment: {'db': 'kloudkart_lab', 'snapshot': '4947:4947:', 'isolation': 'repeatable read', 'read_only': 'on'}
+customer_summary: 40420 rows
+monthly_running: 485040 rows
+top100: 100 rows
+ranking_metadata: 1 rows
+reconciliation: 1 rows
+period_metadata: 1 rows
+R01 PASS Customer population: 0 comparison differences (positional; not unique affected records).
+R02 PASS Customer summary and financial reconciliation: 0 comparison differences (positional; not unique affected records).
+R03 PASS Monthly, cumulative and period outputs: 0 comparison differences (positional; not unique affected records).
+R04 PASS Ranking and metadata: 0 comparison differences (positional; not unique affected records).
+R05 PASS Orders without valid customer attribution; recorded spending: 144 of 111,334 eligible orders (0.1293%); 388,780.89 recorded monetary units (0.1145% of eligible recorded spending).
+R06 WARN Complete valuations disagree with checkout totals; absolute differences, not proven loss: 1,624 of 111,334 eligible orders (1.4587%); 2,074,053.86 recorded monetary units (0.6108% of eligible recorded spending).
+R07 PASS Incomplete item valuations; associated checkout value, not missing item value: 95 of 111,334 eligible orders (0.0853%); 455,904.42 recorded monetary units (0.1343% of eligible recorded spending).
+R09 INFO Final month is complete through 2026-08-31; no month-over-month comparison is generated.
+R10 INFO Completed-status orders excluded: 0 missing dates, 17 after cutoff; after-cutoff records are not automatically errors.
+R11 INFO 533 shared email groups across 1068 accounts; not proof of duplicate people.
+R12 INFO 111,334 eligible orders found through the selected cutoff.
+D01 DISCLOSURE Source completeness and real-world financial accuracy are not independently verified. Zero recorded spending does not prove absence of business activity. Historical order status and customer population reflect the current extract. Currency is unconfirmed.
+Run: 1a0af3dd-470d-48e5-8eca-28176d5f915b Status: WARN Action: REVIEW AND DISCLOSE
+Manifest: /home/<local-user>/projects/de03-kloudkart/graded-lab/generated/1a0af3dd-470d-48e5-8eca-28176d5f915b/manifest.json
+Timings: {'report_seconds': 14.595635632002086, 'reference_seconds': 4.793712188002246, 'evaluation_seconds': 2.3471589949986083, 'elapsed_seconds': 21.820940378005616}
+
+==============================================================================
+ORIGINAL FILE: 65c_01_earliest_eligible_order.txt
+ORIGINAL SHA256: 0ce6e11ea1affeddad5a2ff83c466ea0e2d1842cd1b48c2e2fdf9778fc4ff4cb
+==============================================================================
+
+BEGIN
+ earliest_eligible_date | empty_population_cutoff
+------------------------+-------------------------
+ 2025-08-02             | 2025-08-01
+(1 row)
+
+ROLLBACK
+
+==============================================================================
+ORIGINAL FILE: 65c_02_readiness_empty_population.txt
+ORIGINAL SHA256: 365d49f00dc086eda0a7cad4d56b08b962314a117f71c454d22f22f4095ad7b8
+==============================================================================
+
+Environment: {'db': 'kloudkart_lab', 'snapshot': '4947:4947:', 'isolation': 'repeatable read', 'read_only': 'on'}
+customer_summary: 40420 rows
+monthly_running: 485040 rows
+top100: 0 rows
+ranking_metadata: 1 rows
+reconciliation: 1 rows
+period_metadata: 1 rows
+R01 PASS Customer population: 0 comparison differences (positional; not unique affected records).
+R02 PASS Customer summary and financial reconciliation: 0 comparison differences (positional; not unique affected records).
+R03 PASS Monthly, cumulative and period outputs: 0 comparison differences (positional; not unique affected records).
+R04 PASS Ranking and metadata: 0 comparison differences (positional; not unique affected records).
+R05 PASS Orders without valid customer attribution; recorded spending: 0 of 0 eligible orders (not applicable); 0.00 recorded monetary units (not applicable of eligible recorded spending).
+R06 PASS Complete valuations disagree with checkout totals; absolute differences, not proven loss: 0 of 0 eligible orders (not applicable); 0.00 recorded monetary units (not applicable of eligible recorded spending).
+R07 PASS Incomplete item valuations; associated checkout value, not missing item value: 0 of 0 eligible orders (not applicable); 0.00 recorded monetary units (not applicable of eligible recorded spending).
+R09 INFO Final month is partial through 2025-08-01; no month-over-month comparison is generated.
+R10 INFO Completed-status orders excluded: 0 missing dates, 111351 after cutoff; after-cutoff records are not automatically errors.
+R11 INFO 533 shared email groups across 1068 accounts; not proof of duplicate people.
+R12 INFO No eligible orders were found through the selected cutoff. This does not establish absence of business activity. Review source coverage, cutoff and eligibility rules.
+D01 DISCLOSURE Source completeness and real-world financial accuracy are not independently verified. Zero recorded spending does not prove absence of business activity. Historical order status and customer population reflect the current extract. Currency is unconfirmed.
+Run: 22ecdf47-4fbb-4767-8fa9-e83c1e0b71c7 Status: PASS Action: NORMAL REVIEW
+Manifest: /home/<local-user>/projects/de03-kloudkart/graded-lab/generated/22ecdf47-4fbb-4767-8fa9-e83c1e0b71c7/manifest.json
+Timings: {'report_seconds': 11.482116541999858, 'reference_seconds': 2.116895965002186, 'evaluation_seconds': 1.1723588419990847, 'elapsed_seconds': 14.823081663998892}
+
+==============================================================================
+ORIGINAL FILE: 65d_readiness_package_integrity.txt
+ORIGINAL SHA256: a03c23d007a26f7c462099d8ebc52d61ce233251638ebbda5b1b7c6f39becfa4
+==============================================================================
+
+
+Verifying run: 1a0af3dd-470d-48e5-8eca-28176d5f915b
+Reporting cutoff: 2026-08-31
+PASS: customer_summary.csv
+PASS: monthly_running.csv
+PASS: period_metadata.csv
+PASS: ranking_metadata.csv
+PASS: readiness.json
+PASS: reconciliation.csv
+PASS: top100.csv
+PASS: Run identity and reporting cutoff
+PASS: Publication status and action
+PASS: R12 informational disclosure
+PASS: Package integrity
+
+Verifying run: 22ecdf47-4fbb-4767-8fa9-e83c1e0b71c7
+Reporting cutoff: 2025-08-01
+PASS: customer_summary.csv
+PASS: monthly_running.csv
+PASS: period_metadata.csv
+PASS: ranking_metadata.csv
+PASS: readiness.json
+PASS: reconciliation.csv
+PASS: top100.csv
+PASS: Run identity and reporting cutoff
+PASS: Publication status and action
+PASS: R12 informational disclosure
+PASS: Package integrity
+
+PASS: Both R12 publication packages verified
+
+==============================================================================
+ORIGINAL FILE: 76a_acceptance_readiness_reference.txt
+ORIGINAL SHA256: fd6db5e7993b865082131829eb0319ba23579e10bf85cce227044a44ed9fceee
+==============================================================================
+
+Environment: {'db': 'kloudkart_lab', 'isolation': 'repeatable read', 'read_only': 'on'}
+=== 2026-08-31 ===
+Customer reference: 40420 rows, 2490.568 ms (query + fetch)
+Exception reference: 862.808 ms (query + fetch)
+Window orders: 109702; window amount: 334634759.00; qualifying customers: 37816; top100 amount: 14781340.27
+eligible_orders: 111334
+eligible_value: 339565617.77
+attributed_orders: 111190
+attributed_value: 339176836.88
+unattributed_orders: 144
+unattributed_value: 388780.89
+mismatch_orders: 1624
+mismatch_absolute_gap: 2074053.86
+mismatch_recorded_value: 5848525.33
+incomplete_orders: 95
+incomplete_recorded_value: 455904.42
+no_item_orders: 0
+null_header_amount_orders: 0
+missing_date_count: 0
+after_cutoff_count: 17
+missing_date_value: 0
+after_cutoff_value: 43748.26
+shared_email_groups: 533
+shared_email_accounts: 1068
+PASS: independent reference matches historical baseline and internal identities (2026-08-31)
+=== 2026-11-26 ===
+Customer reference: 40420 rows, 2721.639 ms (query + fetch)
+Exception reference: 1135.284 ms (query + fetch)
+Window orders: 102463; window amount: 313014045.03; qualifying customers: 37285; top100 amount: 14329991.90
+eligible_orders: 111339
+eligible_value: 339573765.42
+attributed_orders: 111195
+attributed_value: 339184984.53
+unattributed_orders: 144
+unattributed_value: 388780.89
+mismatch_orders: 1624
+mismatch_absolute_gap: 2074053.86
+mismatch_recorded_value: 5848525.33
+incomplete_orders: 95
+incomplete_recorded_value: 455904.42
+no_item_orders: 0
+null_header_amount_orders: 0
+missing_date_count: 0
+after_cutoff_count: 12
+missing_date_value: 0
+after_cutoff_value: 35600.61
+shared_email_groups: 533
+shared_email_accounts: 1068
+PASS: independent reference matches historical baseline and internal identities (2026-11-26)
+PASS: E060a reference probe complete; read-only transaction rolled back
+Exit code: 0
+
+==============================================================================
+ORIGINAL FILE: 76b_acceptance_readiness_august.txt
+ORIGINAL SHA256: 4cb37368dc4598048139813af4da89a0cc21d67c9a669fca0a184bcebbb60f73
+==============================================================================
+
+Environment: {'db': 'kloudkart_lab', 'snapshot': '1692:1692:', 'isolation': 'repeatable read', 'read_only': 'on'}
+customer_summary: 40420 rows
+monthly_running: 485040 rows
+top100: 100 rows
+ranking_metadata: 1 rows
+reconciliation: 1 rows
+period_metadata: 1 rows
+R01 PASS Customer population: 0 comparison differences (positional; not unique affected records).
+R02 PASS Customer summary and financial reconciliation: 0 comparison differences (positional; not unique affected records).
+R03 PASS Monthly, cumulative and period outputs: 0 comparison differences (positional; not unique affected records).
+R04 PASS Ranking and metadata: 0 comparison differences (positional; not unique affected records).
+R05 PASS Orders without valid customer attribution; recorded spending: 144 of 111,334 eligible orders (0.1293%); 388,780.89 recorded monetary units (0.1145% of eligible recorded spending).
+R06 WARN Complete valuations disagree with checkout totals; absolute differences, not proven loss: 1,624 of 111,334 eligible orders (1.4587%); 2,074,053.86 recorded monetary units (0.6108% of eligible recorded spending).
+R07 PASS Incomplete item valuations; associated checkout value, not missing item value: 95 of 111,334 eligible orders (0.0853%); 455,904.42 recorded monetary units (0.1343% of eligible recorded spending).
+R09 INFO Final month is complete through 2026-08-31; no month-over-month comparison is generated.
+R10 INFO Completed-status orders excluded: 0 missing dates, 17 after cutoff; after-cutoff records are not automatically errors.
+R11 INFO 533 shared email groups across 1068 accounts; not proof of duplicate people.
+R12 INFO 111,334 eligible orders found through the selected cutoff.
+D01 DISCLOSURE Source completeness and real-world financial accuracy are not independently verified. Zero recorded spending does not prove absence of business activity. Historical order status and customer population reflect the current extract. Currency is unconfirmed.
+Run: 39a7b09f-3332-4d91-aff5-1b14b46e4a4c Status: WARN Action: REVIEW AND DISCLOSE
+Manifest: /home/<local-user>/projects/de03-kloudkart-acceptance/graded-lab/generated/39a7b09f-3332-4d91-aff5-1b14b46e4a4c/manifest.json
+Timings: {'report_seconds': 11.783231660003366, 'reference_seconds': 3.7529645239992533, 'evaluation_seconds': 1.182852683996316, 'elapsed_seconds': 16.76753906000522}
+Exit code: 0
+
+==============================================================================
+ORIGINAL FILE: 76c_acceptance_readiness_november.txt
+ORIGINAL SHA256: 8e3ba8ddd3495f18ebd5a7f85dfac0327df968941083b562b36fed41303f4c67
+==============================================================================
+
+Environment: {'db': 'kloudkart_lab', 'snapshot': '1692:1692:', 'isolation': 'repeatable read', 'read_only': 'on'}
+customer_summary: 40420 rows
+monthly_running: 485040 rows
+top100: 100 rows
+ranking_metadata: 1 rows
+reconciliation: 1 rows
+period_metadata: 1 rows
+R01 PASS Customer population: 0 comparison differences (positional; not unique affected records).
+R02 PASS Customer summary and financial reconciliation: 0 comparison differences (positional; not unique affected records).
+R03 PASS Monthly, cumulative and period outputs: 0 comparison differences (positional; not unique affected records).
+R04 PASS Ranking and metadata: 0 comparison differences (positional; not unique affected records).
+R05 PASS Orders without valid customer attribution; recorded spending: 144 of 111,339 eligible orders (0.1293%); 388,780.89 recorded monetary units (0.1145% of eligible recorded spending).
+R06 WARN Complete valuations disagree with checkout totals; absolute differences, not proven loss: 1,624 of 111,339 eligible orders (1.4586%); 2,074,053.86 recorded monetary units (0.6108% of eligible recorded spending).
+R07 PASS Incomplete item valuations; associated checkout value, not missing item value: 95 of 111,339 eligible orders (0.0853%); 455,904.42 recorded monetary units (0.1343% of eligible recorded spending).
+R09 INFO Final month is partial through 2026-11-26; no month-over-month comparison is generated.
+R10 INFO Completed-status orders excluded: 0 missing dates, 12 after cutoff; after-cutoff records are not automatically errors.
+R11 INFO 533 shared email groups across 1068 accounts; not proof of duplicate people.
+R12 INFO 111,339 eligible orders found through the selected cutoff.
+D01 DISCLOSURE Source completeness and real-world financial accuracy are not independently verified. Zero recorded spending does not prove absence of business activity. Historical order status and customer population reflect the current extract. Currency is unconfirmed.
+Run: 4d44e58f-2e27-427f-b155-1c320e425fac Status: WARN Action: REVIEW AND DISCLOSE
+Manifest: /home/<local-user>/projects/de03-kloudkart-acceptance/graded-lab/generated/4d44e58f-2e27-427f-b155-1c320e425fac/manifest.json
+Timings: {'report_seconds': 12.42052879500261, 'reference_seconds': 3.534675626004173, 'evaluation_seconds': 1.1962670889988658, 'elapsed_seconds': 17.190636984996672}
+Exit code: 0
+
+==============================================================================
+ORIGINAL FILE: 76d_acceptance_readiness_empty.txt
+ORIGINAL SHA256: 123dae7c3cfa99a077e4c3b42039a36a0125feee79aad2fd8987d8bbad4eb70b
+==============================================================================
+
+Environment: {'db': 'kloudkart_lab', 'snapshot': '1692:1692:', 'isolation': 'repeatable read', 'read_only': 'on'}
+customer_summary: 40420 rows
+monthly_running: 485040 rows
+top100: 0 rows
+ranking_metadata: 1 rows
+reconciliation: 1 rows
+period_metadata: 1 rows
+R01 PASS Customer population: 0 comparison differences (positional; not unique affected records).
+R02 PASS Customer summary and financial reconciliation: 0 comparison differences (positional; not unique affected records).
+R03 PASS Monthly, cumulative and period outputs: 0 comparison differences (positional; not unique affected records).
+R04 PASS Ranking and metadata: 0 comparison differences (positional; not unique affected records).
+R05 PASS Orders without valid customer attribution; recorded spending: 0 of 0 eligible orders (not applicable); 0.00 recorded monetary units (not applicable of eligible recorded spending).
+R06 PASS Complete valuations disagree with checkout totals; absolute differences, not proven loss: 0 of 0 eligible orders (not applicable); 0.00 recorded monetary units (not applicable of eligible recorded spending).
+R07 PASS Incomplete item valuations; associated checkout value, not missing item value: 0 of 0 eligible orders (not applicable); 0.00 recorded monetary units (not applicable of eligible recorded spending).
+R09 INFO Final month is partial through 2025-08-01; no month-over-month comparison is generated.
+R10 INFO Completed-status orders excluded: 0 missing dates, 111351 after cutoff; after-cutoff records are not automatically errors.
+R11 INFO 533 shared email groups across 1068 accounts; not proof of duplicate people.
+R12 INFO No eligible orders were found through the selected cutoff. This does not establish absence of business activity. Review source coverage, cutoff and eligibility rules.
+D01 DISCLOSURE Source completeness and real-world financial accuracy are not independently verified. Zero recorded spending does not prove absence of business activity. Historical order status and customer population reflect the current extract. Currency is unconfirmed.
+Run: 5f6275fc-db3e-4e60-8bc0-8be27f96ccc3 Status: PASS Action: NORMAL REVIEW
+Manifest: /home/<local-user>/projects/de03-kloudkart-acceptance/graded-lab/generated/5f6275fc-db3e-4e60-8bc0-8be27f96ccc3/manifest.json
+Timings: {'report_seconds': 8.746260792002431, 'reference_seconds': 2.2263283799984492, 'evaluation_seconds': 1.0750637169985566, 'elapsed_seconds': 12.086369055999967}
+Exit code: 0
+
+==============================================================================
+ORIGINAL FILE: 76e_acceptance_package_integrity.txt
+ORIGINAL SHA256: e0aa069806782a778aea91246cbb0cbe32cc4a3f862b30051ff13bcc437fbebf
+==============================================================================
+
+
+=== 2026-08-31: 39a7b09f-3332-4d91-aff5-1b14b46e4a4c ===
+PASS: Exact eight-file package inventory
+PASS: SHA-256 customer_summary.csv 957d156af4bf510b04c051af60d8d342ba5aa56834f86e91303b793197a3012e
+PASS: SHA-256 monthly_running.csv ee26cfc24f7ebc730a29f5d5e5f09a126759a49dc0cbdc3f3c5d180c1ae95374
+PASS: SHA-256 period_metadata.csv dae1c0a8fe3979f96fc3fda8dcda8d68ba98d8913adaa0332c0fe4f9da52323b
+PASS: SHA-256 ranking_metadata.csv 67b51e952571837df37101fd715aa5b5611b55b874ebf2ce492f1ea5f4d0ef96
+PASS: SHA-256 readiness.json e9784fe747e446ee21c5d1b9e41fd6ec6f17857ce05a30e9a8206c3e8611303c
+PASS: SHA-256 reconciliation.csv a44ac13bdc856c1563430a29244c6953d79bfe4532c90a006ede61023279e01b
+PASS: SHA-256 top100.csv e2164544cebaf402051deb0f9dd99f83859a60822c27fc6c5111a2cfb680c0af
+PASS: customer_summary.csv: 40420 data rows
+PASS: monthly_running.csv: 485040 data rows
+PASS: top100.csv: 100 data rows
+PASS: ranking_metadata.csv: 1 data rows
+PASS: reconciliation.csv: 1 data rows
+PASS: period_metadata.csv: 1 data rows
+PASS: Manifest and readiness metadata agree
+PASS: Implementation SHA-256 scripts/generate_monday_report.py fc4cd9eea1298dad5f5ac3a77337e41aa0fdf42ba0e1771ee00c0ff1e2bbf1cf
+PASS: Implementation SHA-256 sql/07_improvement/01_reference_customers.sql c14cd861da632ff9c249a300ec6853f95b864ba9db4f8e24301a90a7ef5d91a4
+PASS: Implementation SHA-256 sql/07_improvement/02_reference_exceptions.sql 1f579da5ebb2303e9b443fc971d56c0e1891ada6d07a32151deea2686f28618b
+PASS: Git provenance and policy integrity
+PASS: Structured readiness checks
+PASS: Package WARN; action REVIEW AND DISCLOSE
+
+=== 2026-11-26: 4d44e58f-2e27-427f-b155-1c320e425fac ===
+PASS: Exact eight-file package inventory
+PASS: SHA-256 customer_summary.csv 00b49ffa877b50de9756e0a2a225215be6357ed69327c2db4859dfe9bba36552
+PASS: SHA-256 monthly_running.csv b0db475f1a9b9c198aba5e9a28043e7f33565d17400ef57b1f78f7d8cdc43f46
+PASS: SHA-256 period_metadata.csv 1de53f7083eee7f9e082fa0b4c9fb7f44619c00a1efba889cd35248a3084d7c9
+PASS: SHA-256 ranking_metadata.csv cf8bcc3e089e9a865c8df411815ad97aa40c6ca2df48e616ae1064da7a826306
+PASS: SHA-256 readiness.json 6d8f3f2754dac52775a0b6a5726b614579751661ee32f46c4f6cb15418590403
+PASS: SHA-256 reconciliation.csv 8a680d714b517f41c3d067fd9b5e17defb8e6ee4e05aab8ca8a09b96edf968c6
+PASS: SHA-256 top100.csv d50b6f0c8ea659648d7dc8eb715abb4cd47f772b173dffcd318e282dc898a833
+PASS: customer_summary.csv: 40420 data rows
+PASS: monthly_running.csv: 485040 data rows
+PASS: top100.csv: 100 data rows
+PASS: ranking_metadata.csv: 1 data rows
+PASS: reconciliation.csv: 1 data rows
+PASS: period_metadata.csv: 1 data rows
+PASS: Manifest and readiness metadata agree
+PASS: Implementation SHA-256 scripts/generate_monday_report.py fc4cd9eea1298dad5f5ac3a77337e41aa0fdf42ba0e1771ee00c0ff1e2bbf1cf
+PASS: Implementation SHA-256 sql/07_improvement/01_reference_customers.sql c14cd861da632ff9c249a300ec6853f95b864ba9db4f8e24301a90a7ef5d91a4
+PASS: Implementation SHA-256 sql/07_improvement/02_reference_exceptions.sql 1f579da5ebb2303e9b443fc971d56c0e1891ada6d07a32151deea2686f28618b
+PASS: Git provenance and policy integrity
+PASS: Structured readiness checks
+PASS: Package WARN; action REVIEW AND DISCLOSE
+
+=== 2025-08-01: 5f6275fc-db3e-4e60-8bc0-8be27f96ccc3 ===
+PASS: Exact eight-file package inventory
+PASS: SHA-256 customer_summary.csv 185a545addaae640edf5e5e8ef1b239f32163ecb128ca1090afe972a36d631bc
+PASS: SHA-256 monthly_running.csv 6e48f0c454c2c0e50e4b07e88e140f4321d98a4311645106651bfff89f40b6f0
+PASS: SHA-256 period_metadata.csv 81e946dfaa64c42ced7558723973c875d1e66cddbdeca1865b0db0c2e0065d65
+PASS: SHA-256 ranking_metadata.csv 2a70d75d60bcbef4a1ae6ff0ce086cea8f3981d0ddbd93a67787544f8a67668a
+PASS: SHA-256 readiness.json e3c298a0361771f8411823d4cde344c25f5bf26b8f5c0006cb46a3eda3a9205c
+PASS: SHA-256 reconciliation.csv 9fb125b18e55da3c555bd895107aa1e8463cebf2f93b7b097eed1f06e0d6eed5
+PASS: SHA-256 top100.csv 2da29123b124d6c51d4cc2ce02874a33a7ab2a21f102638aee274dc92bc40ce0
+PASS: customer_summary.csv: 40420 data rows
+PASS: monthly_running.csv: 485040 data rows
+PASS: top100.csv: 0 data rows
+PASS: ranking_metadata.csv: 1 data rows
+PASS: reconciliation.csv: 1 data rows
+PASS: period_metadata.csv: 1 data rows
+PASS: Manifest and readiness metadata agree
+PASS: Implementation SHA-256 scripts/generate_monday_report.py fc4cd9eea1298dad5f5ac3a77337e41aa0fdf42ba0e1771ee00c0ff1e2bbf1cf
+PASS: Implementation SHA-256 sql/07_improvement/01_reference_customers.sql c14cd861da632ff9c249a300ec6853f95b864ba9db4f8e24301a90a7ef5d91a4
+PASS: Implementation SHA-256 sql/07_improvement/02_reference_exceptions.sql 1f579da5ebb2303e9b443fc971d56c0e1891ada6d07a32151deea2686f28618b
+PASS: Git provenance and policy integrity
+PASS: Structured readiness checks
+PASS: Package PASS; action NORMAL REVIEW
+
+=== FINAL INTEGRITY SUMMARY ===
+Packages verified: 3
+Package files verified: 24
+Output checksums verified: 21
+CSV data rows verified: 1,576,589
+PASS: All three acceptance report packages verified
+Exit code: 0

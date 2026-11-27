@@ -41,3 +41,20 @@
 | E065d | Both packages verified: 14 checksums | `65d_readiness_package_integrity.txt` |
 
 November retry and integrity verification both exited 0. Earlier failures remain in `60c_02a_november_failed.txt`, `60c_03a_november_integrity_failed.txt` and `64a_01_missing_database_url.txt`. No private defence notes are needed to interpret this index.
+
+## Stage 08 closeout
+
+| Decision / exercise | Result | Original evidence locator (under `evidence/`) |
+|---|---|---|
+| D038 / E075a | Explicit container and cluster identity guard | `75a_01_identity_mismatch.txt`, `75a_02_identity_match.txt`, `75a_03_missing_container.txt` |
+| D039 / E075b–d | Retain architecture; all six concurrent five-second misses disclosed | `75b_acceptance_integrated_workload.txt`, `75d_01_workload.txt` through `75d_05_workload.txt` and corresponding cleanup files |
+| E067–E074 | Independent manual fresh-load verification | `67a_fresh_clone_readiness_regression.txt` through `74d_acceptance_race_cleanup.txt` |
+| E076 | Three publication packages and independent checks | `76a_acceptance_readiness_reference.txt` through `76e_acceptance_package_integrity.txt` |
+| E077b | Portable setup and cleanup corrections | `77b_01_cleanup_regression.txt` through `77b_05_repo_inspection.txt`; before-patch failures retained |
+| E077c | Nonempty guard and automated candidate fresh-load PASS | `77c_01_runner_nonempty_guard.txt`, `77c_02_guard_cleanup_check.txt`, `77c_03_automated_fresh_acceptance.txt` |
+
+The candidate run was based on 739e19c with uncommitted verification changes. Final merged revision verification is pending. Original evidence names remain stable identifiers. The consolidated evidence index maps all 148 original transcripts to their current files and line ranges.
+
+## Consolidated evidence navigation
+
+Use the [consolidated evidence index](../evidence/README.md) to locate original transcript identifiers and verified line ranges. Historical filenames in the tables above are identifiers, not standalone repository paths.

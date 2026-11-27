@@ -54,6 +54,7 @@ ORDER BY e.table_name;
 DO $test$
 DECLARE
     v_fixture_ids integer[];
+    v_sequence_last bigint;
 BEGIN
     IF current_database() <> 'kloudkart_lab' THEN
         RAISE EXCEPTION 'Incorrect database';
@@ -92,10 +93,16 @@ BEGIN
         RAISE EXCEPTION 'Race fixture inventory logs remain';
     END IF;
 
+    -- Dataset-specific boundaries verified in E077a. Never reset sequences.
+    SELECT last_value INTO v_sequence_last FROM orders_order_id_seq;
+    IF v_sequence_last >= 900101 THEN
+        RAISE EXCEPTION 'Sequence reached historical orphan range; use source-key comparison';
+    END IF;
+
     IF EXISTS (
         SELECT 1
         FROM orders
-        WHERE order_id BETWEEN 659390 AND 659469
+        WHERE order_id > 659384
     ) THEN
         RAISE EXCEPTION 'Race fixture orders remain';
     END IF;
@@ -103,9 +110,15 @@ BEGIN
     IF EXISTS (
         SELECT 1
         FROM order_items
-        WHERE order_id BETWEEN 659390 AND 659469
+        WHERE order_id > 659384 AND order_id < 900101
     ) THEN
         RAISE EXCEPTION 'Race fixture order references remain';
+    END IF;
+
+    IF (SELECT COUNT(*) FROM order_items oi
+        LEFT JOIN orders o ON o.order_id = oi.order_id
+        WHERE oi.order_id IS NOT NULL AND o.order_id IS NULL) <> 692 THEN
+        RAISE EXCEPTION 'Historical orphan count changed';
     END IF;
 
     IF (SELECT COUNT(*) FROM categories) <> 94
@@ -121,7 +134,8 @@ BEGIN
     RAISE NOTICE 'PASS: All race fixture products removed';
     RAISE NOTICE 'PASS: All race fixture order items removed';
     RAISE NOTICE 'PASS: All race fixture inventory logs removed';
-    RAISE NOTICE 'PASS: All 80 generated race orders removed';
+    RAISE NOTICE 'PASS: No orders above source maximum or item references in generated-ID gap';
+    RAISE NOTICE 'PASS: Historical orphan count preserved (692)';
     RAISE NOTICE 'PASS: All six baseline counts reconciled';
     RAISE NOTICE 'RESULT: Race cleanup verification passed';
 END;

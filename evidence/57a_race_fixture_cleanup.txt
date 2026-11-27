@@ -1,5 +1,0 @@
- remaining_race_fixtures 
--------------------------
-                       0
-(1 row)
-
