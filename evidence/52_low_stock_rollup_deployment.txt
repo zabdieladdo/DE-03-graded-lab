@@ -1,0 +1,22 @@
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 1.495 ms
+SET
+Time: 0.182 ms
+SET
+Time: 0.088 ms
+DO
+Time: 6.019 ms
+CREATE VIEW
+Time: 13.970 ms
+CREATE FUNCTION
+Time: 1.547 ms
+CREATE VIEW
+Time: 2.703 ms
+CREATE VIEW
+Time: 1.335 ms
+COMMENT
+Time: 0.759 ms
+COMMIT
+Time: 2.181 ms

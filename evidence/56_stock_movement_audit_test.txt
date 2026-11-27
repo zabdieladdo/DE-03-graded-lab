@@ -1,0 +1,42 @@
+Pager usage is off.
+Timing is on.
+BEGIN
+Time: 0.160 ms
+SET
+Time: 0.224 ms
+SET
+Time: 0.091 ms
+DO
+Time: 0.959 ms
+INSERT 0 2
+Time: 0.993 ms
+psql:/workspace/graded-lab/tests/14_stock_movement_audit_test.sql:41: NOTICE:  PASS A01: restock and audit context
+psql:/workspace/graded-lab/tests/14_stock_movement_audit_test.sql:41: NOTICE:  PASS A02: negative correction
+psql:/workspace/graded-lab/tests/14_stock_movement_audit_test.sql:41: NOTICE:  PASS A03: sale, order reference and exactly one movement
+psql:/workspace/graded-lab/tests/14_stock_movement_audit_test.sql:41: NOTICE:  PASS A04: multi-row direct update and no-op
+psql:/workspace/graded-lab/tests/14_stock_movement_audit_test.sql:41: NOTICE:  PASS A05: invalid requests and insufficient stock leave no movement
+psql:/workspace/graded-lab/tests/14_stock_movement_audit_test.sql:41: NOTICE:  PASS A06: adjustment rollback
+DO
+Time: 194.469 ms
+CREATE FUNCTION
+Time: 1.449 ms
+CREATE TRIGGER
+Time: 0.429 ms
+DO
+Time: 59.622 ms
+psql:/workspace/graded-lab/tests/14_stock_movement_audit_test.sql:56: NOTICE:  PASS A07: failure after deduction rolls back stock, order and audit
+ product_id | change_qty |   reason   | stock_before | stock_after | changed_by |                         note
+------------+------------+------------+--------------+-------------+------------+------------------------------------------------------
+    -960001 |          5 | restock    |            5 |          10 | postgres   | Delivery TEST
+    -960001 |         -2 | correction |           10 |           8 | postgres   | Count TEST
+    -960001 |         -3 | sale       |            8 |           5 | postgres   | Order ID: 659475
+    -960002 |          1 | correction |            2 |           3 | postgres   | Direct stock update (no business reference supplied)
+    -960001 |          1 | correction |            5 |           6 | postgres   | Direct stock update (no business reference supplied)
+(5 rows)
+
+Time: 14.013 ms
+ROLLBACK
+Time: 0.230 ms
+psql:/workspace/graded-lab/tests/14_stock_movement_audit_test.sql:62: NOTICE:  PASS A08: fixtures and failure trigger absent after rollback
+DO
+Time: 36.460 ms

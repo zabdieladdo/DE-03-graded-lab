@@ -253,3 +253,32 @@ The retained audit cleanup script is not a schema migration and must not be incl
 Do not reset identifier sequences following testing.
 
 The recorded performance benchmark represents one complete 400-buyer execution. Production performance and comparative locking performance remain unverified.
+
+## Stage 05 — Inventory reporting and auditability
+
+**Status:** Implemented and verified. Final fresh-load acceptance pending.
+
+Implemented:
+
+- Recursive low-stock category rollups with configurable thresholds.
+- Arbitrary hierarchy depth and cycle protection.
+- Separate reporting of uncategorised and unrooted products.
+- Automatic auditing of changes to existing stock quantities.
+- Atomic restock and correction routines.
+- Sale audit integration with transaction-safe order placement.
+- Stock-before, stock-after and database session user information.
+
+### Verification
+
+- E053: 11/11 correctness assertions passed.
+- E056: 8/8 audit and atomicity assertions passed.
+- E057: All four official race-test scenarios passed.
+- Recursive rollup execution time: 1.461 ms.
+- Flash sale: 400 buyers, 50 successful purchases, 350 refusals, zero errors, 2.10 seconds.
+
+### Documentation
+
+- [Inventory interfaces and deployment](sql/05_inventory/README.md)
+- [ADR-005 — Recursive inventory reporting](deliverables/decisions/ADR-005-recursive-inventory-reporting.md)
+- [ADR-006 — Stock movement audit](deliverables/decisions/ADR-006-stock-movement-audit.md)
+- [Inventory and audit performance](deliverables/performance/inventory_audit_performance.md)
