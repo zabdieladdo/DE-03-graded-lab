@@ -2,7 +2,7 @@
 
 ## Status
 
-Implemented and functionally verified. Final performance acceptance and fresh-load verification pending. See ADR-003, ADR-004 and `deliverables/performance/customer_reporting_performance.md` from repository root. E051 is optional and deferred; it is not a deployment dependency.
+Implemented and functionally verified. Final performance acceptance and fresh-load verification pending. See ADR-003, ADR-004 and `deliverables/performance/customer_reporting_performance.md` from repository root.
 
 ## Deployment order
 
@@ -68,8 +68,8 @@ Run the existing reporting tests in order after deployment, using `psql -X -v ON
 | `tests/12_customer_ranking_test.sql` | E047 | 49 |
 | `sql/04_reporting/20_monday_report_integration.sql` | E050 | 6 |
 
-Headline reference: 40,420 customers; 111,190 attributed eligible history orders, GHS 339,176,836.88; 144 unattributed eligible orders, GHS 388,780.89; 485,040 monthly rows; window spending GHS 334,634,759.00; top-100 window spending GHS 14,781,340.27. These are baseline-specific, not hardcoded business rules.
+Headline reference: 40,420 customers; 111,190 attributed eligible history orders, 339,176,836.88; 144 unattributed eligible orders, 388,780.89; 485,040 monthly rows; window spending 334,634,759.00; top-100 window spending 14,781,340.27. Amounts are recorded monetary units; currency unconfirmed. These are baseline-specific, not hardcoded business rules.
 
-## Remaining work
+## Performance and remaining verification
 
-E050 headline median 5.372 s, worst 5.929 s; all four runs exceed provisional 5 s. Retain A as working reference. E051/B1, B2/B3, growth testing and persistent precomputation deferred; concurrent checkout/report and fresh-load verification remain pending. No measured historical forty-minute comparison. See performance report for methods and caveats.
+Four original integrated runs exceeded the provisional five-second SQL target. A later solo run (3.487 s) and concurrent run (4.227 s) met it. These are not controlled before/after comparisons or a guarantee. Fresh-load acceptance remains pending. See the integrated workload performance report.

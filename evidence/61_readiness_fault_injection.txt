@@ -1,0 +1,38 @@
+test_01_pass (__main__.Readiness.test_01_pass) ... ok
+test_02_duplicate (__main__.Readiness.test_02_duplicate) ... ok
+test_03_missing (__main__.Readiness.test_03_missing) ... ok
+test_04_summary_money (__main__.Readiness.test_04_summary_money) ... ok
+test_05_reconciliation (__main__.Readiness.test_05_reconciliation) ... ok
+test_06_monthly (__main__.Readiness.test_06_monthly) ... ok
+test_07_running (__main__.Readiness.test_07_running) ... ok
+test_08_rank (__main__.Readiness.test_08_rank) ... ok
+test_09_rank_metadata (__main__.Readiness.test_09_rank_metadata) ... ok
+test_10_attribution (__main__.Readiness.test_10_attribution) ... ok
+test_11_mismatch (__main__.Readiness.test_11_mismatch) ... ok
+test_12_incomplete (__main__.Readiness.test_12_incomplete) ... ok
+test_13_count_only (__main__.Readiness.test_13_count_only) ... ok
+test_14_value_only (__main__.Readiness.test_14_value_only) ... ok
+test_15_absolute_only (__main__.Readiness.test_15_absolute_only) ... ok
+test_16_equality (__main__.Readiness.test_16_equality) ... ok
+test_17_below (__main__.Readiness.test_17_below) ... ok
+test_18_disabled_absolute (__main__.Readiness.test_18_disabled_absolute) ... ok
+test_19_multiple_limits (__main__.Readiness.test_19_multiple_limits) ... ok
+test_20_empty_denominator (__main__.Readiness.test_20_empty_denominator) ... ok
+test_21_zero_value_nonzero_gap (__main__.Readiness.test_21_zero_value_nonzero_gap) ... ok
+test_22_invalid_population (__main__.Readiness.test_22_invalid_population) ... ok
+test_23_missing_check (__main__.Readiness.test_23_missing_check) ... ok
+test_24_duplicate_check (__main__.Readiness.test_24_duplicate_check) ... ok
+test_25_missing_disclosure (__main__.Readiness.test_25_missing_disclosure) ... ok
+test_26_changed_disclosure (__main__.Readiness.test_26_changed_disclosure) ... ok
+test_27_precedence (__main__.Readiness.test_27_precedence) ... ok
+test_28_invalid_policy (__main__.Readiness.test_28_invalid_policy) ... ok
+test_29_absolute_currency (__main__.Readiness.test_29_absolute_currency) ... ok
+test_30_shared_email (__main__.Readiness.test_30_shared_email) ... ok
+test_31_partial_month (__main__.Readiness.test_31_partial_month) ... ok
+test_32_missing_period_coverage (__main__.Readiness.test_32_missing_period_coverage) ... ok
+test_33_query_error_hold (__main__.Readiness.test_33_query_error_hold) ... ok
+
+----------------------------------------------------------------------
+Ran 33 tests in 0.015s
+
+OK

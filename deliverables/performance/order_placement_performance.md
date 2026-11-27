@@ -294,7 +294,7 @@ The supplementary test verifies individual purchase auditability under the teste
 
 General auditability of restocks, corrections and direct inventory modifications remains outside the scope of this purchase-specific test.
 
-Final cleanup of the retained supplementary fixtures remains pending verification.
+Final cleanup was subsequently verified (see final supplementary fixture cleanup below).
 ## Before and after
 
 A previous isolated learning exercise reproduced an unsafe last-unit purchase race under Read Committed isolation. Two competing purchases succeeded against one available unit.
@@ -307,7 +307,7 @@ The implemented conditional-update strategy subsequently passed all 25 last-unit
 | Flash-sale correctness | No equivalent baseline benchmark | 50 successful purchases, 350 refusals, zero errors |
 | Flash-sale execution time | Not measured | 1.89 seconds |
 | Unexpected failure atomicity | No equivalent implementation benchmark | 10/10 assertions passed |
-| Purchase audit consistency | Historical inconsistencies identified | Functional audit checks passed; detailed concurrent audit reconciliation pending |
+| Purchase audit consistency | Historical inconsistencies identified | Functional and supplementary concurrent audit reconciliation passed |
 
 No equivalent performance benchmark was recorded for the unsafe implementation or the alternative explicit-locking strategy.
 
@@ -332,12 +332,12 @@ The benchmark can be reproduced using the original supplied race-test harness an
 set -o pipefail
 
 python -u ../shared-data/race_test.py --verbose \
-    2>&1 | tee evidence/22_race_test_verbose.txt
+    2>&1 | tee evidence/22_race_test_verbose_rerun.txt
 
 race_exit=$?
 
 printf '\nRace test exit code: %s\n' "$race_exit" \
-    | tee -a evidence/22_race_test_verbose.txt
+    | tee -a evidence/22_race_test_verbose_rerun.txt
 
 unset DATABASE_URL
 ```
@@ -348,8 +348,8 @@ unset DATABASE_URL
 set -o pipefail
 
 python scripts/analyze_race_results.py \
-    evidence/22_race_test_verbose.txt \
-    2>&1 | tee evidence/24_race_performance_analysis.txt
+    evidence/22_race_test_verbose_rerun.txt \
+    2>&1 | tee evidence/24_race_performance_analysis_rerun.txt
 
 echo $?
 ```
@@ -372,15 +372,15 @@ The cleanup verification script `tests/05_race_cleanup_verification.sql` contain
 
 ## Caveats
 
-- Results represent one complete official harness execution.
-- Repeatability across multiple independent runs has not yet been measured.
+- The original implementation results represent one complete official harness execution; later audit-trigger regression and integrated trials are reported separately.
+- Controlled repeatability across multiple independent runs of the same implementation has not been established.
 - Cold-cache and warm-cache performance were not separately evaluated.
 - Production hardware, network conditions and competing workloads may produce different results.
 - The test uses a synchronized burst rather than evenly distributed arrivals.
 - Peak resource consumption and individual lock-wait durations were not measured.
 - The conditional-update strategy was not benchmarked against explicit row locking or Serializable isolation.
 - The official audit scenario checks movement counts but does not fully reconcile movement quantities and individual order references.
-- Detailed independent concurrent inventory audit reconciliation remains pending.
+- Detailed independent concurrent purchase audit reconciliation passed; broader audit changes are documented in ADR-006.
 - Application-level response times outside the test harness were not measured.
 - The failure-injection test covers an unexpected SQL error during inventory insertion, not every possible failure or crash-recovery scenario.
 - The solution does not independently prevent every direct database write that bypasses the purchase function.
@@ -397,7 +397,7 @@ Sequential functional correctness, rollback after an injected inventory failure 
 
 The evidence supports retaining the selected concurrency strategy without increasing the current infrastructure allocation.
 
-Further work is required to complete detailed concurrent inventory audit reconciliation and establish performance repeatability across multiple executions.
+Detailed concurrent purchase audit reconciliation was subsequently completed. Controlled performance repeatability and final fresh-load acceptance remain outstanding.
 
 
 ### Final supplementary fixture cleanup
@@ -455,3 +455,5 @@ This establishes successful targeted cleanup and row-count reconciliation, not c
 - `evidence/27_retained_audit_cleanup.txt`
 
 **Result:** PASS — final supplementary fixture cleanup committed successfully.
+
+See [evidence and decision index](../EVIDENCE_INDEX.md) for checkpoint identifiers.

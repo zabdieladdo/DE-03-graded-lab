@@ -1,0 +1,7 @@
+BEGIN
+ earliest_eligible_date | empty_population_cutoff 
+------------------------+-------------------------
+ 2025-08-02             | 2025-08-01
+(1 row)
+
+ROLLBACK

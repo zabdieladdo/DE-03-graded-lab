@@ -1,0 +1,3 @@
+# Publication readiness
+
+The two reference SQL files are parameterised psycopg2 queries, not deployment scripts. The generator runs them in the same read-only repeatable-read transaction as report queries. See [ADR-007](../../deliverables/decisions/ADR-007-report-publication-readiness.md). Configure `DATABASE_URL` privately; run `python scripts/generate_monday_report.py --as-of 2026-08-31` from the repository root. Generated files are private and ignored. Exit 0 means PASS or WARN; review WARN before release. Exit 2 means FAIL; exit 3 means ERROR; both HOLD. November publication and integrity verification passed after retry. R12 normal and empty population checks and all 38 regression tests passed (E065a-E065d). Final fresh-load acceptance remains pending.

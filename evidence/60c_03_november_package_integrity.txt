@@ -1,0 +1,9 @@
+PASS: customer_summary.csv
+PASS: monthly_running.csv
+PASS: period_metadata.csv
+PASS: ranking_metadata.csv
+PASS: readiness.json
+PASS: reconciliation.csv
+PASS: top100.csv
+PASS: Run identity, cutoff and publication status
+PASS: November package integrity

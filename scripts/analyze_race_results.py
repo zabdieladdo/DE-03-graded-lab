@@ -7,12 +7,14 @@ import sys
 from pathlib import Path
 
 
+# Return the nearest-rank percentile of the observed sample.
 def percentile(values, fraction):
     """Nearest-rank percentile."""
     ordered = sorted(values)
     return ordered[math.ceil(fraction * len(ordered)) - 1]
 
 
+# Summarize observed attempt latency.
 def summarize(label, values):
     print(
         f"{label:<12}"
@@ -24,6 +26,7 @@ def summarize(label, values):
     )
 
 
+# Coordinate the command-line workflow and its validation.
 def main():
     path = Path(
         sys.argv[1]

@@ -42,7 +42,7 @@ Strongest counterargument:
 Transaction safety can prevent immediate customer-facing harm
 even when the starting data is completely valid.
 
-Final priority remains subject to evidence and business impact.
+This was the initial position; the subsequent diagnosis prioritised transaction safety.
 
 ## Outstanding investigations
 
@@ -53,3 +53,7 @@ Final priority remains subject to evidence and business impact.
 - Inventory movement consistency.
 - Transaction safety.
 - Reporting performance.
+
+## Subsequent implementation
+
+Six foreign keys (two validated), five CHECK constraints (three validated), three identity columns, transaction-safe purchase and movement audit were implemented. Historical exceptions remain. The original inspection above is not a description of the migrated schema. See [ADR-001](../decisions/ADR-001-preserve-historical-records.md), [diagnosis](../diagnosis/data_findings.md) and evidence 08–16, 55–57.

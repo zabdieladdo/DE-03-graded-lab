@@ -23,6 +23,7 @@ else
     exit 1
 fi
 
+# Verify the container, server settings and Python connectivity.
 printf '\n--- Docker container ---\n'
 docker ps --filter name='^/kloudkart$'
 

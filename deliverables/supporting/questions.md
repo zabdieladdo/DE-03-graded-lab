@@ -37,3 +37,14 @@
 - Do not delete or modify source data during diagnosis.
 - Quantify the scale and business impact of confirmed findings.
 - Record anything that cannot be verified.
+
+## Investigation outcomes
+
+| Questions | Outcome and remaining uncertainty | Evidence |
+|---|---|---|
+| Q01–Q05 | Normalize completed statuses; preserve IDs; disclose orphan attribution and valuation gaps. Finance must confirm currency and spending semantics. | [ADR-003](../decisions/ADR-003-spending-semantics.md), [findings](../diagnosis/data_findings.md) |
+| Q06–Q10 | 14 negative stocks; broken references preserved; conditional update and movement audit verified. Historical opening stock remains unknown. | ADR-001, ADR-002, ADR-006 |
+| Q11–Q14 | Cycles and missing parents excluded from rooted rollup; exceptions visible; threshold 10 provisional and configurable. | ADR-005 |
+| Q15–Q17 | Dense monthly report is a major cost; direct ranking measured against sparse alternative. Retain on-demand architecture provisionally. | ADR-004, ADR-007 and performance reports |
+
+Open business questions: authoritative currency, financial materiality, extract completeness, opening stock, customer identity and publication approval.

@@ -18,22 +18,26 @@ RACE = [sys.executable, '-u', '../shared-data/race_test.py', '--test', '2', '--v
 TABLES = ('categories', 'products', 'customers', 'orders', 'order_items', 'inventory_log')
 EXPECTED = (94, 4023, 40420, 159384, 336559, 282352)
 
+# Capture baseline table counts and named fixture count.
 def state(cur):
     cur.execute('SELECT ' + ', '.join(f'(SELECT count(*) FROM public.{t})' for t in TABLES))
     counts = cur.fetchone()
     cur.execute("SELECT count(*) FROM public.products WHERE product_name LIKE 'RACE TEST FIXTURE%'")
     return counts, cur.fetchone()[0]
 
+# Extract the report timing from the saved log.
 def report_ms(log):
     match = re.search(r'^\s*1\s*\|\s*2026-08-31\s*\|\s*([\d.]+)\s*$', log, re.M)
     if not match:
         raise RuntimeError('Report timing missing')
     return float(match.group(1))
 
+# Read captured subprocess output.
 def readlog(f):
     f.seek(0)
     return f.read().decode(errors='replace')
 
+# Coordinate the command-line workflow and its validation.
 def main():
     if not (ROOT / '../shared-data/race_test.py').is_file():
         raise RuntimeError('Run from graded-lab with official bundle available')

@@ -15,6 +15,7 @@ except ImportError:
         "and install requirements.txt."
     )
 
+# Read connection settings without printing credentials.
 base = os.environ.get(
     "DE03_DATABASE_BASE",
     "postgresql://postgres@127.0.0.1:5432"
@@ -37,6 +38,7 @@ password = (
 if password is None:
     password = getpass("Local PostgreSQL password: ")
 
+# Verify both local endpoints against the required configuration.
 for database in ("kloudkart_learning", "kloudkart_lab"):
     try:
         with closing(psycopg2.connect(

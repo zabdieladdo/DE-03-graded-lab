@@ -2,7 +2,7 @@
 
 - **Status:** Accepted
 - **Date:** 2026-11-26
-- **Decision owner:** Zabdiel 
+- **Decision owner:** Zabdiel
 
 ## Context
 
@@ -57,7 +57,7 @@ The caller retains control of transaction commitment and rollback.
 
 - **Why rejected:** The current single-product purchase workflow does not require a separate locking and stock-validation statement. The conditional update combines these operations directly. An unconditional explicit locking approach may also acquire product-row locks for requests that ultimately fail because stock is unavailable.
 
-This alternative remains technically valid. An explicit FOR NO KEY UPDATE implementation could provide similar compatibility with foreign-key KEY SHARE locks. No comparative performance benchmark was conducted.
+This alternative remains technically valid. An explicit FOR NO KEY UPDATE implementation could provide similar compatibility with foreign-key KEY SHARE locks. An isolated comparison against `SELECT FOR NO KEY UPDATE` followed by `UPDATE` passed all 12 trials. At 40 buyers, median wall time was 108.7 ms (conditional) versus 104.0 ms (explicit); at 400 buyers, 835.7 ms versus 938.1 ms. The conditional approach was 10.9% faster at the larger workload median, but did not win every trial. Retain it for simplicity and demonstrated correctness; the experiment does not compare complete purchase transactions. See the [locking comparison](../performance/locking_comparison.md).
 
 ### Alternative B: Atomic conditional stock update — selected
 
@@ -153,7 +153,7 @@ Constraints remain valuable as an additional defensive layer rather than a repla
 
   The supplementary audit race showed a similar direction of difference, with median refusal latency of 40.40 ms compared with 22.90 ms for successful purchases.
 
-  These measurements challenge the assumption that conditional updates guarantee faster sold-out responses. Individual lock-wait durations were not measured, so the exact cause of the latency difference remains unverified.
+  These measurements challenge the assumption that conditional updates guarantee faster sold-out responses. Individual lock-wait durations were not measured. End-to-end call latency includes execution, scheduling, lock waits and other overhead; the exact cause of the difference remains unverified.
 
   The implementation also introduces maintenance responsibility for the purchase function, its integrity constraints and its transactional tests.
 
@@ -165,7 +165,7 @@ Constraints remain valuable as an additional defensive layer rather than a repla
 
   If contention increases beyond acceptable levels, customers may experience delayed purchase confirmations or refusals.
 
-  If other applications bypass the purchase function, stock changes may occur without corresponding purchase or audit records.
+  If other applications bypass the purchase function, stock changes may occur without corresponding purchase records. The later audit trigger records ordinary existing-stock updates but cannot supply missing business context (see ADR-006).
 
   If future multi-product purchases are introduced without consistent locking rules, deadlocks or incomplete business operations may become possible.
 
@@ -206,14 +206,14 @@ The following remain outside the verified scope:
 - Multi-product transaction deadlocks.
 - Other transaction isolation levels.
 - Production-scale mixed workloads.
-- Repeatability of the complete 400-buyer benchmark.
-- General inventory auditability for restocks and corrections.
+- Sustained repeatability across independent runs under controlled conditions.
+- General inventory auditability was outside this original purchase test; subsequent restock and correction tests are documented in ADR-006.
 
-The complete flash-sale benchmark was measured once. The selected strategy has not been benchmarked directly against explicit row locking or Serializable transactions.
+The original flash-sale benchmark was measured once for the original explicit-log implementation. Later audit-trigger and integrated workload trials are documented separately. The isolated stock-allocation comparison now covers explicit row locking, but not full purchase transactions or Serializable transactions. Exact lock-wait durations remain unmeasured.
 
 Historical row-count reconciliation and targeted fixture checks do not establish complete field-level historical equivalence.
 
-The original supplied harness checksum comparison remains unconfirmed.
+The original supplied harness checksum comparison remains unconfirmed; verify against the original distribution before final acceptance.
 
 ### Supporting evidence
 
@@ -230,3 +230,5 @@ The original supplied harness checksum comparison remains unconfirmed.
 - `evidence/26_inventory_audit_reconciliation.txt`
 - `evidence/27_retained_audit_cleanup.txt`
 - `deliverables/performance/order_placement_performance.md`
+
+See [evidence and decision index](../EVIDENCE_INDEX.md) for checkpoint identifiers.
