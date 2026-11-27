@@ -1,0 +1,12 @@
+Isolated allocation only; no orders, audit trigger, payment or official harness changes.
+Scratch schema: lock_probe_32ef7f754e96487f; buyers=400; stock=50; pairs=3
+Pair 1 conditional: wins=50 refusals=350 remaining=0 wall=1.0080s median_attempt_ms=534.918 median_first_statement_ms=533.286
+Pair 1 explicit: wins=50 refusals=350 remaining=0 wall=0.9381s median_attempt_ms=528.939 median_first_statement_ms=527.155
+Pair 2 explicit: wins=50 refusals=350 remaining=0 wall=1.0087s median_attempt_ms=586.383 median_first_statement_ms=584.354
+Pair 2 conditional: wins=50 refusals=350 remaining=0 wall=0.8357s median_attempt_ms=450.045 median_first_statement_ms=448.414
+Pair 3 conditional: wins=50 refusals=350 remaining=0 wall=0.7670s median_attempt_ms=414.120 median_first_statement_ms=412.453
+Pair 3 explicit: wins=50 refusals=350 remaining=0 wall=0.7767s median_attempt_ms=405.653 median_first_statement_ms=404.132
+conditional: median wall=0.8357s; min=0.7670; max=1.0080
+explicit: median wall=0.9381s; min=0.7767; max=1.0087
+PASS: all isolated allocation correctness checks; statement time is NOT pure lock wait.
+Cleaned scratch schema lock_probe_32ef7f754e96487f

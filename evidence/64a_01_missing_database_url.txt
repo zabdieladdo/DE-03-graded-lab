@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/home/zabdieladdo/projects/de03-kloudkart/graded-lab/scripts/compare_stock_locking.py", line 106, in <module>
+    main()
+    ~~~~^^
+  File "/home/zabdieladdo/projects/de03-kloudkart/graded-lab/scripts/compare_stock_locking.py", line 22, in main
+    dsn = os.environ['DATABASE_URL']
+          ~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "<frozen os>", line 709, in __getitem__
+KeyError: 'DATABASE_URL'
