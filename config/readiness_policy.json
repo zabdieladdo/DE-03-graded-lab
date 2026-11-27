@@ -1,0 +1,16 @@
+{
+  "policy_version": "1.0-proposed",
+  "policy_approval_status": "proposed",
+  "effective_date": "2026-11-27",
+  "review_date": "2027-02-25",
+  "currency": null,
+  "monetary_unit": "recorded dataset monetary units; currency unconfirmed",
+  "comparison": "strict_greater_than",
+  "combination": "OR",
+  "checks": {
+    "R05": {"count_share_pct": "1", "value_share_pct": "1", "absolute_limit": null, "value_basis": "unattributed_recorded_value"},
+    "R06": {"count_share_pct": "1", "value_share_pct": "1", "absolute_limit": null, "value_basis": "sum_absolute_header_item_gap"},
+    "R07": {"count_share_pct": "1", "value_share_pct": "1", "absolute_limit": null, "value_basis": "incomplete_order_recorded_header_value"}
+  },
+  "rationale": "Round illustrative relative screening limits, not approved materiality. Baseline attribution figures were already known. Freeze before gate execution; do not tune to achieve a preferred outcome. Absolute limits disabled until currency and business materiality are confirmed."
+}
